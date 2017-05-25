@@ -17,6 +17,7 @@ public class BaseActivity extends Activity{
         super.onCreate(savedInstanceState);
     }
 
+    //
     public int getResColor(int resId){
         return Utils.getColor(resId);
     }
