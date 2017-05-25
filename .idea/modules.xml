@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PoliticsExam/PoliticsExam.iml" filepath="$PROJECT_DIR$/PoliticsExam/PoliticsExam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PoliticsProject.iml" filepath="$PROJECT_DIR$/PoliticsProject.iml" />
+    </modules>
+  </component>
+</project>
