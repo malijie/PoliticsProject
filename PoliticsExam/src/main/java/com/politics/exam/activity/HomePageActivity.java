@@ -20,7 +20,7 @@ import com.politics.exam.fragment.UserFragment;
  * Created by malijie on 2016/12/8.
  */
 
-public class HomePageActivity extends Activity implements View.OnClickListener{
+public class HomePageActivity extends BaseActivity implements View.OnClickListener{
     private QuestionsFragment mQuestionFragment;
     private ExamFragment mExamFragment;
     private UserFragment mUserFragment;
@@ -100,9 +100,9 @@ public class HomePageActivity extends Activity implements View.OnClickListener{
         hideFragments(transaction);
         switch (index) {
             case 0:
-                // 当点击了消息tab时，改变控件的图片和文字颜色
-                mQuestionsImage.setImageResource(R.mipmap.tab_chactor_selected);
-                mQuestionText.setTextColor(Color.WHITE);
+                // 当点击了题库tab时，改变控件的图片和文字颜色
+                mQuestionsImage.setImageResource(R.mipmap.question_selected);
+                mQuestionText.setTextColor(getResColor(R.color.app_red));
                 if (mQuestionFragment == null) {
                     // 如果MessageFragment为空，则创建一个并添加到界面上
                     mQuestionFragment = new QuestionsFragment();
@@ -113,9 +113,9 @@ public class HomePageActivity extends Activity implements View.OnClickListener{
                 }
                 break;
             case 1:
-                // 当点击了联系人tab时，改变控件的图片和文字颜色
-                mExamImage.setImageResource(R.mipmap.tab_huodong_selected);
-                mExamText.setTextColor(Color.WHITE);
+                // 当点击了考试tab时，改变控件的图片和文字颜色
+                mExamImage.setImageResource(R.mipmap.exam_selected);
+                mExamText.setTextColor(getResColor(R.color.app_red));
                 if (mExamFragment == null) {
                     // 如果ContactsFragment为空，则创建一个并添加到界面上
                     mExamFragment = new ExamFragment();
@@ -126,9 +126,9 @@ public class HomePageActivity extends Activity implements View.OnClickListener{
                 }
                 break;
             case 2:
-                // 当点击了动态tab时，改变控件的图片和文字颜色
-                mUserImage.setImageResource(R.mipmap.tab_pinche_selected);
-                mUserText.setTextColor(Color.WHITE);
+                // 当点击了用户tab时，改变控件的图片和文字颜色
+                mUserImage.setImageResource(R.mipmap.user_selected);
+                mUserText.setTextColor(getResColor(R.color.app_red));
                 if (mUserFragment == null) {
                     // 如果NewsFragment为空，则创建一个并添加到界面上
                     mUserFragment = new UserFragment();
@@ -140,15 +140,15 @@ public class HomePageActivity extends Activity implements View.OnClickListener{
                 break;
             default:
                 // 当点击了设置tab时，改变控件的图片和文字颜色
-                mQuestionsImage.setImageResource(R.mipmap.tab_buy_selected);
-                mQuestionText.setTextColor(Color.WHITE);
-                if (mUserFragment == null) {
+                mQuestionsImage.setImageResource(R.mipmap.question_selected);
+                mQuestionText.setTextColor(getResColor(R.color.app_red));
+                if (mQuestionFragment == null) {
                     // 如果SettingFragment为空，则创建一个并添加到界面上
-                    mUserFragment = new UserFragment();
-                    transaction.add(R.id.content, mUserFragment);
+                    mQuestionFragment = new QuestionsFragment();
+                    transaction.add(R.id.content, mQuestionFragment);
                 } else {
                     // 如果SettingFragment不为空，则直接将它显示出来
-                    transaction.show(mUserFragment);
+                    transaction.show(mQuestionFragment);
                 }
                 break;
         }
@@ -159,12 +159,12 @@ public class HomePageActivity extends Activity implements View.OnClickListener{
      * 清除掉所有的选中状态。
      */
     private void clearSelection() {
-        mQuestionsImage.setImageResource(R.mipmap.tab_chactor_normal);
-        mQuestionText.setTextColor(Color.parseColor("#82858b"));
-        mExamImage.setImageResource(R.mipmap.tab_huodong_normal);
-        mExamText.setTextColor(Color.parseColor("#82858b"));
-        mUserImage.setImageResource(R.mipmap.tab_pinche_normal);
-        mUserText.setTextColor(Color.parseColor("#82858b"));
+        mQuestionsImage.setImageResource(R.mipmap.question_normal);
+        mQuestionText.setTextColor(getResColor(R.color.app_grey));
+        mExamImage.setImageResource(R.mipmap.exam_normal);
+        mExamText.setTextColor(getResColor(R.color.app_grey));
+        mUserImage.setImageResource(R.mipmap.user_normal);
+        mUserText.setTextColor(getResColor(R.color.app_grey));
     }
 
     /**

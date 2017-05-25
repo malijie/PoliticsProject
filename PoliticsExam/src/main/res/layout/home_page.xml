@@ -8,7 +8,9 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     </FrameLayout>
 
     <LinearLayout
@@ -32,15 +34,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/tab_charcator_selector" />
+                    android:src="@mipmap/question_normal" />
 
                 <TextView
                     android:id="@+id/message_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="分答"
-                    android:textColor="#82858b" />
+                    android:text="题库"
+                    android:textColor="#787878" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -63,15 +65,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/tab_huodong_selector" />
+                    android:src="@mipmap/exam_normal" />
 
                 <TextView
                     android:id="@+id/contacts_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="活动"
-                    android:textColor="#82858b" />
+                    android:text="真题"
+                    android:textColor="#787878" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -92,15 +94,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/tab_pinche_selector" />
+                    android:src="@mipmap/user_normal" />
 
                 <TextView
                     android:id="@+id/news_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="拼车"
-                    android:textColor="#82858b" />
+                    android:text="我"
+                    android:textColor="#787878" />
             </LinearLayout>
         </RelativeLayout>
 
