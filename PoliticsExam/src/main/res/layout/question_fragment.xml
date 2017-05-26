@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/grey">
+    android:background="@color/grey"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/id_questions_layout_search"
@@ -51,15 +52,11 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/id_questions_layout_wrong_collect"/>
+        android:layout_marginTop="5dp"/>
     <ExpandableListView
         android:id="@+id/expand_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_white"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:background="@color/background_white"/>
 
-</RelativeLayout>
+</LinearLayout>
