@@ -63,6 +63,8 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         mQuestionsLayout.setOnClickListener(this);
         mExamLayout.setOnClickListener(this);
         mUserLayout.setOnClickListener(this);
+
+
     }
 
     @Override

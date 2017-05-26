@@ -18,6 +18,7 @@
             android:layout_marginRight="10dp"
             android:drawableLeft="@mipmap/edit_search"
             android:paddingLeft="10dp"
-            android:hint="请输入关键词"/>
+            android:hint="请输入关键词"
+            android:focusable="false"/>
     </RelativeLayout>
 </RelativeLayout>
