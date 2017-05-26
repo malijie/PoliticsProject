@@ -2,17 +2,17 @@ package com.politics.exam.widget;
 
 import android.app.Activity;
 import android.database.DataSetObserver;
-import android.view.Gravity;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ExpandableListAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.politics.exam.R;
+import com.politics.exam.util.Logger;
+import com.politics.exam.util.Utils;
 
 /**
  * Created by malijie on 2017/5/26.
@@ -20,21 +20,42 @@ import com.politics.exam.R;
 
 public class MyExpandableListAdapter implements ExpandableListAdapter {
     private Activity mActivity = null;
+    private View mGroupView = null;
+    private View mChildView = null;
+    private TextView mTextQuestionNum = null;
+    private TextView mTextSubject = null;
+    private TextView mTextCharacter = null;
 
     public MyExpandableListAdapter(Activity activity){
         mActivity = activity;
     }
 
-    private String[] armTypes = new String[]{
-            "WORD", "EXCEL", "EMAIL", "PPT"
+    private String[] mSubjects = new String[]{
+            "马原", "毛中特", "史纲", "思修与法基","时政"
     };
 
 
-    private String[][] arms = new String[][]{
-            {"文档编辑", "文档排版", "文档处理", "文档打印"},
-            {"表格编辑", "表格排版", "表格处理", "表格打印"},
-            {"收发邮件", "管理邮箱", "登录登出", "注册绑定"},
-            {"演示编辑", "演示排版", "演示处理", "演示打印"},
+    private String[][] mCharacter = new String[][]{
+            {"第一章 马克思主义是关于无产阶级和人类解放科学", "第二章 世界的物质性及其发展规律", "第三章 认识的本质及其发展规律",
+             "第四章 人类社会及其发展规律", "第五章 资本主义的本质及其规律", "第六章 资本主义的发展及其趋势",
+             "第七章 人类社会及其发展规律", "第八章 共产主义崇高理想及其最终实现"},
+
+            {"第一章 马克思主义中国画两大理论成果", "第二章 新民主主义革命理论", "第三章 社会主义改造理论",
+             "第四章 社会主义建设道路初步探索的理论成果", "第五章 建设中国特色社会主义总依据", "第六章 社会主义本质和建设中国特色社会主义总任务",
+             "第七章 社会主义改革开放理论", "第八章 建设中国特色社会主义总布局","第九章 实现祖国完全统一的理论","第十章 中国特设社会主义外交和国际战略",
+             "第十一章 建设中国特色社会主义的根本目的和依靠力量","第十二章 中国特色社会主义领导核心理论"},
+
+            {"第一章 反对外国侵略战争", "第二章 对国家出路的早期探索", "第三章 辛亥革命与君主专制制度的终结",
+             "第四章 开天辟地的大事变", "第五章 中国革命的新道路", "第六章 中华民族的抗日战争",
+             "第七章 为新中国而奋斗", "第八章 社会主义基本制度在中国的确立", "第九章 社会主义建设在探索中曲折发展",
+             "第十章 改革开放与现代化建设新时期"},
+
+            {"绪论","第一章 追求远大理想 坚定崇高信念", "第二章 弘扬中国精神 共筑精神家园", "第三章 领悟人生真谛 创造人生价值",
+                    "第四章 注重道德传承 加强道德实践", "第五章 遵守道德规范 锤炼高尚品格", "第六章 学习宪法法律 建设法制体系",
+                    "第七章 树立法制观念 尊重法律权威", "第八章 行使法律权利 履行法律义务"},
+
+            {"1月","2月", "3月", "4月","5月", "6月", "7月","8月", "9月","10月", "11月"}
+
     };
 
 
@@ -50,22 +71,22 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return armTypes.length;
+        return mSubjects.length;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return arms[groupPosition].length;
+        return mCharacter[groupPosition].length;
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
-        return armTypes[groupPosition];
+    public String getGroup(int groupPosition) {
+        return mSubjects[groupPosition];
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        return arms[groupPosition][childPosition];
+    public String getChild(int groupPosition, int childPosition) {
+        return mCharacter[groupPosition][childPosition];
     }
 
     @Override
@@ -85,18 +106,20 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.expand_group_view,null);
-        return view;
+        mGroupView = LayoutInflater.from(mActivity).inflate(R.layout.expand_group_view,null);
+        mTextQuestionNum = (TextView) mGroupView.findViewById(R.id.id_expand_group_text_question_num);
+        mTextSubject = (TextView) mGroupView.findViewById(R.id.id_expand_group_text_title);
+        mTextQuestionNum.setText("321题");
+        mTextSubject.setText(mSubjects[groupPosition]);
+        return mGroupView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-//        TextView textView = getTextView();
-//        textView.setText(getChild(groupPosition, childPosition).toString());
-//        return textView;
-
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.expand_item_view,null);
-        return view;
+        mChildView = LayoutInflater.from(mActivity).inflate(R.layout.expand_item_view,null);
+        mTextCharacter = (TextView) mChildView.findViewById(R.id.id_expand_item_text_title);
+        mTextCharacter.setText(mCharacter[groupPosition][childPosition]);
+        return mChildView;
     }
 
     @Override
@@ -114,13 +137,22 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
         return false;
     }
 
+
+
     @Override
     public void onGroupExpanded(int groupPosition) {
+        Toast.makeText(mActivity,"onGroupExpanded ,position=" + groupPosition,Toast.LENGTH_SHORT).show();
+Logger.mlj("mTextQuestionNum=" + mTextQuestionNum);
+        Drawable upArrow = Utils.getDrawable(R.mipmap.collect_item_normal);
+        mTextQuestionNum.setText("2222");
+Logger.mlj("mTextQuestionNum text=" + mTextQuestionNum.getText());
 
     }
 
     @Override
     public void onGroupCollapsed(int groupPosition) {
+        mTextQuestionNum.setText("11111");
+
 
     }
 
@@ -134,13 +166,4 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
         return 0;
     }
 
-    private TextView getTextView() {
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 60);
-        TextView textView = new TextView(mActivity);
-        textView.setLayoutParams(lp);
-        textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-        textView.setPadding(36, 0, 0, 0);
-        textView.setTextSize(20);
-        return textView;
-    }
 }

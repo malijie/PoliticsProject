@@ -16,8 +16,9 @@ import com.politics.exam.widget.MyExpandableListAdapter;
  * Created by malijie on 2016/12/8.
  */
 
+
 public class QuestionsFragment extends Fragment {
-    private ExpandableListView listView;
+    private ExpandableListView mExpandListView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,9 +29,10 @@ public class QuestionsFragment extends Fragment {
     }
 
     private void initViews(View messageLayout) {
-        listView = (ExpandableListView) messageLayout.findViewById(R.id.expand_list_view);
+        mExpandListView = (ExpandableListView) messageLayout.findViewById(R.id.expand_list_view);
         MyExpandableListAdapter adapter = new MyExpandableListAdapter(getActivity());
-        listView.setAdapter(adapter);
+        mExpandListView.setAdapter(adapter);
+        mExpandListView.setGroupIndicator(null);
     }
 
 }
