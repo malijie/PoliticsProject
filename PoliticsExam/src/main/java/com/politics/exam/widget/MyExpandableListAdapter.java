@@ -141,18 +141,11 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     @Override
     public void onGroupExpanded(int groupPosition) {
-        Toast.makeText(mActivity,"onGroupExpanded ,position=" + groupPosition,Toast.LENGTH_SHORT).show();
-Logger.mlj("mTextQuestionNum=" + mTextQuestionNum);
-        Drawable upArrow = Utils.getDrawable(R.mipmap.collect_item_normal);
-        mTextQuestionNum.setText("2222");
-Logger.mlj("mTextQuestionNum text=" + mTextQuestionNum.getText());
 
     }
 
     @Override
     public void onGroupCollapsed(int groupPosition) {
-        mTextQuestionNum.setText("11111");
-
 
     }
 

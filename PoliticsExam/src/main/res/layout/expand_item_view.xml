@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,10 +12,13 @@
                 android:id="@+id/id_expand_item_text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="第一章 马克思主义是关于误差阶级"
+                tools:text="第一章 马克思主义是关于误差阶级"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:maxLength="30"/>
+                android:maxEms="16"
+                android:singleLine="true"
+                android:ellipsize="end"
+                />
             <TextView
                 android:id="@+id/id_expand_item_text_num"
                 android:layout_width="wrap_content"
