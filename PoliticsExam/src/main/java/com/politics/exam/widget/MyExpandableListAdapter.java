@@ -1,6 +1,7 @@
 package com.politics.exam.widget;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -19,16 +20,12 @@ import com.politics.exam.util.Utils;
  */
 
 public class MyExpandableListAdapter implements ExpandableListAdapter {
-    private Activity mActivity = null;
     private View mGroupView = null;
     private View mChildView = null;
     private TextView mTextQuestionNum = null;
     private TextView mTextSubject = null;
     private TextView mTextCharacter = null;
 
-    public MyExpandableListAdapter(Activity activity){
-        mActivity = activity;
-    }
 
     private String[] mSubjects = new String[]{
             "马原", "毛中特", "史纲", "思修与法基","时政"
@@ -106,7 +103,7 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        mGroupView = LayoutInflater.from(mActivity).inflate(R.layout.expand_group_view,null);
+        mGroupView = Utils.getView(R.layout.expand_group_view);
         mTextQuestionNum = (TextView) mGroupView.findViewById(R.id.id_expand_group_text_question_num);
         mTextSubject = (TextView) mGroupView.findViewById(R.id.id_expand_group_text_title);
         mTextQuestionNum.setText("321题");
@@ -116,7 +113,7 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        mChildView = LayoutInflater.from(mActivity).inflate(R.layout.expand_item_view,null);
+        mChildView = Utils.getView(R.layout.expand_item_view);
         mTextCharacter = (TextView) mChildView.findViewById(R.id.id_expand_item_text_title);
         mTextCharacter.setText(mCharacter[groupPosition][childPosition]);
         return mChildView;

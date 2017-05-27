@@ -30,8 +30,7 @@ public class QuestionsFragment extends Fragment {
 
     private void initViews(View messageLayout) {
         mExpandListView = (ExpandableListView) messageLayout.findViewById(R.id.expand_list_view);
-        MyExpandableListAdapter adapter = new MyExpandableListAdapter(getActivity());
-        mExpandListView.setAdapter(adapter);
+        mExpandListView.setAdapter(new MyExpandableListAdapter());
         mExpandListView.setGroupIndicator(null);
     }
 
