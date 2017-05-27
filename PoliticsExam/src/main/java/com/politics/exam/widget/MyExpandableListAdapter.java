@@ -2,16 +2,20 @@ package com.politics.exam.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.politics.exam.R;
+import com.politics.exam.activity.QuestionDetailActivity;
+import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.Utils;
 
@@ -114,8 +118,15 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         mChildView = Utils.getView(R.layout.expand_item_view);
+        RelativeLayout layout = (RelativeLayout) mChildView.findViewById(R.id.id_expand_item_layout);
         mTextCharacter = (TextView) mChildView.findViewById(R.id.id_expand_item_text_title);
         mTextCharacter.setText(mCharacter[groupPosition][childPosition]);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentManager.startActivity(QuestionDetailActivity.class);
+            }
+        });
         return mChildView;
     }
 
