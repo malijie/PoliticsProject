@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:background="@color/question_explain_background">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A"
+        android:layout_margin="10dp"
+        android:textColor="@color/font_black"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/font_size_16"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="【大纲还原】testtesttesttesttesttest"
+        android:textColor="@color/app_red"
+        android:gravity="center_vertical"
+        android:layout_margin="10dp"
+        android:textSize="@dimen/font_size_16"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_margin="10dp"
+        android:text="【大纲还原】testtesttesttesttesttest"
+        android:textColor="@color/app_red"
+        android:textSize="@dimen/font_size_16" />
+
+</LinearLayout>

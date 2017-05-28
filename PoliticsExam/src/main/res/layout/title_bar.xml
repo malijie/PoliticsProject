@@ -18,5 +18,11 @@
         android:text="题库"
         android:textSize="@dimen/font_size_22"
         android:layout_centerInParent="true"/>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收藏"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"/>
 </RelativeLayout>

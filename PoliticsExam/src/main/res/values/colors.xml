@@ -9,5 +9,5 @@
     <color name="background_white">#FFFFFF</color>
     <color name="font_black">#000000</color>
     <color name="font_yellow">#DDA30D</color>
-
+    <color name="question_explain_background">#FEF3CF</color>
 </resources>
