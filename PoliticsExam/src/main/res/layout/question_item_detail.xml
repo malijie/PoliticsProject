@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:orientation="vertical">
 
@@ -9,6 +9,7 @@
         android:id="@+id/id_question_detail_text_character"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="第二章 新民主主义革命理论"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
@@ -20,7 +21,7 @@
         android:id="@+id/id_question_detail_layout_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="5dp">
 
         <TextView
             android:id="@+id/id_question_detail_text_index"
@@ -43,21 +44,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/id_question_detail_text_title">
-            <CheckBox
-                android:id="@+id/id_question_detail_checkbox_A"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
+            <ImageView
+                android:id="@+id/id_question_detail_image_A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="A."
-                android:textSize="@dimen/font_size_18"
-                android:gravity="center_vertical"
-                android:textColor="@color/font_black"/>
+                android:src="@mipmap/choice_a"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,49 +64,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/id_question_detail_layout_A">
-            <CheckBox
-                android:id="@+id/id_question_detail_checkbox_B"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
+            <ImageView
+                android:id="@+id/id_question_detail_image_B"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="B."
-                android:textSize="@dimen/font_size_18"
-                android:gravity="center_vertical"
-                android:textColor="@color/font_black"/>
+                android:src="@mipmap/choice_b"/>
+
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:textSize="@dimen/font_size_18"
                 android:text="1925年毛泽东1925年毛泽东1925年毛泽"
-                android:textColor="@color/font_black"/>
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_18" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/id_question_detail_layout_C"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/id_question_detail_layout_B">
-            <CheckBox
-                android:id="@+id/id_question_detail_checkbox_C"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
+            <ImageView
+                android:id="@+id/id_question_detail_image_C"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="C."
-                android:textSize="@dimen/font_size_18"
-                android:gravity="center_vertical"
-                android:textColor="@color/font_black"/>
+                android:src="@mipmap/choice_c"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,21 +106,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/id_question_detail_layout_C">
-            <CheckBox
-                android:id="@+id/id_question_detail_checkbox_D"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
+            <ImageView
+                android:id="@+id/id_question_detail_image_D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="D."
-                android:textSize="@dimen/font_size_18"
-                android:gravity="center_vertical"
-                android:textColor="@color/font_black"/>
+                android:src="@mipmap/choice_d"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

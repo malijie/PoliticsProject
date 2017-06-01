@@ -24,7 +24,6 @@ public class QuestionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View messageLayout = inflater.inflate(R.layout.question_fragment, container, false);
         initViews(messageLayout);
-
         return messageLayout;
     }
 

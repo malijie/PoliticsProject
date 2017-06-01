@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
+import com.politics.exam.db.DBManager;
 import com.politics.exam.fragment.QuestionsFragment;
 import com.politics.exam.fragment.ExamFragment;
 import com.politics.exam.fragment.UserFragment;
+import com.politics.exam.util.Utils;
 
 
 /**
@@ -41,16 +43,20 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.home_page);
         // 初始化布局元素
+        initData();
         initViews();
         fragmentManager = getFragmentManager();
         // 第一次启动时选中第0个tab
         setTabSelection(0);
     }
 
-    /**
-     * 在这里获取到每个需要用到的控件的实例，并给它们设置好必要的点击事件。
-     */
-    private void initViews() {
+    @Override
+    public void initData() {
+        DBManager.copyDB2Phone();
+    }
+
+    @Override
+    public void initViews() {
         mQuestionsLayout = findViewById(R.id.questions_layout);
         mExamLayout = findViewById(R.id.exam_layout);
         mUserLayout = findViewById(R.id.user_layout);
