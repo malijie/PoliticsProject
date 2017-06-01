@@ -5,7 +5,7 @@ package com.politics.exam.db;
  */
 
 public class DBConstants {
-    public final static String DB_NAME = "politics_tiku.db";
-    public final static String DB_PATH = "/data/data/com.politics.exam/databases/";
-
+    public static final String DB_NAME = "politics_tiku.db";
+    public static final String DB_PATH = "/data/data/com.politics.exam/databases/";
+    public static final int VERSION = 2;
 }

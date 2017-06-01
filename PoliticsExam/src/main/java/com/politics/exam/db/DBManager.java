@@ -1,12 +1,15 @@
 package com.politics.exam.db;
 
 import com.politics.exam.PoliticsApplication;
+import com.politics.exam.entity.QuestionInfo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.politics.exam.PoliticsApplication.sContext;
 
@@ -45,4 +48,10 @@ public class DBManager {
             }
         }
     }
+
+    public static List<QuestionInfo> getQuestionsByChapterId(){
+        List<QuestionInfo> questions = new DBOperator().getQuestionsByChapterId(101);
+        return questions;
+    }
+
 }

@@ -1,23 +1,21 @@
 package com.politics.exam.widget;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.database.DataSetObserver;
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.politics.exam.R;
 import com.politics.exam.activity.QuestionDetailActivity;
+import com.politics.exam.db.DBManager;
+import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.Utils;
+
+import java.util.List;
 
 /**
  * Created by malijie on 2017/5/26.
@@ -149,7 +147,8 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     @Override
     public void onGroupExpanded(int groupPosition) {
-
+        List<QuestionInfo> questionInfos = DBManager.getQuestionsByChapterId();
+        Logger.mlj("size=" + questionInfos.size() + ",last item=" + questionInfos.get(questionInfos.size()-1));
     }
 
     @Override
