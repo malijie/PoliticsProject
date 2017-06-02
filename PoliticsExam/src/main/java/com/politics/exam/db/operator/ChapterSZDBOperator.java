@@ -18,7 +18,7 @@ public class ChapterSZDBOperator extends BaseDBOperator{
     public List<QuestionInfo> getChapterQuestions() {
         List<QuestionInfo> questionInfos = new ArrayList<>();
         if (mDB != null) {
-            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionByCid(CHAPTER_SHIGANG), null);
+            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionByCid(CHAPTER_SHIZHENG), null);
             while (cursor.moveToNext()) {
                 QuestionInfo questionInfo = new QuestionInfo();
                 questionInfo.setQuestionId(cursor.getInt(cursor.getColumnIndex("QUESTION_ID")));
