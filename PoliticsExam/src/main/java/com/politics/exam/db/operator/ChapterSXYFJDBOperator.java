@@ -1,30 +1,25 @@
-package com.politics.exam.db;
+package com.politics.exam.db.operator;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
+import com.politics.exam.db.SQLContainer;
 import com.politics.exam.entity.QuestionInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by malijie on 2017/6/1.
+ * Created by malijie on 2017/6/2.
  */
 
-public class DBOperator {
+public class ChapterSXYFJDBOperator extends BaseDBOperator{
 
-    private SQLiteDatabase mDB = null;
-
-    public DBOperator(){
-        mDB = new DBHelper().getWritableDatabase();
-    }
-
-    public List<QuestionInfo> getQuestionsByChapterId(int cid){
+    @Override
+    public List<QuestionInfo> getChapterQuestions() {
         List<QuestionInfo> questionInfos = new ArrayList<>();
-        if(mDB != null){
-            Cursor cursor = mDB.rawQuery(SQLContainer.queryQuestionByCid(cid),null);
-            while(cursor.moveToNext()){
+        if (mDB != null) {
+            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionByCid(CHAPTER_SIXIUYUFAJI), null);
+            while (cursor.moveToNext()) {
                 QuestionInfo questionInfo = new QuestionInfo();
                 questionInfo.setQuestionId(cursor.getInt(cursor.getColumnIndex("QUESTION_ID")));
                 questionInfo.setChapterParentId(cursor.getInt(cursor.getColumnIndex("CHAPTER_PARENT_ID")));

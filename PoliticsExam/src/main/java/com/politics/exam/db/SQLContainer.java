@@ -8,7 +8,7 @@ public class SQLContainer {
     private static final String QUESTION_INFO = "QUESTION_INFO_BEAN";
     private static final String QUESTION_OPTION = "QUESTION_OPTION_BEAN";
 
-    public static String queryQuestionByCid(int cid){
-        return "SELECT * FROM " + QUESTION_INFO + " WHERE CHAPTER_ID='" + cid + "'";
+    public static String queryChapterQuestionByCid(String cid){
+        return "SELECT * FROM " + QUESTION_INFO + " WHERE CHAPTER_ID LIKE'" + cid + "%' ORDER BY CHAPTER_ID, S_NUM";
     }
 }

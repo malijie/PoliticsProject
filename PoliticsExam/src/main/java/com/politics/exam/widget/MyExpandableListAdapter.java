@@ -57,6 +57,12 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     };
 
+    private static final int INDEX_MAYUAN = 0;//马原
+    private static final int INDEX_MAOZHONGTE = 1;//毛中特
+    private static final int INDEX_SHIGANG = 2; //史纲
+    private static final int INDEX_SIXIUYUFANGJI = 3;//思修与法基
+    private static final int INDEX_SHIZHENG = 4;//时政
+
 
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
@@ -147,7 +153,29 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     @Override
     public void onGroupExpanded(int groupPosition) {
-        List<QuestionInfo> questionInfos = DBManager.getQuestionsByChapterId();
+        List<QuestionInfo> questionInfos = null;
+        switch (groupPosition){
+            case INDEX_MAYUAN:
+
+                questionInfos = DBManager.getMYChapterQuestions();
+                break;
+            case INDEX_MAOZHONGTE:
+                questionInfos = DBManager.getMZTChapterQuestions();
+
+                break;
+            case INDEX_SHIGANG:
+                questionInfos = DBManager.getSGChapterQuestions();
+
+                break;
+            case INDEX_SIXIUYUFANGJI:
+                questionInfos = DBManager.getSXYFJChapterQuestions();
+
+                break;
+            case INDEX_SHIZHENG:
+                questionInfos = DBManager.getSGChapterQuestions();
+
+                break;
+        }
         Logger.mlj("size=" + questionInfos.size() + ",last item=" + questionInfos.get(questionInfos.size()-1));
     }
 
