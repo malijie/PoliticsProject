@@ -16,9 +16,11 @@ public class IntentManager {
         PoliticsApplication.sContext.startActivity(i);
     }
 
+
     public static void finishActivity(Activity activity){
         if(activity != null){
             activity.finish();
         }
     }
+
 }

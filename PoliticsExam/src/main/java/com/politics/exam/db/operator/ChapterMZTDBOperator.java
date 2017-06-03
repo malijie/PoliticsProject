@@ -12,13 +12,13 @@ import java.util.List;
  * Created by malijie on 2017/6/2.
  */
 
-public class ChapteMZTDBOperator extends BaseDBOperator{
+public class ChapterMZTDBOperator extends BaseOperator implements IDBOperator{
 
     @Override
     public List<QuestionInfo> getChapterQuestions() {
         List<QuestionInfo> questionInfos = new ArrayList<>();
         if (mDB != null) {
-            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionByCid(CHAPTER_MAOZHONGTE), null);
+            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionBySubjectName(CHAPTER_MAOZHONGTE), null);
             while (cursor.moveToNext()) {
                 QuestionInfo questionInfo = new QuestionInfo();
                 questionInfo.setQuestionId(cursor.getInt(cursor.getColumnIndex("QUESTION_ID")));
@@ -46,5 +46,13 @@ public class ChapteMZTDBOperator extends BaseDBOperator{
 
         return questionInfos;
     }
+
+    @Override
+    public int getQuestionCount() {
+        Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionBySubjectName(CHAPTER_MAOZHONGTE), null);
+        return cursor.getCount();
+
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.politics.exam.widget;
 
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,12 @@ import android.widget.TextView;
 
 import com.politics.exam.R;
 import com.politics.exam.activity.QuestionDetailActivity;
-import com.politics.exam.db.DBManager;
+import com.politics.exam.db.operator.ChapterMZTDBOperator;
+import com.politics.exam.db.operator.ChapterMYDBOperator;
+import com.politics.exam.db.operator.ChapterSGDBOperator;
+import com.politics.exam.db.operator.ChapterSXYFJDBOperator;
+import com.politics.exam.db.operator.ChapterSZDBOperator;
+import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
@@ -27,6 +33,8 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
     private TextView mTextQuestionNum = null;
     private TextView mTextSubject = null;
     private TextView mTextCharacter = null;
+    private IDBOperator mOperator = null;
+    private int mQuestionCounts = 0;
 
 
     private String[] mSubjects = new String[]{
@@ -114,13 +122,16 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
         mGroupView = Utils.getView(R.layout.expand_group_view);
         mTextQuestionNum = (TextView) mGroupView.findViewById(R.id.id_expand_group_text_question_num);
         mTextSubject = (TextView) mGroupView.findViewById(R.id.id_expand_group_text_title);
-        mTextQuestionNum.setText("321题");
+
+        mQuestionCounts = getGroupQuestionCount(groupPosition);
+
+        mTextQuestionNum.setText(String.valueOf(mQuestionCounts) + "题");
         mTextSubject.setText(mSubjects[groupPosition]);
         return mGroupView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         mChildView = Utils.getView(R.layout.expand_item_view);
         RelativeLayout layout = (RelativeLayout) mChildView.findViewById(R.id.id_expand_item_layout);
         mTextCharacter = (TextView) mChildView.findViewById(R.id.id_expand_item_text_title);
@@ -128,6 +139,9 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent();
+                i.putExtra("groupPosition",groupPosition);
+                i.putExtra("childPosition",childPosition);
                 IntentManager.startActivity(QuestionDetailActivity.class);
             }
         });
@@ -156,27 +170,31 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
         List<QuestionInfo> questionInfos = null;
         switch (groupPosition){
             case INDEX_MAYUAN:
-
-                questionInfos = DBManager.getMYChapterQuestions();
+                mOperator = new ChapterMYDBOperator();
+                questionInfos = mOperator.getChapterQuestions();
                 break;
             case INDEX_MAOZHONGTE:
-                questionInfos = DBManager.getMZTChapterQuestions();
+                mOperator = new ChapterMZTDBOperator();
+                questionInfos = mOperator.getChapterQuestions();
 
                 break;
             case INDEX_SHIGANG:
-                questionInfos = DBManager.getSGChapterQuestions();
+                mOperator = new ChapterSGDBOperator();
+                questionInfos = mOperator.getChapterQuestions();
 
                 break;
             case INDEX_SIXIUYUFANGJI:
-                questionInfos = DBManager.getSXYFJChapterQuestions();
+                mOperator = new ChapterSXYFJDBOperator();
+                questionInfos = mOperator.getChapterQuestions();
 
                 break;
             case INDEX_SHIZHENG:
-                questionInfos = DBManager.getSGChapterQuestions();
+                mOperator = new ChapterSZDBOperator();
+                questionInfos = mOperator.getChapterQuestions();
 
                 break;
         }
-        Logger.mlj("size=" + questionInfos.size() + ",last item=" + questionInfos.get(questionInfos.size()-1));
+        Logger.mlj("size=" + questionInfos.size() +  "last item=" + questionInfos.get(questionInfos.size()-1).getTitle());
     }
 
     @Override
@@ -192,6 +210,36 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
     @Override
     public long getCombinedGroupId(long groupId) {
         return 0;
+    }
+
+    private int getGroupQuestionCount(int groupIndex){
+        switch (groupIndex){
+            case INDEX_MAYUAN:
+                mOperator = new ChapterMYDBOperator();
+                mQuestionCounts = mOperator.getQuestionCount();
+                break;
+            case INDEX_MAOZHONGTE:
+                mOperator = new ChapterMZTDBOperator();
+                mQuestionCounts = mOperator.getQuestionCount();
+
+                break;
+            case INDEX_SHIGANG:
+                mOperator = new ChapterSGDBOperator();
+                mQuestionCounts = mOperator.getQuestionCount();
+
+                break;
+            case INDEX_SIXIUYUFANGJI:
+                mOperator = new ChapterSXYFJDBOperator();
+                mQuestionCounts = mOperator.getQuestionCount();
+
+                break;
+            case INDEX_SHIZHENG:
+                mOperator = new ChapterSZDBOperator();
+                mQuestionCounts = mOperator.getQuestionCount();
+
+                break;
+        }
+        return mQuestionCounts;
     }
 
 }
