@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.util.Utils;
 
 /**
@@ -11,6 +12,7 @@ import com.politics.exam.util.Utils;
  */
 
 public abstract class BaseActivity extends Activity{
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

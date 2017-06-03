@@ -18,7 +18,7 @@ public class ChapterSXYFJDBOperator extends BaseOperator  implements IDBOperator
     public List<QuestionInfo> getChapterQuestions() {
         List<QuestionInfo> questionInfos = new ArrayList<>();
         if (mDB != null) {
-            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionBySubjectName(CHAPTER_SIXIUYUFAJI), null);
+            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestions(CHAPTER_SIXIUYUFAJI), null);
             while (cursor.moveToNext()) {
                 QuestionInfo questionInfo = new QuestionInfo();
                 questionInfo.setQuestionId(cursor.getInt(cursor.getColumnIndex("QUESTION_ID")));
@@ -49,7 +49,7 @@ public class ChapterSXYFJDBOperator extends BaseOperator  implements IDBOperator
 
     @Override
     public int getQuestionCount() {
-        Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionBySubjectName(CHAPTER_SIXIUYUFAJI), null);
+        Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestions(CHAPTER_SIXIUYUFAJI), null);
         return cursor.getCount();
 
     }

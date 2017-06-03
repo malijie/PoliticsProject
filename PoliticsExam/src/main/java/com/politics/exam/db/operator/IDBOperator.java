@@ -24,5 +24,5 @@ public interface IDBOperator {
 
     List<QuestionInfo> getChapterQuestions();
     int getQuestionCount();
-
+    List<QuestionInfo> getQuestionsByChapterId(int chapterId);
 }

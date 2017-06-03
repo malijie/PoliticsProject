@@ -4,7 +4,6 @@ import android.database.Cursor;
 
 import com.politics.exam.db.SQLContainer;
 import com.politics.exam.entity.QuestionInfo;
-import com.politics.exam.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class ChapterMYDBOperator extends BaseOperator implements IDBOperator{
     public List<QuestionInfo> getChapterQuestions() {
         List<QuestionInfo> questionInfos = new ArrayList<>();
         if (mDB != null) {
-            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionBySubjectName(CHAPTER_MAYUAN), null);
+            Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestions(CHAPTER_MAYUAN), null);
             while (cursor.moveToNext()) {
                 QuestionInfo questionInfo = new QuestionInfo();
                 questionInfo.setQuestionId(cursor.getInt(cursor.getColumnIndex("QUESTION_ID")));
@@ -51,9 +50,9 @@ public class ChapterMYDBOperator extends BaseOperator implements IDBOperator{
 
     @Override
     public int getQuestionCount() {
-        Logger.mlj("sql=" + SQLContainer.queryQuestionCountBySubjectName(CHAPTER_MAYUAN));
-        Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestionBySubjectName(CHAPTER_MAYUAN), null);
+        Cursor cursor = mDB.rawQuery(SQLContainer.queryChapterQuestions(CHAPTER_MAYUAN), null);
         return cursor.getCount();
     }
+
 
 }

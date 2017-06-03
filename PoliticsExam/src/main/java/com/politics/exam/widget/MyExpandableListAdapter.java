@@ -142,7 +142,7 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
                 Intent i = new Intent();
                 i.putExtra("groupPosition",groupPosition);
                 i.putExtra("childPosition",childPosition);
-                IntentManager.startActivity(QuestionDetailActivity.class);
+                IntentManager.startActivity(i,QuestionDetailActivity.class);
             }
         });
         return mChildView;

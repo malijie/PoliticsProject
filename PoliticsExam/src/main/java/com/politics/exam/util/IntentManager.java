@@ -17,6 +17,12 @@ public class IntentManager {
     }
 
 
+    public static void startActivity(Intent i,Class clazz){
+        i.setClass(PoliticsApplication.sContext,clazz);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PoliticsApplication.sContext.startActivity(i);
+    }
+
     public static void finishActivity(Activity activity){
         if(activity != null){
             activity.finish();
