@@ -82,6 +82,7 @@ public class QuestionDetailActivity extends BaseActivity{
             public void onPageSelected(int position) {
                 mTextTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
                 mTextTitle.setText(mQuestionInfos.get(position).getTitle().trim());
+                updateTextUI(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle(),mTextTitle);
             }
 
             @Override
