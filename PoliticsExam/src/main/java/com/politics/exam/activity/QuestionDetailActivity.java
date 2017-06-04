@@ -33,6 +33,7 @@ public class QuestionDetailActivity extends BaseActivity{
     }
 
     public IDBOperator mOperator = null;
+    private List<QuestionInfo> mQuestionInfos;
 
     @Override
     public void initData() {
@@ -41,8 +42,7 @@ public class QuestionDetailActivity extends BaseActivity{
         int childPosition = i.getIntExtra("childPosition",0);
         mOperator = getOperator(groupPosition);
 
-        List<QuestionInfo> questionInfos = mOperator.getQuestionsByChapterId(getChapterId(groupPosition,childPosition));
-        Logger.mlj("size=" + questionInfos.size() + ",first item=" + questionInfos.get(0).getTitle() + ",last item=" + questionInfos.get(questionInfos.size()-1).getTitle());
+        mQuestionInfos = mOperator.getQuestionsByChapterId(getChapterId(groupPosition,childPosition));
     }
 
     @Override

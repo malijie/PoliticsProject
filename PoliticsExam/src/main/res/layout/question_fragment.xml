@@ -1,62 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical">
 
     <include
         android:id="@+id/id_questions_layout_search"
         layout="@layout/search_layout" />
-    <LinearLayout
-        android:id="@+id/id_questions_layout_wrong_collect"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
-        android:layout_below="@id/id_questions_layout_search"
-        android:background="@color/background_white">
+
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/wrong_item_button_selector"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="错题"/>
+            android:orientation="vertical">
+
+            <ExpandableListView
+                android:id="@+id/expand_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_white"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/collect_item_button_selector"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="收藏"/>
-        </LinearLayout>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey"
-        android:layout_marginTop="5dp"/>
-    <ExpandableListView
-        android:id="@+id/expand_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background_white"/>
 
 </LinearLayout>
