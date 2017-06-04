@@ -207,7 +207,6 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
                 break;
         }
-        Logger.mlj("size=" + questionInfos.size() +  "last item=" + questionInfos.get(questionInfos.size()-1).getTitle());
     }
 
     @Override
