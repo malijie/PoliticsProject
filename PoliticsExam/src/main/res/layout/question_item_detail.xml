@@ -10,14 +10,14 @@
         android:id="@+id/id_question_detail_text_character"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:text="第二章 新民主主义革命理论"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:text="第二章 新民主主义革命理论"
         android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_20"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="@dimen/font_size_18" />
+
     <RelativeLayout
         android:id="@+id/id_question_detail_layout_question"
         android:layout_width="match_parent"
@@ -28,16 +28,17 @@
             android:id="@+id/id_question_detail_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:lineSpacingExtra="5dp"
             tools:text="1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_18"
+            android:textSize="@dimen/font_size_17"
             android:layout_alignParentLeft="true"/>
         <LinearLayout
             android:id="@+id/id_question_detail_layout_A"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/id_question_detail_text_title">
             <ImageView
                 android:id="@+id/id_question_detail_image_A"
@@ -45,10 +46,12 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/choice_a"/>
             <TextView
+                android:id="@+id/id_question_detail_text_choiceA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:textSize="@dimen/font_size_18"
+                android:textSize="@dimen/font_size_17"
+                android:lineSpacingExtra="5dp"
                 android:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
         </LinearLayout>
@@ -57,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/id_question_detail_layout_A">
             <ImageView
                 android:id="@+id/id_question_detail_image_B"
@@ -66,20 +69,21 @@
                 android:src="@mipmap/choice_b"/>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/id_question_detail_text_choiceB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:lineSpacingExtra="5dp"
                 android:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_18" />
+                android:textSize="@dimen/font_size_17" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/id_question_detail_layout_C"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/id_question_detail_layout_B">
             <ImageView
                 android:id="@+id/id_question_detail_image_C"
@@ -87,10 +91,12 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/choice_c"/>
             <TextView
+                android:id="@+id/id_question_detail_text_choiceC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:textSize="@dimen/font_size_18"
+                android:textSize="@dimen/font_size_17"
+                android:lineSpacingExtra="5dp"
                 android:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
         </LinearLayout>
@@ -99,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/id_question_detail_layout_C">
             <ImageView
                 android:id="@+id/id_question_detail_image_D"
@@ -107,10 +113,12 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/choice_d"/>
             <TextView
+                android:id="@+id/id_question_detail_text_choiceD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:textSize="@dimen/font_size_18"
+                android:textSize="@dimen/font_size_17"
+                android:lineSpacingExtra="5dp"
                 android:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
         </LinearLayout>

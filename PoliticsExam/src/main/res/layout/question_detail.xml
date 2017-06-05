@@ -9,20 +9,5 @@
         android:id="@+id/id_question_detail_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/grey"-->
-            <!--android:orientation="vertical">-->
-
-            <!---->
-
-           <!---->
-        <!--</LinearLayout>-->
-    <!--</ScrollView>-->
 
 </LinearLayout>

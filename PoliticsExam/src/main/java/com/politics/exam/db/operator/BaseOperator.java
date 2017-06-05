@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.politics.exam.db.DBHelper;
 import com.politics.exam.db.SQLContainer;
+import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 
 import java.util.ArrayList;
@@ -52,6 +53,19 @@ public class BaseOperator{
         }
 
         return questionInfos;
+    }
+
+    public List<OptionInfo> getOptionsByQuestionId(int questionId){
+        List<OptionInfo> options = new ArrayList<>();
+        Cursor cursor = mDB.rawQuery(SQLContainer.querOptionsByQuestionId(questionId),null);
+        while (cursor.moveToNext()) {
+            OptionInfo optionInfo = new OptionInfo();
+            optionInfo.setQuestionId(cursor.getInt(cursor.getColumnIndex("QUESTION_ID")));
+            optionInfo.setKey(cursor.getString(cursor.getColumnIndex("KEY")));
+            optionInfo.setValue(cursor.getString(cursor.getColumnIndex("VALUE")));
+            options.add(optionInfo);
+        }
+        return options;
     }
 
 }

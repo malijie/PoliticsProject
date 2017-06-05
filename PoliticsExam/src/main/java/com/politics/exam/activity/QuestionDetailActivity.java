@@ -17,6 +17,7 @@ import com.politics.exam.db.operator.ChapterSGDBOperator;
 import com.politics.exam.db.operator.ChapterSXYFJDBOperator;
 import com.politics.exam.db.operator.ChapterSZDBOperator;
 import com.politics.exam.db.operator.IDBOperator;
+import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.Utils;
@@ -24,7 +25,6 @@ import com.politics.exam.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.politics.exam.PoliticsApplication.sContext;
 
 /**
  * Created by malijie on 2017/5/27.
@@ -34,6 +34,13 @@ public class QuestionDetailActivity extends BaseActivity{
     private ViewPager mViewPager = null;
     private List<View> mViews = null;
     private TextView mTextTitle = null;
+    private TextView mTextChapter = null;
+    private TextView mTextChoiceA = null;
+    private TextView mTextChoiceB = null;
+    private TextView mTextChoiceC = null;
+    private TextView mTextChoiceD = null;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +66,12 @@ public class QuestionDetailActivity extends BaseActivity{
     @Override
     public void initViews() {
         mViewPager = (ViewPager) findViewById(R.id.id_question_detail_view_pager);
+        mTextChapter = (TextView) findViewById(R.id.id_title_bar_text_title);
+
+        mTextChoiceA = (TextView) findViewById(R.id.id_question_detail_text_choiceA);
+        mTextChoiceB = (TextView) findViewById(R.id.id_question_detail_text_choiceB);
+        mTextChoiceC = (TextView) findViewById(R.id.id_question_detail_text_choiceC);
+        mTextChoiceD = (TextView) findViewById(R.id.id_question_detail_text_choiceD);
 
         mViews = new ArrayList<>();
         Logger.mlj("size=" + mQuestionInfos.size());
@@ -73,16 +86,13 @@ public class QuestionDetailActivity extends BaseActivity{
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if(position == 0){
-                    mTextTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
-                    mTextTitle.setText(mQuestionInfos.get(position).getTitle().trim());
+                    updateContent(position);
                 }
             }
 
             @Override
             public void onPageSelected(int position) {
-                mTextTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
-                mTextTitle.setText(mQuestionInfos.get(position).getTitle().trim());
-                updateTextUI(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle(),mTextTitle);
+                updateContent(position);
             }
 
             @Override
@@ -91,6 +101,26 @@ public class QuestionDetailActivity extends BaseActivity{
             }
         });
     }
+
+
+    private List<OptionInfo> mOptions = null;
+
+    private void updateContent(int position){
+        mTextTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
+        mTextTitle.setText(mQuestionInfos.get(position).getTitle().trim());
+        mTextTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
+
+        mTextChapter.setText(mQuestionInfos.get(position).getSubjectName());
+        mOptions = mOperator.getOptionsByQuestionId(mQuestionInfos.get(position).getQuestionId());
+Logger.mlj("mOptions==" + mOptions);
+
+        mTextChoiceA.setText(mOptions.get(0).getKey());
+        mTextChoiceB.setText(mOptions.get(1).getKey());
+        mTextChoiceC.setText(mOptions.get(2).getKey());
+        mTextChoiceD.setText(mOptions.get(3).getKey());
+
+    }
+
 
     PagerAdapter mAdapter = new PagerAdapter() {
         @Override

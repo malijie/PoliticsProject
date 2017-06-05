@@ -21,4 +21,8 @@ public class SQLContainer {
 
     }
 
+    public static String querOptionsByQuestionId(int questionId){
+        return "SELECT * FROM " + QUESTION_OPTION + " WHERE QUESTION_ID='" + questionId + "' ORDER BY QUESTION_ID, KEY";
+    }
+
 }

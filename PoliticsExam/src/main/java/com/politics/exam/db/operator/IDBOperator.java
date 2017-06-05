@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.politics.exam.db.DBHelper;
 import com.politics.exam.db.SQLContainer;
+import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 
 import java.util.List;
@@ -25,4 +26,5 @@ public interface IDBOperator {
     List<QuestionInfo> getChapterQuestions();
     int getQuestionCount();
     List<QuestionInfo> getQuestionsByChapterId(int chapterId);
+    List<OptionInfo> getOptionsByQuestionId(int questionId);
 }

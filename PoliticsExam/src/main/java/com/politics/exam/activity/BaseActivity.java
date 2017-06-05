@@ -35,17 +35,18 @@ public abstract class BaseActivity extends Activity{
     public abstract void initData();
     public abstract void initViews();
 
-    public void updateTextUI(int questionNo, String textFrom, String textTitle, TextView textView){
+    public SpannableString getContentStyle(int questionNo, String textFrom, String textTitle){
         String content= questionNo  + "." + textFrom + textTitle;
+        int start = content.indexOf("（");
+        int end = content.indexOf("）");
+
         SpannableString textSpan = new SpannableString (content);
         textSpan.setSpan(new ForegroundColorSpan(Utils.getColor(R.color.font_yellow)),
-                3,8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                start,end+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        textSpan.setSpan(new AbsoluteSizeSpan(26),3,8,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setText(textSpan);
+        textSpan.setSpan(new AbsoluteSizeSpan(30),start,end+1,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-
-
+        return textSpan;
     }
 
 
