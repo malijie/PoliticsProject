@@ -37,10 +37,15 @@ public abstract class BaseActivity extends Activity{
 
     public SpannableString getContentStyle(int questionNo, String textFrom, String textTitle){
         String content= questionNo  + "." + textFrom + textTitle;
+        SpannableString textSpan = new SpannableString (content);
+
         int start = content.indexOf("（");
         int end = content.indexOf("）");
+        if(start<=0 || end<=0){
+            return textSpan;
+        }
 
-        SpannableString textSpan = new SpannableString (content);
+
         textSpan.setSpan(new ForegroundColorSpan(Utils.getColor(R.color.font_yellow)),
                 start,end+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 

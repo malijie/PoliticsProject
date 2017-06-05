@@ -8,13 +8,16 @@
 
     <TextView
         android:id="@+id/id_question_detail_text_character"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:text="第二章 新民主主义革命理论"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="第二章 新民主主义革命理论"
         android:textColor="@color/font_black"
         android:textSize="@dimen/font_size_18" />
 
@@ -52,7 +55,7 @@
                 android:gravity="center_vertical"
                 android:textSize="@dimen/font_size_17"
                 android:lineSpacingExtra="5dp"
-                android:text="1925年毛泽东1925年毛泽东1925年毛泽"
+                tools:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
         </LinearLayout>
         <LinearLayout
@@ -74,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="5dp"
-                android:text="1925年毛泽东1925年毛泽东1925年毛泽"
+                tools:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_17" />
         </LinearLayout>
@@ -97,7 +100,7 @@
                 android:gravity="center_vertical"
                 android:textSize="@dimen/font_size_17"
                 android:lineSpacingExtra="5dp"
-                android:text="1925年毛泽东1925年毛泽东1925年毛泽"
+                tools:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
         </LinearLayout>
         <LinearLayout
@@ -119,7 +122,7 @@
                 android:gravity="center_vertical"
                 android:textSize="@dimen/font_size_17"
                 android:lineSpacingExtra="5dp"
-                android:text="1925年毛泽东1925年毛泽东1925年毛泽"
+                tools:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
         </LinearLayout>
     </RelativeLayout>

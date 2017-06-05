@@ -155,6 +155,7 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
                 Intent i = new Intent();
                 i.putExtra("groupPosition",groupPosition);
                 i.putExtra("childPosition",childPosition);
+                i.putExtra("chapterTitle",mCharacter[groupPosition][childPosition]);
                 IntentManager.startActivity(i,QuestionDetailActivity.class);
             }
         });

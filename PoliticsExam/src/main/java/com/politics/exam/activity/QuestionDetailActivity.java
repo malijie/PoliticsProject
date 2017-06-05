@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -33,12 +32,14 @@ import java.util.List;
 public class QuestionDetailActivity extends BaseActivity{
     private ViewPager mViewPager = null;
     private List<View> mViews = null;
-    private TextView mTextTitle = null;
+    private TextView mTextQuestionTitle = null;
+    private TextView mTextChapterTitle = null;
     private TextView mTextChapter = null;
     private TextView mTextChoiceA = null;
     private TextView mTextChoiceB = null;
     private TextView mTextChoiceC = null;
     private TextView mTextChoiceD = null;
+    private String chapterTitle;
 
 
     @Override
@@ -57,24 +58,19 @@ public class QuestionDetailActivity extends BaseActivity{
         Intent i = getIntent();
         int groupPosition = i.getIntExtra("groupPosition",0);
         int childPosition = i.getIntExtra("childPosition",0);
+        chapterTitle = i.getStringExtra("chapterTitle");
         mOperator = getOperator(groupPosition);
-
         mQuestionInfos = mOperator.getQuestionsByChapterId(getChapterId(groupPosition,childPosition));
 
     }
+
 
     @Override
     public void initViews() {
         mViewPager = (ViewPager) findViewById(R.id.id_question_detail_view_pager);
         mTextChapter = (TextView) findViewById(R.id.id_title_bar_text_title);
 
-        mTextChoiceA = (TextView) findViewById(R.id.id_question_detail_text_choiceA);
-        mTextChoiceB = (TextView) findViewById(R.id.id_question_detail_text_choiceB);
-        mTextChoiceC = (TextView) findViewById(R.id.id_question_detail_text_choiceC);
-        mTextChoiceD = (TextView) findViewById(R.id.id_question_detail_text_choiceD);
-
         mViews = new ArrayList<>();
-        Logger.mlj("size=" + mQuestionInfos.size());
         for(int i=0;i<mQuestionInfos.size();i++){
             View v = Utils.getView(R.layout.question_detail_item);
             mViews.add(v);
@@ -106,18 +102,25 @@ public class QuestionDetailActivity extends BaseActivity{
     private List<OptionInfo> mOptions = null;
 
     private void updateContent(int position){
-        mTextTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
-        mTextTitle.setText(mQuestionInfos.get(position).getTitle().trim());
-        mTextTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
+        mTextQuestionTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
+        mTextChoiceA = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceA);
+        mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
+        mTextChoiceC = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceC);
+        mTextChoiceD = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceD);
+        mTextChapterTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_character);
+
+        mTextChapterTitle.setText(chapterTitle);
+        mTextQuestionTitle.setText(mQuestionInfos.get(position).getTitle().trim());
+        mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
 
         mTextChapter.setText(mQuestionInfos.get(position).getSubjectName());
         mOptions = mOperator.getOptionsByQuestionId(mQuestionInfos.get(position).getQuestionId());
-Logger.mlj("mOptions==" + mOptions);
 
-        mTextChoiceA.setText(mOptions.get(0).getKey());
-        mTextChoiceB.setText(mOptions.get(1).getKey());
-        mTextChoiceC.setText(mOptions.get(2).getKey());
-        mTextChoiceD.setText(mOptions.get(3).getKey());
+        mTextChoiceA.setText(mOptions.get(0).getKey() + ". " + mOptions.get(0).getValue());
+        mTextChoiceB.setText(mOptions.get(1).getKey() + ". " + mOptions.get(1).getValue());
+        mTextChoiceC.setText(mOptions.get(2).getKey() + ". " + mOptions.get(2).getValue());
+        mTextChoiceD.setText(mOptions.get(3).getKey() + ". " + mOptions.get(3).getValue());
+        mOptions.clear();
 
     }
 
