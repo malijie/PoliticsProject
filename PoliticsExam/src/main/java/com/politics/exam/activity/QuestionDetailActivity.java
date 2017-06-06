@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.politics.exam.R;
@@ -18,6 +19,7 @@ import com.politics.exam.db.operator.ChapterSZDBOperator;
 import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.Utils;
 
@@ -40,6 +42,7 @@ public class QuestionDetailActivity extends BaseActivity{
     private TextView mTextChoiceC = null;
     private TextView mTextChoiceD = null;
     private String chapterTitle;
+    private ImageButton mButtonBack;
 
 
     @Override
@@ -96,6 +99,14 @@ public class QuestionDetailActivity extends BaseActivity{
 
             }
         });
+
+        mButtonBack = (ImageButton) findViewById(R.id.id_title_bar_button_back);
+        mButtonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentManager.finishActivity(QuestionDetailActivity.this);
+            }
+        });
     }
 
 
@@ -116,10 +127,10 @@ public class QuestionDetailActivity extends BaseActivity{
         mTextChapter.setText(mQuestionInfos.get(position).getSubjectName());
         mOptions = mOperator.getOptionsByQuestionId(mQuestionInfos.get(position).getQuestionId());
 
-        mTextChoiceA.setText(mOptions.get(0).getKey() + ". " + mOptions.get(0).getValue());
-        mTextChoiceB.setText(mOptions.get(1).getKey() + ". " + mOptions.get(1).getValue());
-        mTextChoiceC.setText(mOptions.get(2).getKey() + ". " + mOptions.get(2).getValue());
-        mTextChoiceD.setText(mOptions.get(3).getKey() + ". " + mOptions.get(3).getValue());
+        mTextChoiceA.setText(mOptions.get(0).getValue());
+        mTextChoiceB.setText(mOptions.get(1).getValue());
+        mTextChoiceC.setText(mOptions.get(2).getValue());
+        mTextChoiceD.setText(mOptions.get(3).getValue());
         mOptions.clear();
 
     }
@@ -147,6 +158,7 @@ public class QuestionDetailActivity extends BaseActivity{
             return mViews.get(position);
         }
     };
+
 
 
     private IDBOperator getOperator(int groupPosition){

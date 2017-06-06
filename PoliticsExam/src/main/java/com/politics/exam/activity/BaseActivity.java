@@ -10,10 +10,13 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.politics.exam.R;
 import com.politics.exam.db.operator.IDBOperator;
+import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Utils;
 
 /**
@@ -21,11 +24,12 @@ import com.politics.exam.util.Utils;
  */
 
 public abstract class BaseActivity extends Activity{
-
+    private ImageButton mButtonBack = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     public int getResColor(int resId){
@@ -34,6 +38,7 @@ public abstract class BaseActivity extends Activity{
 
     public abstract void initData();
     public abstract void initViews();
+
 
     public SpannableString getContentStyle(int questionNo, String textFrom, String textTitle){
         String content= questionNo  + "." + textFrom + textTitle;

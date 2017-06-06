@@ -3,19 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background_white">
 
     <TextView
         android:id="@+id/id_question_detail_text_character"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@color/grey"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:maxLines="1"
+        android:padding="10dp"
         android:ellipsize="end"
         tools:text="第二章 新民主主义革命理论"
         android:textColor="@color/font_black"
@@ -25,7 +27,7 @@
         android:id="@+id/id_question_detail_layout_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_marginLeft="10dp" >
 
         <TextView
             android:id="@+id/id_question_detail_text_title"
@@ -127,10 +129,15 @@
         </LinearLayout>
     </RelativeLayout>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:text="提交答案"
+        android:textSize="@dimen/font_size_14"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/font_black"
         android:layout_below="@id/id_question_detail_layout_question"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_button_selector"
+        android:layout_marginBottom="10dp"/>
 
 </LinearLayout>
