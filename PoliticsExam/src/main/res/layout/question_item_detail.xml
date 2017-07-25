@@ -57,6 +57,7 @@
                 android:gravity="center_vertical"
                 android:textSize="@dimen/font_size_17"
                 android:lineSpacingExtra="5dp"
+                android:layout_marginLeft="3dp"
                 tools:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
         </LinearLayout>
@@ -78,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:layout_marginLeft="3dp"
                 android:lineSpacingExtra="5dp"
                 tools:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"
@@ -101,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/font_size_17"
+                android:layout_marginLeft="3dp"
                 android:lineSpacingExtra="5dp"
                 tools:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
@@ -124,11 +127,13 @@
                 android:gravity="center_vertical"
                 android:textSize="@dimen/font_size_17"
                 android:lineSpacingExtra="5dp"
+                android:layout_marginLeft="3dp"
                 tools:text="1925年毛泽东1925年毛泽东1925年毛泽"
                 android:textColor="@color/font_black"/>
         </LinearLayout>
     </RelativeLayout>
     <Button
+        android:id="@+id/id_question_detail_button_commit"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:text="提交答案"

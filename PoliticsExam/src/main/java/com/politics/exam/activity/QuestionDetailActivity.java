@@ -7,7 +7,9 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
@@ -32,6 +34,12 @@ import java.util.List;
  */
 
 public class QuestionDetailActivity extends BaseActivity{
+    private static final String OPTION_A = "A";
+    private static final String OPTION_B = "B";
+    private static final String OPTION_C = "C";
+    private static final String OPTION_D = "D";
+
+
     private ViewPager mViewPager = null;
     private List<View> mViews = null;
     private TextView mTextQuestionTitle = null;
@@ -41,8 +49,18 @@ public class QuestionDetailActivity extends BaseActivity{
     private TextView mTextChoiceB = null;
     private TextView mTextChoiceC = null;
     private TextView mTextChoiceD = null;
+    private ImageView mImageChoiceA = null;
+    private ImageView mImageChoiceB = null;
+    private ImageView mImageChoiceC = null;
+    private ImageView mImageChoiceD = null;
+
+
     private String chapterTitle;
     private ImageButton mButtonBack;
+    private Button mButtonCommit = null;
+
+    private QuestionInfo mCurrentQuestionInfo;
+    private List<String> mChoiceAnswers = new ArrayList<>();
 
 
     @Override
@@ -72,6 +90,7 @@ public class QuestionDetailActivity extends BaseActivity{
     public void initViews() {
         mViewPager = (ViewPager) findViewById(R.id.id_question_detail_view_pager);
         mTextChapter = (TextView) findViewById(R.id.id_title_bar_text_title);
+
 
         mViews = new ArrayList<>();
         for(int i=0;i<mQuestionInfos.size();i++){
@@ -107,18 +126,37 @@ public class QuestionDetailActivity extends BaseActivity{
                 IntentManager.finishActivity(QuestionDetailActivity.this);
             }
         });
+
+
+
     }
 
 
     private List<OptionInfo> mOptions = null;
 
     private void updateContent(int position){
+        mChoiceAnswers.clear();
         mTextQuestionTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
         mTextChoiceA = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceA);
         mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
         mTextChoiceC = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceC);
         mTextChoiceD = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceD);
         mTextChapterTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_character);
+        mButtonCommit = (Button) mViews.get(position).findViewById(R.id.id_question_detail_button_commit);
+        mTextChoiceA = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceA);
+        mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
+        mTextChoiceC = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceC);
+        mTextChoiceD = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceD);
+        mImageChoiceA = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_A);
+        mImageChoiceB = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_B);
+        mImageChoiceC = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_C);
+        mImageChoiceD = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_D);
+
+        mTextChoiceA.setOnClickListener(choiceAOnClickListener);
+        mTextChoiceB.setOnClickListener(choiceBOnClickListener);
+        mTextChoiceC.setOnClickListener(choiceCOnClickListener);
+        mTextChoiceD.setOnClickListener(choiceDOnClickListener);
+        mButtonCommit.setOnClickListener(commitOnClickListener);
 
         mTextChapterTitle.setText(chapterTitle);
         mTextQuestionTitle.setText(mQuestionInfos.get(position).getTitle().trim());
@@ -131,6 +169,8 @@ public class QuestionDetailActivity extends BaseActivity{
         mTextChoiceB.setText(mOptions.get(1).getValue());
         mTextChoiceC.setText(mOptions.get(2).getValue());
         mTextChoiceD.setText(mOptions.get(3).getValue());
+
+        mCurrentQuestionInfo = mQuestionInfos.get(position);
         mOptions.clear();
 
     }
@@ -184,6 +224,7 @@ public class QuestionDetailActivity extends BaseActivity{
         }
         return operator;
     }
+
     private int getChapterId(int groupPosition,int childPosition){
         int chapterId = 0;
         if(groupPosition == 0 && childPosition == 0){
@@ -298,5 +339,90 @@ public class QuestionDetailActivity extends BaseActivity{
             chapterId = 420;
         }
         return chapterId;
+    }
+
+    //选择A
+    private View.OnClickListener choiceAOnClickListener  = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            addChoiceAnswer(OPTION_A);
+            updateOptionUI(OPTION_A);
+        }
+    };
+
+    //选择B
+    private View.OnClickListener choiceBOnClickListener  = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            addChoiceAnswer(OPTION_B);
+            updateOptionUI(OPTION_B);
+        }
+    };
+
+    //选择C
+    private View.OnClickListener choiceCOnClickListener  = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            addChoiceAnswer(OPTION_C);
+            updateOptionUI(OPTION_C);
+        }
+    };
+
+
+    private void updateOptionUI(String option) {
+        switch (option){
+            case OPTION_A:
+                mImageChoiceA.setImageResource(R.mipmap.option_selected);
+                break;
+
+            case OPTION_B:
+                mImageChoiceB.setImageResource(R.mipmap.option_selected);
+                break;
+
+            case OPTION_C:
+                mImageChoiceC.setImageResource(R.mipmap.option_selected);
+                break;
+
+            case OPTION_D:
+                mImageChoiceD.setImageResource(R.mipmap.option_selected);
+                break;
+        }
+    }
+
+    //选择D
+    private View.OnClickListener choiceDOnClickListener  = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            addChoiceAnswer(OPTION_D);
+            updateOptionUI(OPTION_D);
+        }
+    };
+
+    private View.OnClickListener commitOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(checkAnswer(mChoiceAnswers)){
+
+            }
+        }
+    };
+
+
+    private List<String> addChoiceAnswer(String answer){
+        if(!mChoiceAnswers.contains(answer)){
+            mChoiceAnswers.add(answer);
+        }else{
+            mChoiceAnswers.remove(answer);
+        }
+        return mChoiceAnswers;
+    }
+
+    private boolean checkAnswer(List<String> answers){
+         for(int i=0;i<answers.size();i++){
+             if(!mCurrentQuestionInfo.getAnswer().contains(answers.get(i))){
+                    return false;
+             }
+         }
+         return true;
     }
 }
