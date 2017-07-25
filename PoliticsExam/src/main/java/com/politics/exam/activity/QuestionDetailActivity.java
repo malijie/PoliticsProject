@@ -372,7 +372,7 @@ public class QuestionDetailActivity extends BaseActivity{
     private void updateOptionUI(String option) {
         switch (option){
             case OPTION_A:
-                mImageChoiceA.setImageResource(R.mipmap.option_selected);
+                mImageChoiceB.setImageResource(R.mipmap.option_selected);
                 break;
 
             case OPTION_B:
