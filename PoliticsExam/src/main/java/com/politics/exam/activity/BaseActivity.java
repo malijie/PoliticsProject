@@ -19,6 +19,8 @@ import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Utils;
 
+import java.util.List;
+
 /**
  * Created by malijie on 2017/5/25.
  */
@@ -58,6 +60,12 @@ public abstract class BaseActivity extends Activity{
 
         return textSpan;
     }
+
+
+    public interface IChoiceOptionListener{
+        void choiceOption(String option);
+    }
+
 
 
 }

@@ -22,7 +22,6 @@ import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
-import com.politics.exam.util.Logger;
 import com.politics.exam.util.Utils;
 
 import java.util.ArrayList;
@@ -38,6 +37,9 @@ public class QuestionDetailActivity extends BaseActivity{
     private static final String OPTION_B = "B";
     private static final String OPTION_C = "C";
     private static final String OPTION_D = "D";
+
+    private static final int SINGLE_CHOICE = 1;
+    private static final int MULTI_CHOICE = 2;
 
     private ViewPager mViewPager = null;
     private List<View> mViews = null;
@@ -59,8 +61,10 @@ public class QuestionDetailActivity extends BaseActivity{
     private Button mButtonCommit = null;
 
     private QuestionInfo mCurrentQuestionInfo;
-    private List<String> mChoiceAnswers = new ArrayList<>();
+    private List<String> mChoiceMultiAnswers = new ArrayList<>();
+    private String mChoiceSingleAnswer;
     private boolean isFirstIn = true;
+    private int mQuestionType = SINGLE_CHOICE;
 
 
     @Override
@@ -136,7 +140,7 @@ public class QuestionDetailActivity extends BaseActivity{
     private List<OptionInfo> mOptions = new ArrayList<>();
 
     private void updateContent(int position){
-        mChoiceAnswers.clear();
+        mChoiceMultiAnswers.clear();
         mOptions.clear();
 
         mTextQuestionTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
@@ -182,8 +186,10 @@ public class QuestionDetailActivity extends BaseActivity{
 
         if(mCurrentQuestionInfo.getAnswer().contains(",")){
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()) + " (多选)");
+            mQuestionType = MULTI_CHOICE;
         }else{
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
+            mQuestionType = SINGLE_CHOICE;
         }
 
     }
@@ -358,9 +364,13 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener choiceAOnClickListener  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            handleChoiceAnswer(OPTION_A);
-            updateOptionUI(OPTION_A);
+            if(mQuestionType == MULTI_CHOICE){
+                handleChoiceAnswer(OPTION_A);
+            }else if(mQuestionType == SINGLE_CHOICE){
+                mChoiceSingleAnswer = OPTION_A;
+            }
 
+            updateOptionUI(OPTION_A);
         }
     };
 
@@ -368,9 +378,13 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener choiceBOnClickListener  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            handleChoiceAnswer(OPTION_B);
-            updateOptionUI(OPTION_B);
+            if(mQuestionType == MULTI_CHOICE){
+                handleChoiceAnswer(OPTION_B);
 
+            }else if(mQuestionType == SINGLE_CHOICE){
+                mChoiceSingleAnswer = OPTION_B;
+            }
+            updateOptionUI(OPTION_B);
         }
     };
 
@@ -378,8 +392,14 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener choiceCOnClickListener  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            handleChoiceAnswer(OPTION_C);
+            if(mQuestionType == MULTI_CHOICE){
+                handleChoiceAnswer(OPTION_C);
+            }else if(mQuestionType == SINGLE_CHOICE){
+                mChoiceSingleAnswer = OPTION_C;
+            }
             updateOptionUI(OPTION_C);
+
+
         }
     };
 
@@ -387,8 +407,14 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener choiceDOnClickListener  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            handleChoiceAnswer(OPTION_D);
+            if(mQuestionType == MULTI_CHOICE){
+                handleChoiceAnswer(OPTION_D);
+            }else if(mQuestionType == SINGLE_CHOICE){
+                mChoiceSingleAnswer = OPTION_D;
+            }
+
             updateOptionUI(OPTION_D);
+
 
         }
     };
@@ -396,35 +422,58 @@ public class QuestionDetailActivity extends BaseActivity{
     private void updateOptionUI(String option) {
         switch (option){
             case OPTION_A:
-                if(mChoiceAnswers.contains(OPTION_A)){
+                if(mQuestionType == MULTI_CHOICE){
+                    if(mChoiceMultiAnswers.contains(OPTION_A)){
+                        mImageChoiceA.setImageResource(R.mipmap.option_selected);
+                    }else{
+                        mImageChoiceA.setImageResource(R.mipmap.choice_a);
+                    }
+                }else if(mQuestionType == SINGLE_CHOICE){
+                    clearChoiceUI();
                     mImageChoiceA.setImageResource(R.mipmap.option_selected);
-                }else{
-                    mImageChoiceA.setImageResource(R.mipmap.choice_a);
                 }
+
                 break;
 
             case OPTION_B:
-                if(mChoiceAnswers.contains(OPTION_B)){
+                if(mQuestionType == MULTI_CHOICE) {
+                    if (mChoiceMultiAnswers.contains(OPTION_B)) {
+                        mImageChoiceB.setImageResource(R.mipmap.option_selected);
+                    } else {
+                        mImageChoiceB.setImageResource(R.mipmap.choice_b);
+                    }
+                }else if(mQuestionType == SINGLE_CHOICE){
+                    clearChoiceUI();
                     mImageChoiceB.setImageResource(R.mipmap.option_selected);
-                }else{
-                    mImageChoiceB.setImageResource(R.mipmap.choice_b);
                 }
                 break;
 
             case OPTION_C:
-                if(mChoiceAnswers.contains(OPTION_C)){
+                if(mQuestionType == MULTI_CHOICE) {
+                    if(mChoiceMultiAnswers.contains(OPTION_C)){
+                        mImageChoiceC.setImageResource(R.mipmap.option_selected);
+                    }else{
+                        mImageChoiceC.setImageResource(R.mipmap.choice_c);
+                    }
+                }else if(mQuestionType == SINGLE_CHOICE){
+                    clearChoiceUI();
                     mImageChoiceC.setImageResource(R.mipmap.option_selected);
-                }else{
-                    mImageChoiceC.setImageResource(R.mipmap.choice_c);
                 }
+
                 break;
 
             case OPTION_D:
-                if(mChoiceAnswers.contains(OPTION_D)){
+                if(mQuestionType == MULTI_CHOICE) {
+                    if(mChoiceMultiAnswers.contains(OPTION_D)){
+                        mImageChoiceD.setImageResource(R.mipmap.option_selected);
+                    }else{
+                        mImageChoiceD.setImageResource(R.mipmap.choice_d);
+                    }
+                }else if(mQuestionType == SINGLE_CHOICE){
+                    clearChoiceUI();
                     mImageChoiceD.setImageResource(R.mipmap.option_selected);
-                }else{
-                    mImageChoiceD.setImageResource(R.mipmap.choice_d);
                 }
+
                 break;
         }
     }
@@ -434,7 +483,7 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener commitOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(checkAnswer(mChoiceAnswers)){
+            if(checkAnswer(mChoiceMultiAnswers)){
 
             }
         }
@@ -442,12 +491,12 @@ public class QuestionDetailActivity extends BaseActivity{
 
 
     private List<String> handleChoiceAnswer(String answer){
-        if(!mChoiceAnswers.contains(answer)){
-            mChoiceAnswers.add(answer);
+        if(!mChoiceMultiAnswers.contains(answer)){
+            mChoiceMultiAnswers.add(answer);
         }else{
-            mChoiceAnswers.remove(answer);
+            mChoiceMultiAnswers.remove(answer);
         }
-        return mChoiceAnswers;
+        return mChoiceMultiAnswers;
     }
 
     private boolean checkAnswer(List<String> answers){
@@ -458,4 +507,35 @@ public class QuestionDetailActivity extends BaseActivity{
          }
          return true;
     }
+
+    private void clearChoiceUI(){
+        mImageChoiceA.setImageResource(R.mipmap.choice_a);
+        mImageChoiceB.setImageResource(R.mipmap.choice_b);
+        mImageChoiceC.setImageResource(R.mipmap.choice_c);
+        mImageChoiceD.setImageResource(R.mipmap.choice_d);
+    }
+
+    private class MultiChoice implements IChoiceOptionListener{
+
+        @Override
+        public void choiceOption(String option) {
+            handleChoiceAnswer(option);
+            if(mChoiceMultiAnswers.contains(option)){
+                mImageChoiceA.setImageResource(R.mipmap.option_selected);
+            }else{
+                mImageChoiceA.setImageResource(R.mipmap.choice_a);
+            }
+        }
+    }
+
+    private class SingleChoice implements IChoiceOptionListener{
+
+        @Override
+        public void choiceOption(String option) {
+            mChoiceSingleAnswer = option;
+            clearChoiceUI();
+            mImageChoiceA.setImageResource(R.mipmap.option_selected);
+        }
+    }
+
 }
