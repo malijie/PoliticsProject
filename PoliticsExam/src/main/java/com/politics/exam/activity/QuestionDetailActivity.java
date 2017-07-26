@@ -23,6 +23,7 @@ import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
+import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class QuestionDetailActivity extends BaseActivity{
     private static final String OPTION_B = "B";
     private static final String OPTION_C = "C";
     private static final String OPTION_D = "D";
-
 
     private ViewPager mViewPager = null;
     private List<View> mViews = null;
@@ -61,6 +61,7 @@ public class QuestionDetailActivity extends BaseActivity{
 
     private QuestionInfo mCurrentQuestionInfo;
     private List<String> mChoiceAnswers = new ArrayList<>();
+    private boolean isFirstIn = true;
 
 
     @Override
@@ -103,9 +104,7 @@ public class QuestionDetailActivity extends BaseActivity{
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position == 0){
-                    updateContent(position);
-                }
+
             }
 
             @Override
@@ -127,15 +126,20 @@ public class QuestionDetailActivity extends BaseActivity{
             }
         });
 
-
+        if(isFirstIn){
+            updateContent(0);
+            isFirstIn = false;
+        }
 
     }
 
 
-    private List<OptionInfo> mOptions = null;
+    private List<OptionInfo> mOptions = new ArrayList<>();
 
     private void updateContent(int position){
         mChoiceAnswers.clear();
+        mOptions.clear();
+
         mTextQuestionTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
         mTextChoiceA = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceA);
         mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
@@ -158,9 +162,15 @@ public class QuestionDetailActivity extends BaseActivity{
         mTextChoiceD.setOnClickListener(choiceDOnClickListener);
         mButtonCommit.setOnClickListener(commitOnClickListener);
 
+
         mTextChapterTitle.setText(chapterTitle);
         mTextQuestionTitle.setText(mQuestionInfos.get(position).getTitle().trim());
         mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
+
+        mImageChoiceA.setImageResource(R.mipmap.choice_a);
+        mImageChoiceB.setImageResource(R.mipmap.choice_b);
+        mImageChoiceC.setImageResource(R.mipmap.choice_c);
+        mImageChoiceD.setImageResource(R.mipmap.choice_d);
 
         mTextChapter.setText(mQuestionInfos.get(position).getSubjectName());
         mOptions = mOperator.getOptionsByQuestionId(mQuestionInfos.get(position).getQuestionId());
@@ -171,8 +181,6 @@ public class QuestionDetailActivity extends BaseActivity{
         mTextChoiceD.setText(mOptions.get(3).getValue());
 
         mCurrentQuestionInfo = mQuestionInfos.get(position);
-        mOptions.clear();
-
     }
 
 
@@ -345,8 +353,9 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener choiceAOnClickListener  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            addChoiceAnswer(OPTION_A);
+            handleChoiceAnswer(OPTION_A);
             updateOptionUI(OPTION_A);
+
         }
     };
 
@@ -354,8 +363,9 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener choiceBOnClickListener  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            addChoiceAnswer(OPTION_B);
+            handleChoiceAnswer(OPTION_B);
             updateOptionUI(OPTION_B);
+
         }
     };
 
@@ -363,40 +373,58 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener choiceCOnClickListener  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            addChoiceAnswer(OPTION_C);
+            handleChoiceAnswer(OPTION_C);
             updateOptionUI(OPTION_C);
         }
     };
-
-
-    private void updateOptionUI(String option) {
-        switch (option){
-            case OPTION_A:
-                mImageChoiceB.setImageResource(R.mipmap.option_selected);
-                break;
-
-            case OPTION_B:
-                mImageChoiceB.setImageResource(R.mipmap.option_selected);
-                break;
-
-            case OPTION_C:
-                mImageChoiceC.setImageResource(R.mipmap.option_selected);
-                break;
-
-            case OPTION_D:
-                mImageChoiceD.setImageResource(R.mipmap.option_selected);
-                break;
-        }
-    }
 
     //选择D
     private View.OnClickListener choiceDOnClickListener  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            addChoiceAnswer(OPTION_D);
+            handleChoiceAnswer(OPTION_D);
             updateOptionUI(OPTION_D);
+
         }
     };
+
+    private void updateOptionUI(String option) {
+        switch (option){
+            case OPTION_A:
+                if(mChoiceAnswers.contains(OPTION_A)){
+                    mImageChoiceA.setImageResource(R.mipmap.option_selected);
+                }else{
+                    mImageChoiceA.setImageResource(R.mipmap.choice_a);
+                }
+                break;
+
+            case OPTION_B:
+                if(mChoiceAnswers.contains(OPTION_B)){
+                    mImageChoiceB.setImageResource(R.mipmap.option_selected);
+                }else{
+                    mImageChoiceB.setImageResource(R.mipmap.choice_b);
+                }
+                break;
+
+            case OPTION_C:
+                if(mChoiceAnswers.contains(OPTION_C)){
+                    mImageChoiceC.setImageResource(R.mipmap.option_selected);
+                }else{
+                    mImageChoiceC.setImageResource(R.mipmap.choice_c);
+                }
+                break;
+
+            case OPTION_D:
+                if(mChoiceAnswers.contains(OPTION_D)){
+                    mImageChoiceD.setImageResource(R.mipmap.option_selected);
+                }else{
+                    mImageChoiceD.setImageResource(R.mipmap.choice_d);
+                }
+                break;
+        }
+    }
+
+
 
     private View.OnClickListener commitOnClickListener = new View.OnClickListener() {
         @Override
@@ -408,7 +436,7 @@ public class QuestionDetailActivity extends BaseActivity{
     };
 
 
-    private List<String> addChoiceAnswer(String answer){
+    private List<String> handleChoiceAnswer(String answer){
         if(!mChoiceAnswers.contains(answer)){
             mChoiceAnswers.add(answer);
         }else{
