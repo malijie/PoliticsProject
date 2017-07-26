@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private TextView mQuestionText;
     private TextView mExamText;
     private TextView mUserText;
+    private ImageButton mButtonBack;
     private FragmentManager fragmentManager;
 
     @Override
@@ -66,11 +68,13 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         mQuestionText = (TextView) findViewById(R.id.message_text);
         mExamText = (TextView) findViewById(R.id.contacts_text);
         mUserText = (TextView) findViewById(R.id.news_text);
+        mButtonBack = (ImageButton) findViewById(R.id.id_title_bar_button_back);
+
         mQuestionsLayout.setOnClickListener(this);
         mExamLayout.setOnClickListener(this);
         mUserLayout.setOnClickListener(this);
 
-
+        mButtonBack.setVisibility(View.GONE);
     }
 
     @Override

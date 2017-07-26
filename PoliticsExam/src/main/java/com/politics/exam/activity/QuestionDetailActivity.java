@@ -23,7 +23,6 @@ import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
-import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
 import java.util.ArrayList;
@@ -156,6 +155,7 @@ public class QuestionDetailActivity extends BaseActivity{
         mImageChoiceC = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_C);
         mImageChoiceD = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_D);
 
+
         mTextChoiceA.setOnClickListener(choiceAOnClickListener);
         mTextChoiceB.setOnClickListener(choiceBOnClickListener);
         mTextChoiceC.setOnClickListener(choiceCOnClickListener);
@@ -164,8 +164,6 @@ public class QuestionDetailActivity extends BaseActivity{
 
 
         mTextChapterTitle.setText(chapterTitle);
-        mTextQuestionTitle.setText(mQuestionInfos.get(position).getTitle().trim());
-        mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
 
         mImageChoiceA.setImageResource(R.mipmap.choice_a);
         mImageChoiceB.setImageResource(R.mipmap.choice_b);
@@ -181,6 +179,13 @@ public class QuestionDetailActivity extends BaseActivity{
         mTextChoiceD.setText(mOptions.get(3).getValue());
 
         mCurrentQuestionInfo = mQuestionInfos.get(position);
+
+        if(mCurrentQuestionInfo.getAnswer().contains(",")){
+            mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()) + " (多选)");
+        }else{
+            mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
+        }
+
     }
 
 

@@ -37,7 +37,8 @@
             tools:text="1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东1925年毛泽东"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_17"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            />
         <LinearLayout
             android:id="@+id/id_question_detail_layout_A"
             android:layout_width="match_parent"
