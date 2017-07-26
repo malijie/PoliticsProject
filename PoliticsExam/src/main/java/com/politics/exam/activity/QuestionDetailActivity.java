@@ -208,7 +208,7 @@ public class QuestionDetailActivity extends BaseActivity{
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(mViews.get(position));
+            container.removeView(mViews.get(position));//asdsadasd
         }
 
         @Override
