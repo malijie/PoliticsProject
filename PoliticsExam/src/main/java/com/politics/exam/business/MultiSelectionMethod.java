@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.politics.exam.R;
+import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.util.Logger;
 
 import java.util.ArrayList;
@@ -16,16 +17,14 @@ import java.util.List;
 public class MultiSelectionMethod extends SelectionMethod implements ISelectionMethod {
     private List<String> mChoiceMultiAnswers = new ArrayList<>();
 
-    public MultiSelectionMethod(View view) {
-        super(view);
+    public MultiSelectionMethod(View view, List<OptionInfo> options) {
+        super(view,options);
     }
 
     @Override
     public void choice(String option) {
         handleSelectionAnswer(option);
         updateSelectionUI(option);
-
-Logger.mlj("multi===" + mChoiceMultiAnswers);
     }
 
     private void updateSelectionUI(String option) {

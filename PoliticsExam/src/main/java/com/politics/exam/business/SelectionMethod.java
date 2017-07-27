@@ -5,7 +5,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
+import com.politics.exam.entity.OptionInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +19,8 @@ public class SelectionMethod implements ISelectionMethod {
     private static final String OPTION_B = "B";
     private static final String OPTION_C = "C";
     private static final String OPTION_D = "D";
+    private static final String SINGLE_SELECTION = "1";
+    private static final String MULTI_SELECTION = "2";
 
     protected ImageView mImageSelectionA = null;
     protected ImageView mImageSelectionB = null;
@@ -29,8 +33,14 @@ public class SelectionMethod implements ISelectionMethod {
     protected TextView mTextChoiceD = null;
 
     private ISelectionMethod choiceMethod;
+    private List<OptionInfo> mOptions = new ArrayList<>();
 
-    public SelectionMethod(View view){
+    public SelectionMethod(){
+
+    }
+
+    public SelectionMethod(View view,List<OptionInfo> options){
+        mOptions = options;
         mImageSelectionA = (ImageView) view.findViewById(R.id.id_question_detail_image_A);
         mImageSelectionB = (ImageView) view.findViewById(R.id.id_question_detail_image_B);
         mImageSelectionC = (ImageView) view.findViewById(R.id.id_question_detail_image_C);
@@ -45,6 +55,19 @@ public class SelectionMethod implements ISelectionMethod {
         mTextChoiceB.setOnClickListener(choiceBOnClickListener);
         mTextChoiceC.setOnClickListener(choiceCOnClickListener);
         mTextChoiceD.setOnClickListener(choiceDOnClickListener);
+
+        mTextChoiceA.setText(mOptions.get(0).getValue());
+        mTextChoiceB.setText(mOptions.get(1).getValue());
+        mTextChoiceC.setText(mOptions.get(2).getValue());
+        mTextChoiceD.setText(mOptions.get(3).getValue());
+    }
+
+    public String getMultiSelectionType(){
+        return MULTI_SELECTION;
+    }
+
+    public String getSingleSelectionType(){
+        return SINGLE_SELECTION;
     }
 
     //选择A
@@ -79,11 +102,8 @@ public class SelectionMethod implements ISelectionMethod {
         }
     };
 
-    public SelectionMethod(){
 
-    }
-
-    public void setChoiceMethod(ISelectionMethod choiceMethod){
+    public void setSelectionMethod(ISelectionMethod choiceMethod){
         this.choiceMethod = choiceMethod;
     }
 
@@ -96,4 +116,6 @@ public class SelectionMethod implements ISelectionMethod {
     public void clearData() {
         choiceMethod.clearData();
     }
+
+
 }

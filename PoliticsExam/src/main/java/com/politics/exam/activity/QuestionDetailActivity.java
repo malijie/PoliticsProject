@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
@@ -25,7 +24,6 @@ import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
-import com.politics.exam.util.Logger;
 import com.politics.exam.util.Utils;
 
 import java.util.ArrayList;
@@ -37,9 +35,6 @@ import java.util.List;
  */
 
 public class QuestionDetailActivity extends BaseActivity{
-
-    private static final int SINGLE_CHOICE = 1;
-    private static final int MULTI_CHOICE = 2;
 
     private ViewPager mViewPager = null;
     private List<View> mViews = null;
@@ -61,6 +56,8 @@ public class QuestionDetailActivity extends BaseActivity{
     private boolean isFirstIn = true;
     private SelectionMethod mSelectionMethod = null;
 
+    public IDBOperator mOperator = null;
+    private List<QuestionInfo> mQuestionInfos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +67,6 @@ public class QuestionDetailActivity extends BaseActivity{
         initViews();
     }
 
-    public IDBOperator mOperator = null;
-    private List<QuestionInfo> mQuestionInfos;
 
     @Override
     public void initData() {
@@ -137,10 +132,10 @@ public class QuestionDetailActivity extends BaseActivity{
         mOptions.clear();
 
         mTextQuestionTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
-        mTextChoiceA = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceA);
-        mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
-        mTextChoiceC = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceC);
-        mTextChoiceD = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceD);
+//        mTextChoiceA = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceA);
+//        mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
+//        mTextChoiceC = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceC);
+//        mTextChoiceD = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceD);
 
         mTextChapterTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_character);
         mButtonCommit = (Button) mViews.get(position).findViewById(R.id.id_question_detail_button_commit);
@@ -149,23 +144,19 @@ public class QuestionDetailActivity extends BaseActivity{
         mTextChapter.setText(mQuestionInfos.get(position).getSubjectName());
         mOptions = mOperator.getOptionsByQuestionId(mQuestionInfos.get(position).getQuestionId());
 
-        mTextChoiceA.setText(mOptions.get(0).getValue());
-        mTextChoiceB.setText(mOptions.get(1).getValue());
-        mTextChoiceC.setText(mOptions.get(2).getValue());
-        mTextChoiceD.setText(mOptions.get(3).getValue());
-
         mCurrentQuestionInfo = mQuestionInfos.get(position);
 
         mSelectionMethod = new SelectionMethod();
 
-        if(mCurrentQuestionInfo.getAnswer().contains(",")){
+        if(mCurrentQuestionInfo.getType().equals(mSelectionMethod.getMultiSelectionType())){
+            //多选
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()) + " (多选)");
-            mSelectionMethod.setChoiceMethod(new MultiSelectionMethod(mViews.get(position)));
+            mSelectionMethod.setSelectionMethod(new MultiSelectionMethod(mViews.get(position),mOptions));
 
-
-        }else{
+        }else if(mCurrentQuestionInfo.getType().equals(mSelectionMethod.getSingleSelectionType())){
+            //单选
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
-            mSelectionMethod.setChoiceMethod(new SingleSelectionMethod(mViews.get(position)));
+            mSelectionMethod.setSelectionMethod(new SingleSelectionMethod(mViews.get(position),mOptions));
         }
 
     }

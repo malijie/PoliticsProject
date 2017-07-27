@@ -62,10 +62,4 @@ public abstract class BaseActivity extends Activity{
     }
 
 
-    public interface IChoiceOptionListener{
-        void choiceOption(String option);
-    }
-
-
-
 }

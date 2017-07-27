@@ -3,7 +3,10 @@ package com.politics.exam.business;
 import android.view.View;
 
 import com.politics.exam.R;
+import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.util.Logger;
+
+import java.util.List;
 
 /**
  * Created by malijie on 2017/7/27.
@@ -13,8 +16,8 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
     private String mChoiceSingleAnswer;
 
 
-    public SingleSelectionMethod(View view) {
-        super(view);
+    public SingleSelectionMethod(View view ,List<OptionInfo>options) {
+        super(view,options);
     }
 
     @Override
