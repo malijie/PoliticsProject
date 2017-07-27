@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
+import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.Logger;
 
 import java.util.List;
@@ -13,20 +14,19 @@ import java.util.List;
  */
 
 public class SingleSelectionMethod extends SelectionMethod implements ISelectionMethod{
-    private String mChoiceSingleAnswer;
+    private String mSelectionAnswer;
+    private QuestionInfo mQuestionInfo;
 
-
-    public SingleSelectionMethod(View view ,List<OptionInfo>options) {
-        super(view,options);
+    public SingleSelectionMethod(View view , QuestionInfo questionInfo, List<OptionInfo> options) {
+        super(view,questionInfo,options);
+        mQuestionInfo = questionInfo;
     }
 
     @Override
     public void choice(String option) {
-        mChoiceSingleAnswer = option;
+        mSelectionAnswer = option;
         clearSelectionUI();
         updateSelectionUI(option);
-
-        Logger.mlj("single===" + mChoiceSingleAnswer);
     }
 
     private void clearSelectionUI(){
@@ -55,13 +55,70 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
                 break;
         }
 
-
-
-
     }
 
     @Override
     public void clearData() {
-        mChoiceSingleAnswer = "";
+        mSelectionAnswer = "";
+    }
+
+    @Override
+    public String getSelectionType() {
+        return SINGLE_SELECTION;
+    }
+
+    @Override
+    public void checkAnswers(String selection) {
+        if(selection.equals(mQuestionInfo.getAnswer())){
+            showRightOption(selection);
+        }else{
+            updateWrongOptionUI(selection);
+            showRightOption(mQuestionInfo.getAnswer());
+        }
+    }
+
+    @Override
+    public String getSelection() {
+        return mSelectionAnswer;
+    }
+
+    private void showRightOption(String answer) {
+        switch (answer){
+            case "A":
+                mImageSelectionA.setImageResource(R.mipmap.answer_right);
+                break;
+
+            case "B":
+                mImageSelectionB.setImageResource(R.mipmap.answer_right);
+                break;
+
+            case "C":
+                mImageSelectionC.setImageResource(R.mipmap.answer_right);
+                break;
+
+            case "D":
+                mImageSelectionD.setImageResource(R.mipmap.answer_right);
+                break;
+        }
+    }
+
+    private void updateWrongOptionUI(String option){
+        switch (option){
+            case "A":
+                mImageSelectionA.setImageResource(R.mipmap.answer_wrong);
+                break;
+
+            case "B":
+                mImageSelectionB.setImageResource(R.mipmap.answer_wrong);
+                break;
+
+            case "C":
+                mImageSelectionC.setImageResource(R.mipmap.answer_wrong);
+                break;
+
+            case "D":
+                mImageSelectionD.setImageResource(R.mipmap.answer_wrong);
+                break;
+        }
     }
 }

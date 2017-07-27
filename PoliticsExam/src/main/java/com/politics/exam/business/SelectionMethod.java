@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
+import com.politics.exam.entity.QuestionInfo;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +22,8 @@ public class SelectionMethod implements ISelectionMethod {
     private static final String OPTION_B = "B";
     private static final String OPTION_C = "C";
     private static final String OPTION_D = "D";
-    private static final String SINGLE_SELECTION = "1";
-    private static final String MULTI_SELECTION = "2";
+    public  static final String SINGLE_SELECTION = "1";
+    public static final String MULTI_SELECTION = "2";
 
     protected ImageView mImageSelectionA = null;
     protected ImageView mImageSelectionB = null;
@@ -34,13 +37,16 @@ public class SelectionMethod implements ISelectionMethod {
 
     private ISelectionMethod choiceMethod;
     private List<OptionInfo> mOptions = new ArrayList<>();
+    private QuestionInfo mQuestionInfo = null;
 
     public SelectionMethod(){
 
     }
 
-    public SelectionMethod(View view,List<OptionInfo> options){
+    public SelectionMethod(View view, QuestionInfo questionInfo,List<OptionInfo> options){
         mOptions = options;
+        mQuestionInfo = questionInfo;
+
         mImageSelectionA = (ImageView) view.findViewById(R.id.id_question_detail_image_A);
         mImageSelectionB = (ImageView) view.findViewById(R.id.id_question_detail_image_B);
         mImageSelectionC = (ImageView) view.findViewById(R.id.id_question_detail_image_C);
@@ -50,6 +56,7 @@ public class SelectionMethod implements ISelectionMethod {
         mTextChoiceB = (TextView) view.findViewById(R.id.id_question_detail_text_choiceB);
         mTextChoiceC = (TextView) view.findViewById(R.id.id_question_detail_text_choiceC);
         mTextChoiceD = (TextView) view.findViewById(R.id.id_question_detail_text_choiceD);
+
 
         mTextChoiceA.setOnClickListener(choiceAOnClickListener);
         mTextChoiceB.setOnClickListener(choiceBOnClickListener);
@@ -117,5 +124,19 @@ public class SelectionMethod implements ISelectionMethod {
         choiceMethod.clearData();
     }
 
+    @Override
+    public String getSelectionType() {
+        return choiceMethod.getSelectionType();
+    }
+
+    @Override
+    public void checkAnswers(String answer) {
+        choiceMethod.checkAnswers(answer);
+    }
+
+    @Override
+    public String getSelection() {
+        return choiceMethod.getSelection();
+    }
 
 }

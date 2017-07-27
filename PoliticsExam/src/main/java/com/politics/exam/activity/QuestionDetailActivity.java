@@ -24,6 +24,7 @@ import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
+import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
 import java.util.ArrayList;
@@ -41,11 +42,6 @@ public class QuestionDetailActivity extends BaseActivity{
     private TextView mTextQuestionTitle = null;
     private TextView mTextChapterTitle = null;
     private TextView mTextChapter = null;
-    private TextView mTextChoiceA = null;
-    private TextView mTextChoiceB = null;
-    private TextView mTextChoiceC = null;
-    private TextView mTextChoiceD = null;
-
 
     private String chapterTitle;
     private ImageButton mButtonBack;
@@ -84,7 +80,6 @@ public class QuestionDetailActivity extends BaseActivity{
     public void initViews() {
         mViewPager = (ViewPager) findViewById(R.id.id_question_detail_view_pager);
         mTextChapter = (TextView) findViewById(R.id.id_title_bar_text_title);
-
 
         mViews = new ArrayList<>();
         for(int i=0;i<mQuestionInfos.size();i++){
@@ -126,19 +121,13 @@ public class QuestionDetailActivity extends BaseActivity{
 
     }
 
-
-
     private void updateContent(int position){
         mOptions.clear();
 
         mTextQuestionTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
-//        mTextChoiceA = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceA);
-//        mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
-//        mTextChoiceC = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceC);
-//        mTextChoiceD = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceD);
-
         mTextChapterTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_character);
         mButtonCommit = (Button) mViews.get(position).findViewById(R.id.id_question_detail_button_commit);
+        mButtonCommit.setOnClickListener(commitOnClickListener);
 
         mTextChapterTitle.setText(chapterTitle);
         mTextChapter.setText(mQuestionInfos.get(position).getSubjectName());
@@ -151,12 +140,12 @@ public class QuestionDetailActivity extends BaseActivity{
         if(mCurrentQuestionInfo.getType().equals(mSelectionMethod.getMultiSelectionType())){
             //多选
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()) + " (多选)");
-            mSelectionMethod.setSelectionMethod(new MultiSelectionMethod(mViews.get(position),mOptions));
+            mSelectionMethod.setSelectionMethod(new MultiSelectionMethod(mViews.get(position),mQuestionInfos.get(position),mOptions));
 
         }else if(mCurrentQuestionInfo.getType().equals(mSelectionMethod.getSingleSelectionType())){
             //单选
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
-            mSelectionMethod.setSelectionMethod(new SingleSelectionMethod(mViews.get(position),mOptions));
+            mSelectionMethod.setSelectionMethod(new SingleSelectionMethod(mViews.get(position),mQuestionInfos.get(position),mOptions));
         }
 
     }
@@ -328,6 +317,20 @@ public class QuestionDetailActivity extends BaseActivity{
         return chapterId;
     }
 
+
+    private View.OnClickListener commitOnClickListener  = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            if(mSelectionMethod.getSelectionType().equals(mSelectionMethod.getMultiSelectionType())){
+
+
+            }else if(mSelectionMethod.getSelectionType().equals(mSelectionMethod.getSingleSelectionType())){
+                String selection = mSelectionMethod.getSelection();
+                mSelectionMethod.checkAnswers(selection);
+            }
+        }
+    };
 
     private boolean checkAnswer(List<String> answers){
          for(int i=0;i<answers.size();i++){

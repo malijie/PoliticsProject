@@ -9,4 +9,7 @@ import java.util.List;
 public interface ISelectionMethod {
     void choice(String option);
     void clearData();
+    String getSelectionType();
+    void checkAnswers(String answer);
+    String getSelection();
 }

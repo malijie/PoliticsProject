@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
+import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.Logger;
 
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ import java.util.List;
 public class MultiSelectionMethod extends SelectionMethod implements ISelectionMethod {
     private List<String> mChoiceMultiAnswers = new ArrayList<>();
 
-    public MultiSelectionMethod(View view, List<OptionInfo> options) {
-        super(view,options);
+    public MultiSelectionMethod(View view, QuestionInfo questionInfo, List<OptionInfo> options) {
+        super(view,questionInfo,options);
     }
 
     @Override
@@ -65,6 +66,21 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
     @Override
     public void clearData() {
         mChoiceMultiAnswers.clear();
+    }
+
+    @Override
+    public String getSelectionType() {
+        return MULTI_SELECTION;
+    }
+
+    @Override
+    public void checkAnswers(String answer) {
+
+    }
+
+    @Override
+    public String getSelection() {
+        return null;
     }
 
     private List<String> handleSelectionAnswer(String answer){
