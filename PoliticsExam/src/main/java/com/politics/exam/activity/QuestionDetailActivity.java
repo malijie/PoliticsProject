@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
+import com.politics.exam.business.MultiSelectionMethod;
+import com.politics.exam.business.SelectionMethod;
+import com.politics.exam.business.SingleSelectionMethod;
 import com.politics.exam.db.operator.ChapterMYDBOperator;
 import com.politics.exam.db.operator.ChapterMZTDBOperator;
 import com.politics.exam.db.operator.ChapterSGDBOperator;
@@ -22,6 +25,7 @@ import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
+import com.politics.exam.util.Logger;
 import com.politics.exam.util.Utils;
 
 import java.util.ArrayList;
@@ -33,10 +37,6 @@ import java.util.List;
  */
 
 public class QuestionDetailActivity extends BaseActivity{
-    private static final String OPTION_A = "A";
-    private static final String OPTION_B = "B";
-    private static final String OPTION_C = "C";
-    private static final String OPTION_D = "D";
 
     private static final int SINGLE_CHOICE = 1;
     private static final int MULTI_CHOICE = 2;
@@ -50,10 +50,6 @@ public class QuestionDetailActivity extends BaseActivity{
     private TextView mTextChoiceB = null;
     private TextView mTextChoiceC = null;
     private TextView mTextChoiceD = null;
-    private ImageView mImageChoiceA = null;
-    private ImageView mImageChoiceB = null;
-    private ImageView mImageChoiceC = null;
-    private ImageView mImageChoiceD = null;
 
 
     private String chapterTitle;
@@ -61,10 +57,9 @@ public class QuestionDetailActivity extends BaseActivity{
     private Button mButtonCommit = null;
 
     private QuestionInfo mCurrentQuestionInfo;
-    private List<String> mChoiceMultiAnswers = new ArrayList<>();
-    private String mChoiceSingleAnswer;
+    private List<OptionInfo> mOptions = new ArrayList<>();
     private boolean isFirstIn = true;
-    private int mQuestionType = SINGLE_CHOICE;
+    private SelectionMethod mSelectionMethod = null;
 
 
     @Override
@@ -137,10 +132,8 @@ public class QuestionDetailActivity extends BaseActivity{
     }
 
 
-    private List<OptionInfo> mOptions = new ArrayList<>();
 
     private void updateContent(int position){
-        mChoiceMultiAnswers.clear();
         mOptions.clear();
 
         mTextQuestionTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
@@ -148,32 +141,11 @@ public class QuestionDetailActivity extends BaseActivity{
         mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
         mTextChoiceC = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceC);
         mTextChoiceD = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceD);
+
         mTextChapterTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_character);
         mButtonCommit = (Button) mViews.get(position).findViewById(R.id.id_question_detail_button_commit);
-        mTextChoiceA = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceA);
-        mTextChoiceB = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceB);
-        mTextChoiceC = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceC);
-        mTextChoiceD = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_choiceD);
-        mImageChoiceA = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_A);
-        mImageChoiceB = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_B);
-        mImageChoiceC = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_C);
-        mImageChoiceD = (ImageView) mViews.get(position).findViewById(R.id.id_question_detail_image_D);
-
-
-        mTextChoiceA.setOnClickListener(choiceAOnClickListener);
-        mTextChoiceB.setOnClickListener(choiceBOnClickListener);
-        mTextChoiceC.setOnClickListener(choiceCOnClickListener);
-        mTextChoiceD.setOnClickListener(choiceDOnClickListener);
-        mButtonCommit.setOnClickListener(commitOnClickListener);
-
 
         mTextChapterTitle.setText(chapterTitle);
-
-        mImageChoiceA.setImageResource(R.mipmap.choice_a);
-        mImageChoiceB.setImageResource(R.mipmap.choice_b);
-        mImageChoiceC.setImageResource(R.mipmap.choice_c);
-        mImageChoiceD.setImageResource(R.mipmap.choice_d);
-
         mTextChapter.setText(mQuestionInfos.get(position).getSubjectName());
         mOptions = mOperator.getOptionsByQuestionId(mQuestionInfos.get(position).getQuestionId());
 
@@ -184,12 +156,16 @@ public class QuestionDetailActivity extends BaseActivity{
 
         mCurrentQuestionInfo = mQuestionInfos.get(position);
 
+        mSelectionMethod = new SelectionMethod();
+
         if(mCurrentQuestionInfo.getAnswer().contains(",")){
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()) + " (多选)");
-            mQuestionType = MULTI_CHOICE;
+            mSelectionMethod.setChoiceMethod(new MultiSelectionMethod(mViews.get(position)));
+
+
         }else{
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
-            mQuestionType = SINGLE_CHOICE;
+            mSelectionMethod.setChoiceMethod(new SingleSelectionMethod(mViews.get(position)));
         }
 
     }
@@ -208,7 +184,8 @@ public class QuestionDetailActivity extends BaseActivity{
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(mViews.get(position));//asdsadasd
+            container.removeView(mViews.get(position));
+            mSelectionMethod.clearData();
         }
 
         @Override
@@ -360,144 +337,6 @@ public class QuestionDetailActivity extends BaseActivity{
         return chapterId;
     }
 
-    //选择A
-    private View.OnClickListener choiceAOnClickListener  = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(mQuestionType == MULTI_CHOICE){
-                handleChoiceAnswer(OPTION_A);
-            }else if(mQuestionType == SINGLE_CHOICE){
-                mChoiceSingleAnswer = OPTION_A;
-            }
-
-            updateOptionUI(OPTION_A);
-        }
-    };
-
-    //选择B
-    private View.OnClickListener choiceBOnClickListener  = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(mQuestionType == MULTI_CHOICE){
-                handleChoiceAnswer(OPTION_B);
-
-            }else if(mQuestionType == SINGLE_CHOICE){
-                mChoiceSingleAnswer = OPTION_B;
-            }
-            updateOptionUI(OPTION_B);
-        }
-    };
-
-    //选择C
-    private View.OnClickListener choiceCOnClickListener  = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(mQuestionType == MULTI_CHOICE){
-                handleChoiceAnswer(OPTION_C);
-            }else if(mQuestionType == SINGLE_CHOICE){
-                mChoiceSingleAnswer = OPTION_C;
-            }
-            updateOptionUI(OPTION_C);
-
-
-        }
-    };
-
-    //选择D
-    private View.OnClickListener choiceDOnClickListener  = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(mQuestionType == MULTI_CHOICE){
-                handleChoiceAnswer(OPTION_D);
-            }else if(mQuestionType == SINGLE_CHOICE){
-                mChoiceSingleAnswer = OPTION_D;
-            }
-
-            updateOptionUI(OPTION_D);
-
-
-        }
-    };
-
-    private void updateOptionUI(String option) {
-        switch (option){
-            case OPTION_A:
-                if(mQuestionType == MULTI_CHOICE){
-                    if(mChoiceMultiAnswers.contains(OPTION_A)){
-                        mImageChoiceA.setImageResource(R.mipmap.option_selected);
-                    }else{
-                        mImageChoiceA.setImageResource(R.mipmap.choice_a);
-                    }
-                }else if(mQuestionType == SINGLE_CHOICE){
-                    clearChoiceUI();
-                    mImageChoiceA.setImageResource(R.mipmap.option_selected);
-                }
-
-                break;
-
-            case OPTION_B:
-                if(mQuestionType == MULTI_CHOICE) {
-                    if (mChoiceMultiAnswers.contains(OPTION_B)) {
-                        mImageChoiceB.setImageResource(R.mipmap.option_selected);
-                    } else {
-                        mImageChoiceB.setImageResource(R.mipmap.choice_b);
-                    }
-                }else if(mQuestionType == SINGLE_CHOICE){
-                    clearChoiceUI();
-                    mImageChoiceB.setImageResource(R.mipmap.option_selected);
-                }
-                break;
-
-            case OPTION_C:
-                if(mQuestionType == MULTI_CHOICE) {
-                    if(mChoiceMultiAnswers.contains(OPTION_C)){
-                        mImageChoiceC.setImageResource(R.mipmap.option_selected);
-                    }else{
-                        mImageChoiceC.setImageResource(R.mipmap.choice_c);
-                    }
-                }else if(mQuestionType == SINGLE_CHOICE){
-                    clearChoiceUI();
-                    mImageChoiceC.setImageResource(R.mipmap.option_selected);
-                }
-
-                break;
-
-            case OPTION_D:
-                if(mQuestionType == MULTI_CHOICE) {
-                    if(mChoiceMultiAnswers.contains(OPTION_D)){
-                        mImageChoiceD.setImageResource(R.mipmap.option_selected);
-                    }else{
-                        mImageChoiceD.setImageResource(R.mipmap.choice_d);
-                    }
-                }else if(mQuestionType == SINGLE_CHOICE){
-                    clearChoiceUI();
-                    mImageChoiceD.setImageResource(R.mipmap.option_selected);
-                }
-
-                break;
-        }
-    }
-
-
-
-    private View.OnClickListener commitOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(checkAnswer(mChoiceMultiAnswers)){
-
-            }
-        }
-    };
-
-
-    private List<String> handleChoiceAnswer(String answer){
-        if(!mChoiceMultiAnswers.contains(answer)){
-            mChoiceMultiAnswers.add(answer);
-        }else{
-            mChoiceMultiAnswers.remove(answer);
-        }
-        return mChoiceMultiAnswers;
-    }
 
     private boolean checkAnswer(List<String> answers){
          for(int i=0;i<answers.size();i++){
@@ -506,36 +345,6 @@ public class QuestionDetailActivity extends BaseActivity{
              }
          }
          return true;
-    }
-
-    private void clearChoiceUI(){
-        mImageChoiceA.setImageResource(R.mipmap.choice_a);
-        mImageChoiceB.setImageResource(R.mipmap.choice_b);
-        mImageChoiceC.setImageResource(R.mipmap.choice_c);
-        mImageChoiceD.setImageResource(R.mipmap.choice_d);
-    }
-
-    private class MultiChoice implements IChoiceOptionListener{
-
-        @Override
-        public void choiceOption(String option) {
-            handleChoiceAnswer(option);
-            if(mChoiceMultiAnswers.contains(option)){
-                mImageChoiceA.setImageResource(R.mipmap.option_selected);
-            }else{
-                mImageChoiceA.setImageResource(R.mipmap.choice_a);
-            }
-        }
-    }
-
-    private class SingleChoice implements IChoiceOptionListener{
-
-        @Override
-        public void choiceOption(String option) {
-            mChoiceSingleAnswer = option;
-            clearChoiceUI();
-            mImageChoiceA.setImageResource(R.mipmap.option_selected);
-        }
     }
 
 }
