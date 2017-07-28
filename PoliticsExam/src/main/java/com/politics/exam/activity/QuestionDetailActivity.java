@@ -322,6 +322,8 @@ public class QuestionDetailActivity extends BaseActivity{
 
         @Override
         public void onClick(View v) {
+
+
             if(mSelectionMethod.getSelectionType().equals(mSelectionMethod.getMultiSelectionType())){
                 mSelectionMethod.checkAnswers(null);
 

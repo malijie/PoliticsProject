@@ -1,11 +1,14 @@
 package com.politics.exam.business;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.Logger;
+import com.politics.exam.util.ToastManager;
+import com.politics.exam.util.Utils;
 
 import java.util.List;
 
@@ -69,6 +72,11 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
 
     @Override
     public void checkAnswers(String selection) {
+        if(TextUtils.isEmpty(selection)){
+            ToastManager.showAnswerNotNullMsg();
+            return;
+        }
+
         if(selection.equals(mQuestionInfo.getAnswer())){
             showRightOption(selection);
         }else{
@@ -86,18 +94,22 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
         switch (answer){
             case "A":
                 mImageSelectionA.setImageResource(R.mipmap.answer_right);
+                mTextChoiceA.setTextColor(Utils.getColor(R.color.font_green));
                 break;
 
             case "B":
                 mImageSelectionB.setImageResource(R.mipmap.answer_right);
+                mTextChoiceB.setTextColor(Utils.getColor(R.color.font_green));
                 break;
 
             case "C":
                 mImageSelectionC.setImageResource(R.mipmap.answer_right);
+                mTextChoiceC.setTextColor(Utils.getColor(R.color.font_green));
                 break;
 
             case "D":
                 mImageSelectionD.setImageResource(R.mipmap.answer_right);
+                mTextChoiceD.setTextColor(Utils.getColor(R.color.font_green));
                 break;
         }
     }
@@ -106,18 +118,22 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
         switch (option){
             case "A":
                 mImageSelectionA.setImageResource(R.mipmap.answer_wrong);
+                mTextChoiceA.setTextColor(Utils.getColor(R.color.font_red));
                 break;
 
             case "B":
                 mImageSelectionB.setImageResource(R.mipmap.answer_wrong);
+                mTextChoiceB.setTextColor(Utils.getColor(R.color.font_red));
                 break;
 
             case "C":
                 mImageSelectionC.setImageResource(R.mipmap.answer_wrong);
+                mTextChoiceC.setTextColor(Utils.getColor(R.color.font_red));
                 break;
 
             case "D":
                 mImageSelectionD.setImageResource(R.mipmap.answer_wrong);
+                mTextChoiceD.setTextColor(Utils.getColor(R.color.font_red));
                 break;
         }
     }

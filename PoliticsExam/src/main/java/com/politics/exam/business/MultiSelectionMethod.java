@@ -7,6 +7,7 @@ import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.Logger;
+import com.politics.exam.util.ToastManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -92,6 +93,12 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
     }
 
     public void checkMultiAnswers(){
+        if(mChoiceMultiAnswers.size() == 0){
+            ToastManager.showAnswerNotNullMsg();
+            return;
+        }
+
+
         if(isSelectionsRight(mChoiceMultiAnswers)){
             showRightSelectionUI();
         }else{
@@ -164,9 +171,6 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
         return null;
     }
 
-    public List<String> getMultiSelections(){
-       return mChoiceMultiAnswers;
-    }
 
     private List<String> handleSelectionAnswer(String answer){
         if(!mChoiceMultiAnswers.contains(answer)){

@@ -38,18 +38,8 @@ public class Utils {
         return LayoutInflater.from(sContext).inflate(resId,null);
     }
 
-    public void testText(){
-//        String content="[顶]"+"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈";
-//        SpannableStringBuilder builder = new SpannableStringBuilder(content);
-//        ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.parseColor("#f45b5b"));
-//
-//        SpannableString textSpan = new SpannableString (content);
-//        textSpan.setSpan(new AbsoluteSizeSpan(50),0,4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-//        textSpan.setSpan(new AbsoluteSizeSpan(32),5,8,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-//
-//        builder.setSpan(redSpan, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        mTextSubject.setText(builder);
-//        mTextSubject.setText(textSpan);
+    public static String getString(int resId){
+        return sContext.getResources().getString(resId);
     }
 
 }
