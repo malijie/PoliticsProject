@@ -323,22 +323,12 @@ public class QuestionDetailActivity extends BaseActivity{
         @Override
         public void onClick(View v) {
             if(mSelectionMethod.getSelectionType().equals(mSelectionMethod.getMultiSelectionType())){
-
+                mSelectionMethod.checkAnswers(null);
 
             }else if(mSelectionMethod.getSelectionType().equals(mSelectionMethod.getSingleSelectionType())){
-                String selection = mSelectionMethod.getSelection();
-                mSelectionMethod.checkAnswers(selection);
+                mSelectionMethod.checkAnswers(mSelectionMethod.getSelection());
             }
         }
     };
-
-    private boolean checkAnswer(List<String> answers){
-         for(int i=0;i<answers.size();i++){
-             if(!mCurrentQuestionInfo.getAnswer().contains(answers.get(i))){
-                    return false;
-             }
-         }
-         return true;
-    }
 
 }
