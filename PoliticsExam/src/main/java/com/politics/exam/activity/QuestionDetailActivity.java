@@ -330,6 +330,8 @@ public class QuestionDetailActivity extends BaseActivity{
             }else if(mSelectionMethod.getSelectionType().equals(mSelectionMethod.getSingleSelectionType())){
                 mSelectionMethod.checkAnswers(mSelectionMethod.getSelection());
             }
+            mSelectionMethod.saveAnswers(mCurrentQuestionInfo.getQuestionId(),mSelectionMethod.getSelection());
+
         }
     };
 

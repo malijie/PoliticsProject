@@ -21,8 +21,12 @@ public class SQLContainer {
 
     }
 
-    public static String querOptionsByQuestionId(int questionId){
+    public static String queryOptionsByQuestionId(int questionId){
         return "SELECT * FROM " + QUESTION_OPTION + " WHERE QUESTION_ID='" + questionId + "' ORDER BY QUESTION_ID, KEY";
+    }
+
+    public static String updateHistoryAnswer(int id, String options){
+        return "UPDATE " + QUESTION_INFO + " SET HISTORY_ANSWERS='" + options + "' WHERE QUESTION_ID='" + id +"'";
     }
 
 }

@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
+import com.politics.exam.db.operator.BaseOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 
@@ -38,6 +39,7 @@ public class SelectionMethod implements ISelectionMethod {
     private ISelectionMethod choiceMethod;
     private List<OptionInfo> mOptions = new ArrayList<>();
     private QuestionInfo mQuestionInfo = null;
+    protected BaseOperator mOperator = new BaseOperator();
 
     public SelectionMethod(){
 
@@ -139,4 +141,13 @@ public class SelectionMethod implements ISelectionMethod {
         return choiceMethod.getSelection();
     }
 
+    @Override
+    public void saveAnswers(int id,String options) {
+        saveHistoryAnswers(id,options);
+    }
+
+    private void saveHistoryAnswers(int id,String option) {
+        mOperator.saveHistoryAnswer(id,option);
+
+    }
 }

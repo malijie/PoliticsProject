@@ -168,7 +168,11 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
 
     @Override
     public String getSelection() {
-        return null;
+        String selections = "";
+        for(String str:mChoiceMultiAnswers){
+            selections += str +",";
+        }
+        return selections.substring(0,selections.length()-1);
     }
 
 
@@ -180,4 +184,5 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
         }
         return mChoiceMultiAnswers;
     }
+
 }

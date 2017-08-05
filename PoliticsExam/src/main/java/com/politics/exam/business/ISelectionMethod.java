@@ -12,4 +12,5 @@ public interface ISelectionMethod {
     String getSelectionType();
     void checkAnswers(String answer);
     String getSelection();
+    void saveAnswers(int id,String options);
 }

@@ -57,7 +57,7 @@ public class BaseOperator{
 
     public List<OptionInfo> getOptionsByQuestionId(int questionId){
         List<OptionInfo> options = new ArrayList<>();
-        Cursor cursor = mDB.rawQuery(SQLContainer.querOptionsByQuestionId(questionId),null);
+        Cursor cursor = mDB.rawQuery(SQLContainer.queryOptionsByQuestionId(questionId),null);
         while (cursor.moveToNext()) {
             OptionInfo optionInfo = new OptionInfo();
             optionInfo.setQuestionId(cursor.getInt(cursor.getColumnIndex("QUESTION_ID")));
@@ -66,6 +66,10 @@ public class BaseOperator{
             options.add(optionInfo);
         }
         return options;
+    }
+
+    public void saveHistoryAnswer(int id,String options){
+        mDB.execSQL(SQLContainer.updateHistoryAnswer(id,options));
     }
 
 }

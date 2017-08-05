@@ -30,7 +30,9 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
         mSelectionAnswer = option;
         clearSelectionUI();
         updateSelectionUI(option);
+
     }
+
 
     private void clearSelectionUI(){
         mImageSelectionA.setImageResource(R.mipmap.choice_a);
@@ -137,4 +139,5 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
                 break;
         }
     }
+
 }
