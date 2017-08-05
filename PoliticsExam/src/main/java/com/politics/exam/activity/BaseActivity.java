@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.politics.exam.R;
+import com.politics.exam.db.operator.BaseOperator;
 import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Utils;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public abstract class BaseActivity extends Activity{
     private ImageButton mButtonBack = null;
+    public BaseOperator mDB =  new BaseOperator();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

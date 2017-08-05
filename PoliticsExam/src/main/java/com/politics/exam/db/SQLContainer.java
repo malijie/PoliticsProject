@@ -1,5 +1,7 @@
 package com.politics.exam.db;
 
+import com.politics.exam.util.Logger;
+
 /**
  * Created by malijie on 2017/6/1.
  */
@@ -27,6 +29,10 @@ public class SQLContainer {
 
     public static String updateHistoryAnswer(int id, String options){
         return "UPDATE " + QUESTION_INFO + " SET HISTORY_ANSWERS='" + options + "' WHERE QUESTION_ID='" + id +"'";
+    }
+
+    public static String queryQuestionById(int questionId){
+        return "SELECT * FROM " + QUESTION_INFO + " WHERE QUESTION_ID='" + questionId + "'";
     }
 
 }

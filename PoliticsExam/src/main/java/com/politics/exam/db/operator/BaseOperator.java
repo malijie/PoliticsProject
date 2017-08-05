@@ -2,11 +2,15 @@ package com.politics.exam.db.operator;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 import com.politics.exam.db.DBHelper;
 import com.politics.exam.db.SQLContainer;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.util.Logger;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +74,25 @@ public class BaseOperator{
 
     public void saveHistoryAnswer(int id,String options){
         mDB.execSQL(SQLContainer.updateHistoryAnswer(id,options));
+    }
+
+    public boolean isCompleteQuestion(int id){
+        Cursor cursor = mDB.rawQuery(SQLContainer.queryQuestionById(id),null);
+        if(cursor.moveToNext()){
+            if(!TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex("HISTORY_ANSWERS")))){
+                return  true;
+            }
+        }
+        return false;
+    }
+
+    public String getHistoryAnswers(int id){
+        Cursor cursor = mDB.rawQuery(SQLContainer.queryQuestionById(id),null);
+        if(cursor.moveToNext()){
+            return cursor.getString(cursor.getColumnIndex("HISTORY_ANSWERS"));
+        }
+
+        return "";
     }
 
 }

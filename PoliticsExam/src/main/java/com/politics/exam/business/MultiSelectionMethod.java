@@ -1,5 +1,6 @@
 package com.politics.exam.business;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -88,16 +89,22 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
     }
 
     @Override
-    public void checkAnswers(String answer) {
-        checkMultiAnswers();
+    public void checkAnswers(String answers) {
+        checkMultiAnswers(answers);
     }
 
-    public void checkMultiAnswers(){
-        if(mChoiceMultiAnswers.size() == 0){
+    public void checkMultiAnswers(String answers){
+        if(mChoiceMultiAnswers.size() == 0 && TextUtils.isEmpty(answers)){
             ToastManager.showAnswerNotNullMsg();
             return;
         }
 
+        if(!TextUtils.isEmpty(answers)){
+            String[] strAnswers = answers.split(",");
+            for(int i=0;i<strAnswers.length;i++){
+                mChoiceMultiAnswers.add(strAnswers[i]);
+            }
+        }
 
         if(isSelectionsRight(mChoiceMultiAnswers)){
             showRightSelectionUI();

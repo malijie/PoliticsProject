@@ -15,6 +15,7 @@ import com.politics.exam.R;
 import com.politics.exam.business.MultiSelectionMethod;
 import com.politics.exam.business.SelectionMethod;
 import com.politics.exam.business.SingleSelectionMethod;
+import com.politics.exam.db.operator.BaseOperator;
 import com.politics.exam.db.operator.ChapterMYDBOperator;
 import com.politics.exam.db.operator.ChapterMZTDBOperator;
 import com.politics.exam.db.operator.ChapterSGDBOperator;
@@ -24,6 +25,7 @@ import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
+import com.politics.exam.util.Logger;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
@@ -137,6 +139,7 @@ public class QuestionDetailActivity extends BaseActivity{
 
         mSelectionMethod = new SelectionMethod();
 
+
         if(mCurrentQuestionInfo.getType().equals(mSelectionMethod.getMultiSelectionType())){
             //多选
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()) + " (多选)");
@@ -146,6 +149,10 @@ public class QuestionDetailActivity extends BaseActivity{
             //单选
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()));
             mSelectionMethod.setSelectionMethod(new SingleSelectionMethod(mViews.get(position),mQuestionInfos.get(position),mOptions));
+        }
+
+        if(mDB.isCompleteQuestion(mCurrentQuestionInfo.getQuestionId())){
+            mSelectionMethod.checkAnswers(mDB.getHistoryAnswers(mCurrentQuestionInfo.getQuestionId()));
         }
 
     }
