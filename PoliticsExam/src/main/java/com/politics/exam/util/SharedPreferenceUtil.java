@@ -5,24 +5,36 @@ import android.content.Context;
 import com.politics.exam.PoliticsApplication;
 
 public class SharedPreferenceUtil {
-	private static final String SP_ANSWER_PROGRESS = "answer_progress";
-	private static final String SP_LESSON_PROGRESS_KEY = "lesson";
+	private static final String SP_QUESTION_PROGRESS = "question_progress";
+	private static final String SP_QUESTION_PROGRESS_KEY = "item";
+	private static final String SP_QUESTION_INIT = "init";
 
 	/**
-	 * 保存单词学习进度
+	 * 保存课程学习进度
 	 * @param progress
 	 */
 	public static void saveProgress(int groupId,int childId,int progress){
-		PoliticsApplication.sContext.getSharedPreferences(SP_ANSWER_PROGRESS, Context.MODE_PRIVATE).edit()
-				.putInt(SP_LESSON_PROGRESS_KEY + + groupId + childId,progress).commit();
+		PoliticsApplication.sContext.getSharedPreferences(SP_QUESTION_PROGRESS, Context.MODE_PRIVATE).edit()
+				.putInt(SP_QUESTION_PROGRESS_KEY + groupId + childId,progress).commit();
 	}
 
 	/**
-	 * 读取单词进度
+	 * 读取课程进度
 	 * @return
 	 */
 	public static int loadProgress(int groupId,int childId){
-		return PoliticsApplication.sContext.getSharedPreferences(SP_ANSWER_PROGRESS, Context.MODE_PRIVATE)
-				.getInt(SP_LESSON_PROGRESS_KEY + groupId + childId,0);
+		return PoliticsApplication.sContext.getSharedPreferences(SP_QUESTION_PROGRESS, Context.MODE_PRIVATE)
+				.getInt(SP_QUESTION_PROGRESS_KEY + groupId + childId,0);
 	}
+
+	public static void saveFirstInit(boolean init) {
+		PoliticsApplication.sContext.getSharedPreferences(SP_QUESTION_PROGRESS, Context.MODE_PRIVATE).edit()
+				.putBoolean(SP_QUESTION_INIT,init).commit();
+	}
+
+	public static boolean loadFirstInit(){
+		return PoliticsApplication.sContext.getSharedPreferences(SP_QUESTION_PROGRESS, Context.MODE_PRIVATE)
+				.getBoolean(SP_QUESTION_INIT,true);
+	}
+
 }

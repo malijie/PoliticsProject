@@ -14,12 +14,12 @@ import static com.politics.exam.PoliticsApplication.sContext;
  */
 
 public class DBManager {
-    public static void copyDB2Phone(){
+    public static void copyDB2Phone(CopyDBListener listener){
         String dbFileName = DBConstants.DB_PATH + DBConstants.DB_NAME;
         File dbFile = new File(dbFileName);
         InputStream is = null;
         FileOutputStream os = null;
-        if(!dbFile.exists()){
+//        if(!dbFile.exists()){
             dbFile.getParentFile().mkdirs();
             try{
                 os = new FileOutputStream(dbFileName);
@@ -30,10 +30,13 @@ public class DBManager {
                     os.write(buffer, 0, count);
                     os.flush();
                 }
+
             }catch(FileNotFoundException e){
                 e.printStackTrace();
+                listener.onFailed();
             } catch (IOException e) {
                 e.printStackTrace();
+                listener.onFailed();
             }finally{
                 try {
                     is.close();
@@ -42,6 +45,13 @@ public class DBManager {
                     e.printStackTrace();
                 }
             }
-        }
+//        }
+        listener.onSuccess();
+    }
+
+
+    public interface CopyDBListener{
+        void onSuccess();
+        void onFailed();
     }
 }

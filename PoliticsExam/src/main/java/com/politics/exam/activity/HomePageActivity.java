@@ -54,7 +54,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initData() {
-        DBManager.copyDB2Phone();
+//        DBManager.copyDB2Phone();
     }
 
     @Override

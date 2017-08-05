@@ -9,6 +9,8 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import com.politics.exam.R;
+import com.politics.exam.db.DBManager;
+import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.widget.MyExpandableListAdapter;
 
 
@@ -23,8 +25,30 @@ public class QuestionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View messageLayout = inflater.inflate(R.layout.question_fragment, container, false);
-        initViews(messageLayout);
+        initData(messageLayout);
         return messageLayout;
+    }
+
+    private void initData(final View v) {
+        if(SharedPreferenceUtil.loadFirstInit()){
+            DBManager.copyDB2Phone(new DBManager.CopyDBListener() {
+                @Override
+                public void onSuccess() {
+                    initViews(v);
+                    SharedPreferenceUtil.saveFirstInit(false);
+                }
+
+                @Override
+                public void onFailed() {
+                    SharedPreferenceUtil.saveFirstInit(true);
+
+                }
+            });
+
+        }else{
+            initViews(v);
+        }
+
     }
 
     private void initViews(View messageLayout) {
@@ -32,5 +56,7 @@ public class QuestionsFragment extends Fragment {
         mExpandListView.setAdapter(new MyExpandableListAdapter());
         mExpandListView.setGroupIndicator(null);
     }
+
+
 
 }

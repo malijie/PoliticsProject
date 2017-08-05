@@ -26,6 +26,7 @@ import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
+import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
@@ -56,6 +57,8 @@ public class QuestionDetailActivity extends BaseActivity{
 
     public IDBOperator mOperator = null;
     private List<QuestionInfo> mQuestionInfos;
+    private int groupPosition;
+    private int childPosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,8 +72,8 @@ public class QuestionDetailActivity extends BaseActivity{
     @Override
     public void initData() {
         Intent i = getIntent();
-        int groupPosition = i.getIntExtra("groupPosition",0);
-        int childPosition = i.getIntExtra("childPosition",0);
+        groupPosition = i.getIntExtra("groupPosition",0);
+        childPosition = i.getIntExtra("childPosition",0);
         chapterTitle = i.getStringExtra("chapterTitle");
         mOperator = getOperator(groupPosition);
         mQuestionInfos = mOperator.getQuestionsByChapterId(getChapterId(groupPosition,childPosition));
@@ -116,10 +119,8 @@ public class QuestionDetailActivity extends BaseActivity{
             }
         });
 
-        if(isFirstIn){
-            updateContent(0);
-            isFirstIn = false;
-        }
+        int position = SharedPreferenceUtil.loadProgress(groupPosition,childPosition);
+        updateContent(position);
 
     }
 
@@ -136,6 +137,7 @@ public class QuestionDetailActivity extends BaseActivity{
         mOptions = mOperator.getOptionsByQuestionId(mQuestionInfos.get(position).getQuestionId());
 
         mCurrentQuestionInfo = mQuestionInfos.get(position);
+        mViewPager.setCurrentItem(position);
 
         mSelectionMethod = new SelectionMethod();
 
@@ -342,4 +344,10 @@ public class QuestionDetailActivity extends BaseActivity{
         }
     };
 
+    @Override
+    protected void onStop() {
+        int lastPosition= mViewPager.getCurrentItem();
+        SharedPreferenceUtil.saveProgress(groupPosition,childPosition,lastPosition);
+        super.onStop();
+    }
 }

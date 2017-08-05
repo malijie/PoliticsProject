@@ -18,6 +18,7 @@ import com.politics.exam.R;
 import com.politics.exam.db.operator.BaseOperator;
 import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.util.IntentManager;
+import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.util.Utils;
 
 import java.util.List;
@@ -61,6 +62,10 @@ public abstract class BaseActivity extends Activity{
         textSpan.setSpan(new AbsoluteSizeSpan(30),start,end+1,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return textSpan;
+    }
+
+    public void saveLastProgress(int groupId,int itemId,int position){
+        SharedPreferenceUtil.saveProgress(groupId,itemId,position);
     }
 
 
