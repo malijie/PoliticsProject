@@ -1,6 +1,7 @@
 package com.politics.exam.business;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,6 +9,7 @@ import com.politics.exam.R;
 import com.politics.exam.db.operator.BaseOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.util.Logger;
 
 import org.w3c.dom.Text;
 
@@ -25,6 +27,7 @@ public class SelectionMethod implements ISelectionMethod {
     private static final String OPTION_D = "D";
     public  static final String SINGLE_SELECTION = "1";
     public static final String MULTI_SELECTION = "2";
+    private Button mButtonCommit;
 
     protected ImageView mImageSelectionA = null;
     protected ImageView mImageSelectionB = null;
@@ -59,6 +62,7 @@ public class SelectionMethod implements ISelectionMethod {
         mTextChoiceC = (TextView) view.findViewById(R.id.id_question_detail_text_choiceC);
         mTextChoiceD = (TextView) view.findViewById(R.id.id_question_detail_text_choiceD);
 
+        mButtonCommit = (Button)view.findViewById(R.id.id_question_detail_button_commit);
 
         mTextChoiceA.setOnClickListener(choiceAOnClickListener);
         mTextChoiceB.setOnClickListener(choiceBOnClickListener);
@@ -148,6 +152,17 @@ public class SelectionMethod implements ISelectionMethod {
 
     private void saveHistoryAnswers(int id,String option) {
         mOperator.saveHistoryAnswer(id,option);
+    }
 
+    public boolean canUpdateSelectionUI(int id){
+        return !mOperator.isCompleteQuestion(id);
+    }
+
+    public void handleSelectionUI(boolean clickable){
+        mTextChoiceA.setClickable(clickable);
+        mTextChoiceB.setClickable(clickable);
+        mTextChoiceC.setClickable(clickable);
+        mTextChoiceD.setClickable(clickable);
+        mButtonCommit.setClickable(clickable);
     }
 }

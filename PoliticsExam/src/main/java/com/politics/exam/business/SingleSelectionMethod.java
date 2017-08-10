@@ -6,7 +6,6 @@ import android.view.View;
 import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
-import com.politics.exam.util.Logger;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
@@ -78,6 +77,8 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
             ToastManager.showAnswerNotNullMsg();
             return;
         }
+
+        handleSelectionUI(canUpdateSelectionUI(mQuestionInfo.getQuestionId()));
 
         if(selection.equals(mQuestionInfo.getAnswer())){
             showRightOption(selection);

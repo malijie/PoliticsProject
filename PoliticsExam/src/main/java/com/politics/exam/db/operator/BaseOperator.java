@@ -78,6 +78,7 @@ public class BaseOperator{
 
     public boolean isCompleteQuestion(int id){
         Cursor cursor = mDB.rawQuery(SQLContainer.queryQuestionById(id),null);
+        Logger.mlj("sql=" + SQLContainer.queryQuestionById(id));
         if(cursor.moveToNext()){
             if(!TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex("HISTORY_ANSWERS")))){
                 return  true;

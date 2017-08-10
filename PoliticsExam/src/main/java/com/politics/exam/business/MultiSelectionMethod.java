@@ -2,16 +2,13 @@ package com.politics.exam.business;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
-import com.politics.exam.util.Logger;
 import com.politics.exam.util.ToastManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,9 +18,11 @@ import java.util.List;
 public class MultiSelectionMethod extends SelectionMethod implements ISelectionMethod {
     private List<String> mChoiceMultiAnswers = new ArrayList<>();
     private List<String> mRightAnswers = new ArrayList<>();
+    private QuestionInfo mQuestionInfo = null;
 
     public MultiSelectionMethod(View view, QuestionInfo questionInfo, List<OptionInfo> options) {
         super(view,questionInfo,options);
+        mQuestionInfo = questionInfo;
         mRightAnswers = getRightAnswers(questionInfo);
     }
 
@@ -99,11 +98,17 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
             return;
         }
 
+        handleSelectionUI(canUpdateSelectionUI(mQuestionInfo.getQuestionId()));
+
         if(!TextUtils.isEmpty(answers)){
             String[] strAnswers = answers.split(",");
             for(int i=0;i<strAnswers.length;i++){
                 mChoiceMultiAnswers.add(strAnswers[i]);
             }
+        }
+
+        if(!canUpdateSelectionUI(mQuestionInfo.getQuestionId())){
+            handleSelectionUI(false);
         }
 
         if(isSelectionsRight(mChoiceMultiAnswers)){
@@ -179,6 +184,11 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
         for(String str:mChoiceMultiAnswers){
             selections += str +",";
         }
+
+        if(mChoiceMultiAnswers.size() == 0){
+            return "";
+        }
+
         return selections.substring(0,selections.length()-1);
     }
 
