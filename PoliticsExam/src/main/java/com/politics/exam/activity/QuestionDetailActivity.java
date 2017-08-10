@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.politics.exam.R;
+import com.politics.exam.business.AnswerMethod;
 import com.politics.exam.business.MultiSelectionMethod;
 import com.politics.exam.business.SelectionMethod;
 import com.politics.exam.business.SingleSelectionMethod;
@@ -123,7 +124,7 @@ public class QuestionDetailActivity extends BaseActivity{
         updateContent(position);
 
     }
-
+    AnswerMethod mAnswerMethod = null;
     private void updateContent(int position){
         mOptions.clear();
 
@@ -155,6 +156,8 @@ public class QuestionDetailActivity extends BaseActivity{
         if(mDB.isCompleteQuestion(mCurrentQuestionInfo.getQuestionId())){
             mSelectionMethod.checkAnswers(mDB.getHistoryAnswers(mCurrentQuestionInfo.getQuestionId()));
         }
+
+        mAnswerMethod = new AnswerMethod(mViews.get(position),mCurrentQuestionInfo);
 
     }
 
@@ -339,13 +342,16 @@ public class QuestionDetailActivity extends BaseActivity{
             }
 
             mSelectionMethod.saveAnswers(mCurrentQuestionInfo.getQuestionId(),mSelectionMethod.getSelection());
+            mAnswerMethod.showAnswerUI(true);
         }
+
+
     };
 
     @Override
     protected void onStop() {
+        super.onStop();
         int lastPosition= mViewPager.getCurrentItem();
         SharedPreferenceUtil.saveProgress(groupPosition,childPosition,lastPosition);
-        super.onStop();
     }
 }
