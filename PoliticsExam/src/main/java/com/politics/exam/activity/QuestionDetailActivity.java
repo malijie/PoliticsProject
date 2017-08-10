@@ -141,7 +141,6 @@ public class QuestionDetailActivity extends BaseActivity{
 
         mSelectionMethod = new SelectionMethod();
 
-
         if(mCurrentQuestionInfo.getType().equals(mSelectionMethod.getMultiSelectionType())){
             //多选
             mTextQuestionTitle.setText(getContentStyle(position + 1,mQuestionInfos.get(position).getNumber(),mQuestionInfos.get(position).getTitle()) + " (多选)");
@@ -332,15 +331,14 @@ public class QuestionDetailActivity extends BaseActivity{
         @Override
         public void onClick(View v) {
 
-
             if(mSelectionMethod.getSelectionType().equals(mSelectionMethod.getMultiSelectionType())){
                 mSelectionMethod.checkAnswers(null);
 
             }else if(mSelectionMethod.getSelectionType().equals(mSelectionMethod.getSingleSelectionType())){
                 mSelectionMethod.checkAnswers(mSelectionMethod.getSelection());
             }
-            mSelectionMethod.saveAnswers(mCurrentQuestionInfo.getQuestionId(),mSelectionMethod.getSelection());
 
+            mSelectionMethod.saveAnswers(mCurrentQuestionInfo.getQuestionId(),mSelectionMethod.getSelection());
         }
     };
 

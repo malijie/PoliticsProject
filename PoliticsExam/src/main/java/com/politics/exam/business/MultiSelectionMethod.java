@@ -107,9 +107,7 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
             }
         }
 
-        if(!canUpdateSelectionUI(mQuestionInfo.getQuestionId())){
-            handleSelectionUI(false);
-        }
+        handleSelectionUI(false);
 
         if(isSelectionsRight(mChoiceMultiAnswers)){
             showRightSelectionUI();

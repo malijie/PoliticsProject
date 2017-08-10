@@ -73,6 +73,8 @@ public class SelectionMethod implements ISelectionMethod {
         mTextChoiceB.setText(mOptions.get(1).getValue());
         mTextChoiceC.setText(mOptions.get(2).getValue());
         mTextChoiceD.setText(mOptions.get(3).getValue());
+
+        clearOptionsUI();
     }
 
     public String getMultiSelectionType(){
@@ -164,5 +166,12 @@ public class SelectionMethod implements ISelectionMethod {
         mTextChoiceC.setClickable(clickable);
         mTextChoiceD.setClickable(clickable);
         mButtonCommit.setClickable(clickable);
+    }
+
+    public void clearOptionsUI(){
+        mImageSelectionA.setImageResource(R.mipmap.choice_a);
+        mImageSelectionB.setImageResource(R.mipmap.choice_b);
+        mImageSelectionC.setImageResource(R.mipmap.choice_c);
+        mImageSelectionD.setImageResource(R.mipmap.choice_d);
     }
 }

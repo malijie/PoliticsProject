@@ -6,6 +6,7 @@ import android.view.View;
 import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.util.Logger;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
@@ -21,24 +22,18 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
 
     public SingleSelectionMethod(View view , QuestionInfo questionInfo, List<OptionInfo> options) {
         super(view,questionInfo,options);
+        clearOptionsUI();
         mQuestionInfo = questionInfo;
     }
 
     @Override
     public void choice(String option) {
         mSelectionAnswer = option;
-        clearSelectionUI();
+        clearOptionsUI();
         updateSelectionUI(option);
 
     }
 
-
-    private void clearSelectionUI(){
-        mImageSelectionA.setImageResource(R.mipmap.choice_a);
-        mImageSelectionB.setImageResource(R.mipmap.choice_b);
-        mImageSelectionC.setImageResource(R.mipmap.choice_c);
-        mImageSelectionD.setImageResource(R.mipmap.choice_d);
-    }
 
     private void updateSelectionUI(String option){
         switch (option){
@@ -78,7 +73,7 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
             return;
         }
 
-        handleSelectionUI(canUpdateSelectionUI(mQuestionInfo.getQuestionId()));
+        handleSelectionUI(false);
 
         if(selection.equals(mQuestionInfo.getAnswer())){
             showRightOption(selection);
@@ -86,6 +81,7 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
             updateWrongOptionUI(selection);
             showRightOption(mQuestionInfo.getAnswer());
         }
+
     }
 
     @Override
