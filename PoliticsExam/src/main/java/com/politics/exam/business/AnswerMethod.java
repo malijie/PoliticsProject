@@ -1,5 +1,10 @@
 package com.politics.exam.business;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -7,6 +12,7 @@ import android.widget.TextView;
 
 import com.politics.exam.R;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.util.Utils;
 
 /**
  * Created by malijie on 2017/8/10.
@@ -31,17 +37,17 @@ public class AnswerMethod implements IAnswerMethod{
 
     @Override
     public void showAnswer() {
-        mTextAnswer.setText(mCurrentInfo.getAnswer());
+        mTextAnswer.setText(getContentStyle("【正确答案】" + mCurrentInfo.getAnswer()));
     }
 
     @Override
     public void showOutlineAnswer() {
-        mTextOutline.setText(mCurrentInfo.getRestore());
+        mTextOutline.setText(getContentStyle("【大纲还原】" + mCurrentInfo.getRestore()));
     }
 
     @Override
     public void showAnswerDetail() {
-        mTextDetail.setText(mCurrentInfo.getExplain());
+        mTextDetail.setText(getContentStyle("【答案解析】" + mCurrentInfo.getExplain()));
     }
 
     @Override
@@ -52,5 +58,20 @@ public class AnswerMethod implements IAnswerMethod{
             showOutlineAnswer();
             showAnswerDetail();
         }
+    }
+
+    public SpannableString getContentStyle(String content){
+        SpannableString textSpan = new SpannableString (content);
+
+        int start = content.indexOf("【");
+        int end = content.indexOf("】");
+
+
+        textSpan.setSpan(new ForegroundColorSpan(Utils.getColor(R.color.font_red)),
+                start,end+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textSpan.setSpan(new AbsoluteSizeSpan(30),start,end+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return textSpan;
     }
 }

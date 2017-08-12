@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -342,7 +343,10 @@ public class QuestionDetailActivity extends BaseActivity{
             }
 
             mSelectionMethod.saveAnswers(mCurrentQuestionInfo.getQuestionId(),mSelectionMethod.getSelection());
-            mAnswerMethod.showAnswerUI(true);
+
+            if(!TextUtils.isEmpty(mSelectionMethod.getSelection())){
+                mAnswerMethod.showAnswerUI(true);
+            }
         }
 
 
