@@ -1,13 +1,18 @@
 package com.politics.exam.widget;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.politics.exam.PoliticsApplication;
 import com.politics.exam.R;
 import com.politics.exam.activity.QuestionDetailActivity;
 import com.politics.exam.data.Profile;
@@ -18,6 +23,7 @@ import com.politics.exam.db.operator.ChapterSXYFJDBOperator;
 import com.politics.exam.db.operator.ChapterSZDBOperator;
 import com.politics.exam.db.operator.IDBOperator;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.fragment.QuestionsFragment;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.SharedPreferenceUtil;
@@ -32,7 +38,9 @@ import static com.politics.exam.data.Profile.MY_02;
  * Created by malijie on 2017/5/26.
  */
 
-public class MyExpandableListAdapter implements ExpandableListAdapter {
+public class MyExpandableListAdapter extends BaseExpandableListAdapter {
+    private Fragment mFragment = null;
+    private ExpandableListView mExpandListView = null;
     private View mGroupView = null;
     private View mChildView = null;
     private TextView mTextQuestionNum = null;
@@ -42,7 +50,13 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     private IDBOperator mOperator = null;
     private int mQuestionCounts = 0;
+    private int mCurrentGroupId = 0;
 
+
+    public MyExpandableListAdapter(ExpandableListView expandListView,Fragment fragment){
+        mExpandListView = expandListView;
+        mFragment = fragment;
+    }
 
     private String[] mSubjects = new String[]{
             "马原", "毛中特", "史纲", "思修与法基","时政"
@@ -139,6 +153,7 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        mCurrentGroupId = (int)getGroupId(groupPosition);
         mChildView = Utils.getView(R.layout.expand_item_view);
         RelativeLayout layout = (RelativeLayout) mChildView.findViewById(R.id.id_expand_item_layout);
         mTextCharacter = (TextView) mChildView.findViewById(R.id.id_expand_item_text_title);
@@ -146,17 +161,18 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
 
         int questionCount = getQuestionTotalCount(groupPosition,childPosition);
         int process = SharedPreferenceUtil.loadProgress(groupPosition,childPosition);
-
+Logger.mlj("getChildView==" + "process=" + process);
         mTextProcess.setText( process + "/"+ questionCount);
         mTextCharacter.setText(mCharacter[groupPosition][childPosition]);
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent();
+                i.setClass(mFragment.getActivity(),QuestionDetailActivity.class);
                 i.putExtra("groupPosition",groupPosition);
                 i.putExtra("childPosition",childPosition);
                 i.putExtra("chapterTitle",mCharacter[groupPosition][childPosition]);
-                IntentManager.startActivity(i,QuestionDetailActivity.class);
+                mFragment.startActivityForResult(i, QuestionsFragment.RESULT_CODE_UPDATE_PROCESS);
             }
         });
         return mChildView;
@@ -370,5 +386,18 @@ public class MyExpandableListAdapter implements ExpandableListAdapter {
         }
         return count;
     }
+
+    public void refresh(){
+        mExpandListView.setVisibility(View.GONE);
+        notifyDataSetChanged();
+        mExpandListView.collapseGroup(getGroupId());
+        mExpandListView.expandGroup(getGroupId());
+        mExpandListView.setVisibility(View.VISIBLE);
+    }
+
+    public int getGroupId(){
+        return mCurrentGroupId;
+    }
+
 
 }

@@ -1,7 +1,10 @@
 package com.politics.exam.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -32,6 +35,7 @@ import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +45,7 @@ import java.util.List;
  */
 
 public class QuestionDetailActivity extends BaseActivity{
+    private static final int MSG_SAVE_PROGRESS = 0X0001;
 
     private ViewPager mViewPager = null;
     private List<View> mViews = null;
@@ -59,8 +64,9 @@ public class QuestionDetailActivity extends BaseActivity{
 
     public IDBOperator mOperator = null;
     private List<QuestionInfo> mQuestionInfos;
-    private int groupPosition;
-    private int childPosition;
+    private static int groupPosition;
+    private static int childPosition;
+    private MyHandler handler = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +85,7 @@ public class QuestionDetailActivity extends BaseActivity{
         chapterTitle = i.getStringExtra("chapterTitle");
         mOperator = getOperator(groupPosition);
         mQuestionInfos = mOperator.getQuestionsByChapterId(getChapterId(groupPosition,childPosition));
+        handler = new MyHandler(this);
 
     }
 
@@ -105,6 +112,11 @@ public class QuestionDetailActivity extends BaseActivity{
             @Override
             public void onPageSelected(int position) {
                 updateContent(position);
+
+                Message msg = Message.obtain();
+                msg.what = MSG_SAVE_PROGRESS;
+                msg.arg1 = position;
+                handler.dispatchMessage(msg);
             }
 
             @Override
@@ -356,6 +368,30 @@ public class QuestionDetailActivity extends BaseActivity{
     protected void onStop() {
         super.onStop();
         int lastPosition= mViewPager.getCurrentItem();
-        SharedPreferenceUtil.saveProgress(groupPosition,childPosition,lastPosition);
     }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacksAndMessages(null);
+        super.onDestroy();
+    }
+
+
+    private static class MyHandler extends Handler{
+        private WeakReference<Activity> ref = null;
+        public MyHandler(Activity activity){
+            ref = new WeakReference<Activity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case MSG_SAVE_PROGRESS:
+                    SharedPreferenceUtil.saveProgress(groupPosition,childPosition,msg.arg1);
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    }
+
 }
