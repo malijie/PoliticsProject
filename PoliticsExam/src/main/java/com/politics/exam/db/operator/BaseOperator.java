@@ -95,4 +95,8 @@ public class BaseOperator{
         return "";
     }
 
+    public void clearHistoryAnswers(){
+        mDB.execSQL(SQLContainer.clearHistoryAnswers());
+    }
+
 }

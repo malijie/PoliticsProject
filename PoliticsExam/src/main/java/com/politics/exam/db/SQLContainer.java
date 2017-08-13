@@ -35,4 +35,8 @@ public class SQLContainer {
         return "SELECT * FROM " + QUESTION_INFO + " WHERE QUESTION_ID='" + questionId + "'";
     }
 
+    public static String clearHistoryAnswers(){
+        return "UPDATE " + QUESTION_INFO + " SET HISTORY_ANSWERS=NULL";
+    }
+
 }

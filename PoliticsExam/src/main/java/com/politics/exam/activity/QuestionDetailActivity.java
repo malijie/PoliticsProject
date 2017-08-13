@@ -34,6 +34,7 @@ import com.politics.exam.util.Logger;
 import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
+import com.politics.exam.widget.CustomDialog;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class QuestionDetailActivity extends BaseActivity{
 
     private String chapterTitle;
     private ImageButton mButtonBack;
+    private ImageButton mButtonRevert;
     private Button mButtonCommit = null;
 
     private QuestionInfo mCurrentQuestionInfo;
@@ -67,6 +69,8 @@ public class QuestionDetailActivity extends BaseActivity{
     private static int groupPosition;
     private static int childPosition;
     private MyHandler handler = null;
+    private AnswerMethod mAnswerMethod = null;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,6 +98,7 @@ public class QuestionDetailActivity extends BaseActivity{
     public void initViews() {
         mViewPager = (ViewPager) findViewById(R.id.id_question_detail_view_pager);
         mTextChapter = (TextView) findViewById(R.id.id_title_bar_text_title);
+        mButtonRevert = (ImageButton) findViewById(R.id.id_title_bar_button_revert);
 
         mViews = new ArrayList<>();
         for(int i=0;i<mQuestionInfos.size();i++){
@@ -132,12 +137,14 @@ public class QuestionDetailActivity extends BaseActivity{
                 IntentManager.finishActivity(QuestionDetailActivity.this);
             }
         });
+        mButtonRevert.setOnClickListener(dialogOnClickListener);
 
         int position = SharedPreferenceUtil.loadProgress(groupPosition,childPosition);
         updateContent(position);
 
     }
-    AnswerMethod mAnswerMethod = null;
+
+
     private void updateContent(int position){
         mOptions.clear();
 
@@ -393,5 +400,27 @@ public class QuestionDetailActivity extends BaseActivity{
             super.handleMessage(msg);
         }
     }
+
+    private View.OnClickListener dialogOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final CustomDialog dialog = new CustomDialog(QuestionDetailActivity.this,"一键重学？");
+            dialog.setButtonClickListener(new CustomDialog.DialogButtonListener() {
+                @Override
+                public void onConfirm() {
+                    SharedPreferenceUtil.saveProgress(groupPosition,childPosition,0);
+                    new BaseOperator().clearHistoryAnswers();
+                    finish();
+                }
+
+                @Override
+                public void onCancel() {
+                    dialog.dissmiss();
+                }
+            });
+            dialog.show();
+        }
+    };
+
 
 }
