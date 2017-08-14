@@ -1,9 +1,7 @@
 package com.politics.exam.activity;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
-import com.politics.exam.db.DBManager;
 import com.politics.exam.fragment.QuestionsFragment;
 import com.politics.exam.fragment.ExamFragment;
 import com.politics.exam.fragment.UserFragment;
-import com.politics.exam.util.Utils;
 
 
 /**
@@ -37,6 +33,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private TextView mExamText;
     private TextView mUserText;
     private ImageButton mButtonBack;
+    private ImageButton mButtonRevert;
     private FragmentManager fragmentManager;
 
     @Override
@@ -69,11 +66,13 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         mExamText = (TextView) findViewById(R.id.contacts_text);
         mUserText = (TextView) findViewById(R.id.news_text);
         mButtonBack = (ImageButton) findViewById(R.id.id_title_bar_button_back);
+        mButtonRevert = (ImageButton) findViewById(R.id.id_title_bar_button_revert);
 
         mQuestionsLayout.setOnClickListener(this);
         mExamLayout.setOnClickListener(this);
         mUserLayout.setOnClickListener(this);
 
+        mButtonRevert.setVisibility(View.GONE);
         mButtonBack.setVisibility(View.GONE);
     }
 
