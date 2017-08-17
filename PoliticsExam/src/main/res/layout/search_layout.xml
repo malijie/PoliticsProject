@@ -9,7 +9,8 @@
         android:layout_height="60dp"
         android:layout_below="@id/id_home_layout_title"
         android:background="@color/grey"
-        android:gravity="center">
+        android:gravity="center"
+        android:focusableInTouchMode="true">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -18,7 +19,6 @@
             android:layout_marginRight="10dp"
             android:drawableLeft="@mipmap/edit_search"
             android:paddingLeft="10dp"
-            android:hint="请输入关键词"
-            android:focusable="false"/>
+            android:hint="请输入关键词"/>
     </RelativeLayout>
 </RelativeLayout>

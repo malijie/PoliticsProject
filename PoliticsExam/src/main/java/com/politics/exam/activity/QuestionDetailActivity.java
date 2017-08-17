@@ -409,7 +409,7 @@ public class QuestionDetailActivity extends BaseActivity{
                 @Override
                 public void onConfirm() {
                     SharedPreferenceUtil.saveProgress(groupPosition,childPosition,0);
-                    new BaseOperator().clearHistoryAnswers();
+                    new BaseOperator().clearHistoryAnswersByChapterId(mCurrentQuestionInfo.getChapterId());
                     finish();
                 }
 
