@@ -39,4 +39,8 @@ public class SQLContainer {
         return "UPDATE " + QUESTION_INFO + " SET HISTORY_ANSWERS=NULL WHERE CHAPTER_ID=" + id;
     }
 
+    public static String searchQuesitonInfo(String keyword){
+        return "SELECT * FROM " + QUESTION_INFO + " WHERE TITLE LIKE '%" + keyword + "%'";
+    }
+
 }

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
+import com.politics.exam.activity.SearchActivity;
 import com.politics.exam.db.DBManager;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.SharedPreferenceUtil;
@@ -74,11 +76,19 @@ public class QuestionsFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                    ToastManager.showShortMsg("search");
+                    String keyword = mEditTextSearch.getText().toString();
+                    if(TextUtils.isEmpty(keyword)){
+                        ToastManager.showShortMsg("请输入搜索内容");
+                        return false;
+                    }
+
+
+                    Intent i = new Intent(getActivity(), SearchActivity.class);
+                    i.putExtra("keyword",keyword);
+                    startActivity(i);
                 }
 
-
-                    return false;
+                return false;
             }
         });
     }
