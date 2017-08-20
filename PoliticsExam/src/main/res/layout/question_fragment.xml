@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/id_questions_layout_search"
-        layout="@layout/search_layout" />
+        layout="@layout/search_widget" />
 
         <LinearLayout
             android:layout_width="match_parent"

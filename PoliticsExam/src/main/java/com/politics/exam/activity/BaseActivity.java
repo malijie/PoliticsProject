@@ -59,7 +59,7 @@ public abstract class BaseActivity extends Activity{
         textSpan.setSpan(new ForegroundColorSpan(Utils.getColor(R.color.font_yellow)),
                 start,end+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        textSpan.setSpan(new AbsoluteSizeSpan(30),start,end+1,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textSpan.setSpan(new AbsoluteSizeSpan(40),start,end+1,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return textSpan;
     }

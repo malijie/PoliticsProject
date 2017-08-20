@@ -4,16 +4,21 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.politics.exam.R;
 import com.politics.exam.db.DBManager;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.SharedPreferenceUtil;
+import com.politics.exam.util.ToastManager;
 import com.politics.exam.widget.MyExpandableListAdapter;
 
 
@@ -24,6 +29,7 @@ import com.politics.exam.widget.MyExpandableListAdapter;
 
 public class QuestionsFragment extends Fragment {
     public static final int RESULT_CODE_UPDATE_PROCESS = 0x0001;
+    private EditText mEditTextSearch = null;
     private ExpandableListView mExpandListView;
     private MyExpandableListAdapter mAdapter =  null;
 
@@ -58,10 +64,23 @@ public class QuestionsFragment extends Fragment {
 
     private void initViews(View messageLayout) {
         mExpandListView = (ExpandableListView) messageLayout.findViewById(R.id.expand_list_view);
+        mEditTextSearch = (EditText) messageLayout.findViewById(R.id.id_home_edit_search);
         mAdapter = new MyExpandableListAdapter(mExpandListView,this);
 
         mExpandListView.setAdapter(mAdapter);
         mExpandListView.setGroupIndicator(null);
+
+        mEditTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    ToastManager.showShortMsg("search");
+                }
+
+
+                    return false;
+            }
+        });
     }
 
 

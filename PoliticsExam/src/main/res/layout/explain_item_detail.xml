@@ -15,7 +15,7 @@
             android:layout_margin="10dp"
             android:textColor="@color/font_black"
             android:gravity="center_vertical"
-            android:textSize="@dimen/font_size_16"/>
+            android:textSize="@dimen/font_size_18"/>
         <TextView
             android:id="@+id/id_explain_detail_text_outlie"
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
             android:textColor="@color/font_black"
             android:gravity="center_vertical"
             android:layout_margin="10dp"
-            android:textSize="@dimen/font_size_16"/>
+            android:textSize="@dimen/font_size_18"/>
         <TextView
             android:id="@+id/id_explain_detail_text_detail"
             android:layout_width="match_parent"
@@ -33,6 +33,6 @@
             android:layout_margin="10dp"
             android:text="【大纲还原】testtesttesttesttesttest"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_16" />
+            android:textSize="@dimen/font_size_18" />
 
 </LinearLayout>

@@ -35,6 +35,7 @@ import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 import com.politics.exam.widget.CustomDialog;
+import com.politics.exam.widget.DepthPageTransformer;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -100,6 +101,9 @@ public class QuestionDetailActivity extends BaseActivity{
         mTextChapter = (TextView) findViewById(R.id.id_title_bar_text_title);
         mButtonRevert = (ImageButton) findViewById(R.id.id_title_bar_button_revert);
 
+        mTextChapterTitle = (TextView) findViewById(R.id.id_question_detail_text_character);
+        mTextChapterTitle.setText(chapterTitle);
+
         mViews = new ArrayList<>();
         for(int i=0;i<mQuestionInfos.size();i++){
             View v = Utils.getView(R.layout.question_detail_item);
@@ -108,6 +112,7 @@ public class QuestionDetailActivity extends BaseActivity{
         }
 
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setPageTransformer(true, new DepthPageTransformer());
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -116,6 +121,7 @@ public class QuestionDetailActivity extends BaseActivity{
 
             @Override
             public void onPageSelected(int position) {
+
                 updateContent(position);
 
                 Message msg = Message.obtain();
@@ -149,11 +155,9 @@ public class QuestionDetailActivity extends BaseActivity{
         mOptions.clear();
 
         mTextQuestionTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_title);
-        mTextChapterTitle = (TextView) mViews.get(position).findViewById(R.id.id_question_detail_text_character);
         mButtonCommit = (Button) mViews.get(position).findViewById(R.id.id_question_detail_button_commit);
         mButtonCommit.setOnClickListener(commitOnClickListener);
 
-        mTextChapterTitle.setText(chapterTitle);
         mTextChapter.setText(mQuestionInfos.get(position).getSubjectName());
         mOptions = mOperator.getOptionsByQuestionId(mQuestionInfos.get(position).getQuestionId());
 
@@ -173,11 +177,14 @@ public class QuestionDetailActivity extends BaseActivity{
             mSelectionMethod.setSelectionMethod(new SingleSelectionMethod(mViews.get(position),mQuestionInfos.get(position),mOptions));
         }
 
+        mAnswerMethod = new AnswerMethod(mViews.get(position),mCurrentQuestionInfo);
+
+
         if(mDB.isCompleteQuestion(mCurrentQuestionInfo.getQuestionId())){
             mSelectionMethod.checkAnswers(mDB.getHistoryAnswers(mCurrentQuestionInfo.getQuestionId()));
+            mAnswerMethod.showAnswerUI(true);
         }
 
-        mAnswerMethod = new AnswerMethod(mViews.get(position),mCurrentQuestionInfo);
 
     }
 
