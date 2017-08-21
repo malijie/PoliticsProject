@@ -9,6 +9,7 @@ import com.politics.exam.util.Logger;
 public class SQLContainer {
     private static final String QUESTION_INFO = "QUESTION_INFO_BEAN";
     private static final String QUESTION_OPTION = "QUESTION_OPTION_BEAN";
+    private static final String SECTION_BEAN = "SECTION_BEAN";
 
     public static String queryChapterQuestions(String subjectName){
         return "SELECT * FROM " + QUESTION_INFO + " WHERE SUBJECT_NAME='" + subjectName + "' AND YEAR=0 ORDER BY CHAPTER_ID, S_NUM";
@@ -41,6 +42,10 @@ public class SQLContainer {
 
     public static String searchQuesitonInfo(String keyword){
         return "SELECT * FROM " + QUESTION_INFO + " WHERE TITLE LIKE '%" + keyword + "%'";
+    }
+
+    public static String getChapterTitleById(int chapterId){
+        return "SELECT * FROM " + SECTION_BEAN + " WHERE CHAPTER_ID=" + chapterId ;
     }
 
 }

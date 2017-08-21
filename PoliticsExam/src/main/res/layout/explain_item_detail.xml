@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:orientation="vertical"
-    android:visibility="gone"
     android:background="@color/question_explain_background">
         <TextView
             android:id="@+id/id_explain_detail_text_answer"

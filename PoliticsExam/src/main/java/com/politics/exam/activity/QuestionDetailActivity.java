@@ -179,13 +179,10 @@ public class QuestionDetailActivity extends BaseActivity{
 
         mAnswerMethod = new AnswerMethod(mViews.get(position),mCurrentQuestionInfo);
 
-
         if(mDB.isCompleteQuestion(mCurrentQuestionInfo.getQuestionId())){
             mSelectionMethod.checkAnswers(mDB.getHistoryAnswers(mCurrentQuestionInfo.getQuestionId()));
             mAnswerMethod.showAnswerUI(true);
         }
-
-
     }
 
 
@@ -416,7 +413,7 @@ public class QuestionDetailActivity extends BaseActivity{
                 @Override
                 public void onConfirm() {
                     SharedPreferenceUtil.saveProgress(groupPosition,childPosition,0);
-                    new BaseOperator().clearHistoryAnswersByChapterId(mCurrentQuestionInfo.getChapterId());
+                    mDB.clearHistoryAnswersByChapterId(mCurrentQuestionInfo.getChapterId());
                     finish();
                 }
 

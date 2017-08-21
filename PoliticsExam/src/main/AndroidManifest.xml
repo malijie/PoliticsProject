@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".activity.QuestionDetailActivity"/>
         <activity android:name=".activity.SearchActivity"/>
+        <activity android:name=".activity.SearchDetailActivity"/>
     </application>
 
 </manifest>

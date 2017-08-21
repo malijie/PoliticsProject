@@ -129,4 +129,14 @@ public class BaseOperator{
         return mQuestionInfos;
     }
 
+    public String getChapterTitleById(int chapterId){
+        Cursor cursor = mDB.rawQuery(SQLContainer.getChapterTitleById(chapterId),null);
+        String title = "";
+        while (cursor.moveToNext()) {
+            title = cursor.getString(cursor.getColumnIndex("TITLE"));
+        }
+        return title;
+
+    }
+
 }

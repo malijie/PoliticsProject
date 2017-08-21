@@ -1,5 +1,6 @@
 package com.politics.exam.business;
 
+import android.app.Activity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.politics.exam.R;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 
 /**
@@ -31,6 +33,28 @@ public class AnswerMethod implements IAnswerMethod{
         mTextAnswer = (TextView) view.findViewById(R.id.id_explain_detail_text_answer);
         mTextOutline = (TextView) view.findViewById(R.id.id_explain_detail_text_outlie);
         mTextDetail = (TextView) view.findViewById(R.id.id_explain_detail_text_detail);
+
+        mTextAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastManager.showShortMsg("click");
+            }
+        });
+        mCurrentInfo = questionInfo;
+    }
+
+    public AnswerMethod(Activity activity, QuestionInfo questionInfo){
+        mLayout = (LinearLayout) activity.findViewById(R.id.id_explain_detail_layout);
+        mTextAnswer = (TextView) activity.findViewById(R.id.id_explain_detail_text_answer);
+        mTextOutline = (TextView) activity.findViewById(R.id.id_explain_detail_text_outlie);
+        mTextDetail = (TextView) activity.findViewById(R.id.id_explain_detail_text_detail);
+
+        mTextAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastManager.showShortMsg("click");
+            }
+        });
         mCurrentInfo = questionInfo;
     }
 

@@ -42,7 +42,7 @@ public class SearchActivity extends BaseActivity {
     @Override
     public void initData() {
         String keyword = getIntent().getStringExtra("keyword");
-        mSearchResult = new BaseOperator().getSearchResult(keyword);
+        mSearchResult = mDB.getSearchResult(keyword);
 
     }
 
