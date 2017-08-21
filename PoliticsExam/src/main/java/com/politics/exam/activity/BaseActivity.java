@@ -68,5 +68,9 @@ public abstract class BaseActivity extends Activity{
         SharedPreferenceUtil.saveProgress(groupId,itemId,position);
     }
 
+    public void finish(Activity activity){
+        IntentManager.finishActivity(activity);
+    }
+
 
 }

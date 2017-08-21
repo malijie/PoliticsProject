@@ -34,5 +34,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_centerVertical="true"
+        android:visibility="gone"
         android:background="@mipmap/revert_normal"/>
 </RelativeLayout>

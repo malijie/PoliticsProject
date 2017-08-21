@@ -98,7 +98,7 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
             return;
         }
 
-        handleSelectionUI(canUpdateSelectionUI(mQuestionInfo.getQuestionId()));
+        handleSelectionUI(!isCompleteQuestion(mQuestionInfo.getQuestionId()));
 
         if(!TextUtils.isEmpty(answers)){
             String[] strAnswers = answers.split(",");

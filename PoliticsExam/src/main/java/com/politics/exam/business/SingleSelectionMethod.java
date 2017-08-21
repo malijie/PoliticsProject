@@ -22,7 +22,7 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
 
     public SingleSelectionMethod(View view , QuestionInfo questionInfo, List<OptionInfo> options) {
         super(view,questionInfo,options);
-        clearOptionsUI();
+//        clearOptionsUI();
         mQuestionInfo = questionInfo;
     }
 

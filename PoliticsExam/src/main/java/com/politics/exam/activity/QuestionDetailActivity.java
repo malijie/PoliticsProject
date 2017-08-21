@@ -100,7 +100,7 @@ public class QuestionDetailActivity extends BaseActivity{
         mViewPager = (ViewPager) findViewById(R.id.id_question_detail_view_pager);
         mTextChapter = (TextView) findViewById(R.id.id_title_bar_text_title);
         mButtonRevert = (ImageButton) findViewById(R.id.id_title_bar_button_revert);
-
+        mButtonRevert.setVisibility(View.VISIBLE);
         mTextChapterTitle = (TextView) findViewById(R.id.id_question_detail_text_character);
         mTextChapterTitle.setText(chapterTitle);
 

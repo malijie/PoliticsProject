@@ -73,8 +73,6 @@ public class SelectionMethod implements ISelectionMethod {
         mTextChoiceB.setText(mOptions.get(1).getValue());
         mTextChoiceC.setText(mOptions.get(2).getValue());
         mTextChoiceD.setText(mOptions.get(3).getValue());
-
-        clearOptionsUI();
     }
 
     public String getMultiSelectionType(){
@@ -156,8 +154,8 @@ public class SelectionMethod implements ISelectionMethod {
         mOperator.saveHistoryAnswer(id,option);
     }
 
-    public boolean canUpdateSelectionUI(int id){
-        return !mOperator.isCompleteQuestion(id);
+    public boolean isCompleteQuestion(int id){
+        return mOperator.isCompleteQuestion(id);
     }
 
     public void handleSelectionUI(boolean clickable){

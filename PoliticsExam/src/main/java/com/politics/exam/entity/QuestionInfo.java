@@ -1,10 +1,12 @@
 package com.politics.exam.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by malijie on 2017/6/1.
  */
 
-public class QuestionInfo {
+public class QuestionInfo implements Serializable{
     private int questionId;
     private int chapterParentId;
     private int chapterId;
