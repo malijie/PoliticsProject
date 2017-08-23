@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.politics.exam.db.DBHelper;
 import com.politics.exam.db.SQLContainer;
+import com.politics.exam.entity.ExamInfo;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
 import com.politics.exam.util.Logger;
@@ -136,7 +137,26 @@ public class BaseOperator{
             title = cursor.getString(cursor.getColumnIndex("TITLE"));
         }
         return title;
+    }
 
+    public List<ExamInfo> getExamInfos(){
+        List<ExamInfo> examInfos = new ArrayList<>();
+        if (mDB != null) {
+            Cursor cursor = mDB.rawQuery(SQLContainer.getExamInfos(), null);
+            while (cursor.moveToNext()) {
+                ExamInfo examInfo = new ExamInfo();
+                examInfo.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                examInfo.setContent(cursor.getString(cursor.getColumnIndex("content")));
+                examInfo.setType(cursor.getString(cursor.getColumnIndex("type")));
+                examInfo.setExplain(cursor.getString(cursor.getColumnIndex("explain")));
+                examInfo.setKey(cursor.getString(cursor.getColumnIndex("key")));
+                examInfo.setPaperId(cursor.getInt(cursor.getColumnIndex("paper_id")));
+                examInfo.setOption(cursor.getString(cursor.getColumnIndex("option")));
+                examInfos.add(examInfo);
+            }
+        }
+
+        return examInfos;
     }
 
 }

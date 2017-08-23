@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class SearchDetailActivity extends BaseActivity {
     private ImageButton mButtonBack = null;
+    private Button mButtonCommit = null;
     private QuestionInfo mQuestionInfo = null;
     private List<OptionInfo> mOptionInfos = null;
     private TextView mTextTitle = null;
@@ -55,11 +57,14 @@ public class SearchDetailActivity extends BaseActivity {
     public void initViews() {
         mButtonBack = (ImageButton) findViewById(R.id.id_title_bar_button_back);
         mTextTitle = (TextView) findViewById(R.id.id_question_detail_text_title);
+        mButtonCommit = (Button) findViewById(R.id.id_question_detail_button_commit);
         mTextChapter = (TextView) findViewById(R.id.id_search_detail_text_character);
         mTextOptionA = (TextView) findViewById(R.id.id_question_detail_text_choiceA);
         mTextOptionB = (TextView) findViewById(R.id.id_question_detail_text_choiceB);
         mTextOptionC = (TextView) findViewById(R.id.id_question_detail_text_choiceC);
         mTextOptionD = (TextView) findViewById(R.id.id_question_detail_text_choiceD);
+
+        mButtonCommit.setVisibility(View.GONE);
 
         mTextChapter.setText(mDB.getChapterTitleById(mQuestionInfo.getChapterId()));
         mTextTitle.setText(mQuestionInfo.getTitle());
@@ -95,11 +100,5 @@ public class SearchDetailActivity extends BaseActivity {
         mAnswerMethod = new AnswerMethod(this,mQuestionInfo);
         mAnswerMethod.showAnswerUI(true);
 
-//
-//
-//        if(mDB.isCompleteQuestion(mQuestionInfo.getQuestionId())){
-//            mSelectionMethod.checkAnswers(mDB.getHistoryAnswers(mQuestionInfo.getQuestionId()));
-//            mAnswerMethod.showAnswerUI(true);
-//        }
     }
 }
