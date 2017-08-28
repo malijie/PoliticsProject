@@ -10,7 +10,7 @@ public class SQLContainer {
     private static final String QUESTION_INFO = "QUESTION_INFO_BEAN";
     private static final String QUESTION_OPTION = "QUESTION_OPTION_BEAN";
     private static final String SECTION_BEAN = "SECTION_BEAN";
-    private static final String EXAM_INFO = "PAPER";
+    private static final String EXAM_QUESTIONS = "EXAM_QUESTIONS";
 
     public static String queryChapterQuestions(String subjectName){
         return "SELECT * FROM " + QUESTION_INFO + " WHERE SUBJECT_NAME='" + subjectName + "' AND YEAR=0 ORDER BY CHAPTER_ID, S_NUM";
@@ -50,7 +50,7 @@ public class SQLContainer {
     }
 
     public static String getExamInfos(){
-        return "SELECT * FROM " + EXAM_INFO + " WHERE paper_type='真题'";
+        return "SELECT * FROM " + EXAM_QUESTIONS;
     }
 
 }

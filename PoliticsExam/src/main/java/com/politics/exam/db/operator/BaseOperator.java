@@ -159,4 +159,13 @@ public class BaseOperator{
         return examInfos;
     }
 
+    public String getExamContentByYear(String year){
+Logger.mlj("sql=" + SQLContainer.getExamInfos());
+        Cursor cursor = mDB.rawQuery(SQLContainer.getExamInfos(), null);
+        cursor.moveToNext();
+Logger.mlj("cursor=" + cursor);
+        return cursor.getString(cursor.getColumnIndex("content"));
+
+    }
+
 }
