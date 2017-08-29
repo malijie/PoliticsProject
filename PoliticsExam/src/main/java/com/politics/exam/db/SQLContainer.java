@@ -49,8 +49,8 @@ public class SQLContainer {
         return "SELECT * FROM " + SECTION_BEAN + " WHERE CHAPTER_ID=" + chapterId ;
     }
 
-    public static String getExamInfos(){
-        return "SELECT * FROM " + EXAM_QUESTIONS;
+    public static String getExamInfos(String year){
+        return "SELECT * FROM " + EXAM_QUESTIONS + " WHERE year=" + year;
     }
 
 }

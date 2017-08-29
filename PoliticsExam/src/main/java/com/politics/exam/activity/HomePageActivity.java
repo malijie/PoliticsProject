@@ -29,6 +29,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private ImageView mQuestionsImage;
     private ImageView mExamImage;
     private ImageView mUserImage;
+    private TextView mTextTitle;
     private TextView mQuestionText;
     private TextView mExamText;
     private TextView mUserText;
@@ -56,6 +57,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initViews() {
+        mTextTitle = (TextView) findViewById(R.id.id_title_bar_text_title);
         mQuestionsLayout = findViewById(R.id.questions_layout);
         mExamLayout = findViewById(R.id.exam_layout);
         mUserLayout = findViewById(R.id.user_layout);
@@ -114,6 +116,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 // 当点击了题库tab时，改变控件的图片和文字颜色
                 mQuestionsImage.setImageResource(R.mipmap.question_selected);
                 mQuestionText.setTextColor(getResColor(R.color.app_red));
+                mTextTitle.setText("题库");
                 if (mQuestionFragment == null) {
                     // 如果MessageFragment为空，则创建一个并添加到界面上
                     mQuestionFragment = new QuestionsFragment();
@@ -127,6 +130,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 // 当点击了考试tab时，改变控件的图片和文字颜色
                 mExamImage.setImageResource(R.mipmap.exam_selected);
                 mExamText.setTextColor(getResColor(R.color.app_red));
+                mTextTitle.setText("历年真题");
                 if (mExamFragment == null) {
                     // 如果ContactsFragment为空，则创建一个并添加到界面上
                     mExamFragment = new ExamFragment();
@@ -140,6 +144,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 // 当点击了用户tab时，改变控件的图片和文字颜色
                 mUserImage.setImageResource(R.mipmap.user_selected);
                 mUserText.setTextColor(getResColor(R.color.app_red));
+                mTextTitle.setText("我的");
                 if (mUserFragment == null) {
                     // 如果NewsFragment为空，则创建一个并添加到界面上
                     mUserFragment = new UserFragment();

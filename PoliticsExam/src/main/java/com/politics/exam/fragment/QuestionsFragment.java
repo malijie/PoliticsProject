@@ -13,14 +13,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
 import com.politics.exam.activity.SearchActivity;
-import com.politics.exam.activity.TestActivity;
+import com.politics.exam.activity.ExamDetailActivity;
 import com.politics.exam.db.DBManager;
-import com.politics.exam.util.Logger;
 import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.widget.MyExpandableListAdapter;
@@ -36,21 +34,10 @@ public class QuestionsFragment extends Fragment {
     private EditText mEditTextSearch = null;
     private ExpandableListView mExpandListView;
     private MyExpandableListAdapter mAdapter =  null;
-    private Button mButtonTest = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View messageLayout = inflater.inflate(R.layout.question_fragment, container, false);
-
-        mButtonTest = (Button) messageLayout.findViewById(R.id.test_button);
-        mButtonTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), TestActivity.class));
-            }
-        });
-
-
         initData(messageLayout);
         return messageLayout;
     }

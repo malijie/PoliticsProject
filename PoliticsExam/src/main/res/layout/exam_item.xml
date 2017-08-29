@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:lines="1"
         tools:text="2010年考研真题"
-        android:textColor="@color/font_grey"
+        android:textColor="@color/font_black"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
@@ -27,7 +27,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:textSize="@dimen/font_size_17"
-        android:textColor="@color/font_grey"
+        android:textColor="@color/font_black"
         tools:text="一、单项选择题：1-16小题，每小题1分，共16分。下列每题给出的四个选项中，只有一个选项是符合题目要求的。请在答题卡上将所选项的字母涂黑。"
         android:ellipsize="end"
         />

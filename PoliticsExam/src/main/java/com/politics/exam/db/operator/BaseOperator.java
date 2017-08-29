@@ -139,31 +139,10 @@ public class BaseOperator{
         return title;
     }
 
-    public List<ExamInfo> getExamInfos(){
-        List<ExamInfo> examInfos = new ArrayList<>();
-        if (mDB != null) {
-            Cursor cursor = mDB.rawQuery(SQLContainer.getExamInfos(), null);
-            while (cursor.moveToNext()) {
-                ExamInfo examInfo = new ExamInfo();
-                examInfo.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                examInfo.setContent(cursor.getString(cursor.getColumnIndex("content")));
-                examInfo.setType(cursor.getString(cursor.getColumnIndex("type")));
-                examInfo.setExplain(cursor.getString(cursor.getColumnIndex("explain")));
-                examInfo.setKey(cursor.getString(cursor.getColumnIndex("key")));
-                examInfo.setPaperId(cursor.getInt(cursor.getColumnIndex("paper_id")));
-                examInfo.setOption(cursor.getString(cursor.getColumnIndex("option")));
-                examInfos.add(examInfo);
-            }
-        }
-
-        return examInfos;
-    }
 
     public String getExamContentByYear(String year){
-Logger.mlj("sql=" + SQLContainer.getExamInfos());
-        Cursor cursor = mDB.rawQuery(SQLContainer.getExamInfos(), null);
+        Cursor cursor = mDB.rawQuery(SQLContainer.getExamInfos(year), null);
         cursor.moveToNext();
-Logger.mlj("cursor=" + cursor);
         return cursor.getString(cursor.getColumnIndex("content"));
 
     }

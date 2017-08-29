@@ -20,7 +20,7 @@
         <activity android:name=".activity.QuestionDetailActivity"/>
         <activity android:name=".activity.SearchActivity"/>
         <activity android:name=".activity.SearchDetailActivity"/>
-        <activity android:name=".activity.TestActivity"/>
+        <activity android:name=".activity.ExamDetailActivity"/>
     </application>
 
 </manifest>

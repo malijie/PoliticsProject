@@ -1,15 +1,18 @@
 package com.politics.exam.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.politics.exam.R;
+import com.politics.exam.activity.ExamDetailActivity;
 import com.politics.exam.activity.SearchActivity;
 import com.politics.exam.db.operator.BaseOperator;
 import com.politics.exam.entity.ExamInfo;
@@ -51,6 +54,14 @@ public class ExamFragment extends Fragment {
     private void initViews(View v) {
         lv = (ListView) v.findViewById(R.id.id_exam_lv);
         lv.setAdapter(new ExamAdapter(examList));
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getActivity(),ExamDetailActivity.class);
+                i.putExtra("year",2017-position + "");
+                startActivity(i);
+            }
+        });
     }
 
     private class ExamAdapter extends BaseAdapter{
