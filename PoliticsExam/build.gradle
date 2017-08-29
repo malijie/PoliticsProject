@@ -10,21 +10,54 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [APP_CHANNEL_VALUE: "app"]
     }
-    buildTypes {
+
+    signingConfigs {
+        debug {}
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            storeFile file('../key/exam_key.jks')
+            storePassword 'malijie920'
+            keyAlias 'politics'
+            keyPassword 'malijie920'
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
+        }
+
+        productFlavors {
+            yingyongbao {
+                manifestPlaceholders = [APP_CHANNEL_VALUE: "yingyongbao"]
+            }
+
+            qihu360 {
+                manifestPlaceholders = [APP_CHANNEL_VALUE: "360"]
+            }
+
+            wandoujia {
+                manifestPlaceholders = [APP_CHANNEL_VALUE: "wandoujia"]
+            }
+
+            wap {
+                manifestPlaceholders = [APP_CHANNEL_VALUE: "wap"]
+            }
+
         }
     }
-}
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
+        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+        compile 'com.android.support:appcompat-v7:25.3.1'
+        compile 'com.android.support.constraint:constraint-layout:1.0.2'
+        testCompile 'junit:junit:4.12'
+        compile files('libs/AppOffer_3.0.2.jar')
+    }
 }
