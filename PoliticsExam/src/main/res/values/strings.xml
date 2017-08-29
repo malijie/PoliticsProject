@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">PoliticsProject</string>
+    <string name="app_name">考研政治</string>
     <string name="answer_not_null">请选择一个答案...</string>
 </resources>
