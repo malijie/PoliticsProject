@@ -24,8 +24,10 @@ import java.util.List;
  */
 
 public class ExamFragment extends Fragment {
+    private static final int START_YEAR = 2010;
+    private static final int END_YEAR = 2017;
     private ListView lv = null;
-    private List<ExamInfo> examList = new ArrayList<>();
+    private List<String> examList = new ArrayList<>();
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +41,11 @@ public class ExamFragment extends Fragment {
     }
 
     private void initData() {
-        examList = new BaseOperator().getExamInfos();
+        for(int i=END_YEAR;i>=START_YEAR;i--){
+            String title = i + "年全国考研政治真题";
+            examList.add(title);
+        }
+
     }
 
     private void initViews(View v) {
@@ -48,8 +54,8 @@ public class ExamFragment extends Fragment {
     }
 
     private class ExamAdapter extends BaseAdapter{
-        private List<ExamInfo> mEexamInfos = new ArrayList<>();
-        public ExamAdapter(List<ExamInfo> examInfos){
+        private List<String> mEexamInfos = new ArrayList<>();
+        public ExamAdapter(List<String> examInfos){
             mEexamInfos = examInfos;
         }
 
@@ -75,14 +81,14 @@ public class ExamFragment extends Fragment {
             if(convertView == null){
                 convertView = Utils.getView(R.layout.exam_item);
                 holder = new ViewHolder();
-                holder.mTextContent = (TextView) convertView.findViewById(R.id.id_exam_item_text_content);
                 holder.mTextTitle = (TextView) convertView.findViewById(R.id.id_exam_item_text_title);
+                holder.mTextContent = (TextView) convertView.findViewById(R.id.id_exam_item_text_content);
                 convertView.setTag(holder);
             }else{
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.mTextContent.setText(mEexamInfos.get(position).getContent());
-            holder.mTextTitle.setText("2010年全国考研政治真题");
+            holder.mTextTitle.setText(examList.get(position));
+            holder.mTextContent.setText("一、单项选择题：1-16小题，每小题1分，共16分。下列每题给出的四个选项中，只有一个选项是符合题目要求的。请在答题卡上将所选项的字母涂黑。");
 
             return convertView;
         }
@@ -90,7 +96,6 @@ public class ExamFragment extends Fragment {
         private class ViewHolder{
             public TextView mTextTitle = null;
             public TextView mTextContent = null;
-
         }
     }
 
