@@ -28,6 +28,8 @@ import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.util.Utils;
+import com.politics.exam.wap.PayBaseAction;
+import com.politics.exam.wap.VipPayAction;
 
 import java.util.List;
 
@@ -145,6 +147,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(childPosition != 0 && !SharedPreferenceUtil.loadPayedVIPStatus()){
+                    showPayTip();
+                    return;
+                }
+
                 Intent i = new Intent();
                 i.setClass(mFragment.getActivity(),QuestionDetailActivity.class);
                 i.putExtra("groupPosition",groupPosition);
@@ -154,6 +161,28 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
         return mChildView;
+    }
+
+    private Activity getActivity(){
+        return  mFragment.getActivity();
+    }
+
+    private void showPayTip() {
+        final CustomDialog dialog = new CustomDialog(getActivity(), PayBaseAction.GOODS_NAME_VIP,PayBaseAction.GOODS_DESCR_VIP);
+        dialog.setButtonClickListener(new CustomDialog.DialogButtonListener() {
+            @Override
+            public void onConfirm() {
+                new VipPayAction(getActivity()).pay();
+                dialog.dissmiss();
+            }
+
+            @Override
+            public void onCancel() {
+                dialog.dissmiss();
+            }
+        });
+        dialog.show();
+
     }
 
     @Override

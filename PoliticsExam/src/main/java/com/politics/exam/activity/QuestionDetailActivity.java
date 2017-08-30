@@ -408,7 +408,7 @@ public class QuestionDetailActivity extends BaseActivity{
     private View.OnClickListener dialogOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            final CustomDialog dialog = new CustomDialog(QuestionDetailActivity.this,"一键重学？");
+            final CustomDialog dialog = new CustomDialog(QuestionDetailActivity.this,"一键重学？","重学后所有学习进度将重头开始");
             dialog.setButtonClickListener(new CustomDialog.DialogButtonListener() {
                 @Override
                 public void onConfirm() {

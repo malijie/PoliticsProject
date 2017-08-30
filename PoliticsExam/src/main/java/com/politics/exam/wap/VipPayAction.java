@@ -3,6 +3,7 @@ package com.politics.exam.wap;
 import android.app.Activity;
 import android.content.Context;
 
+import com.politics.exam.util.SharedPreferenceUtil;
 import com.politics.exam.util.ToastManager;
 import com.wanpu.pay.PayConnect;
 import com.wanpu.pay.PayResultListener;
@@ -11,9 +12,9 @@ import com.wanpu.pay.PayResultListener;
  * Created by malijie on 2017/3/27.
  */
 
-public class ExamPayAction extends PayBaseAction{
+public class VipPayAction extends PayBaseAction{
     private Activity mActivity;
-    public ExamPayAction(Activity activity){
+    public VipPayAction(Activity activity){
         super(activity);
         mActivity = activity;
     }
@@ -21,8 +22,8 @@ public class ExamPayAction extends PayBaseAction{
     public void pay() {
         String userId = mPayConnect.getDeviceId(mActivity);
         String orderId = String.valueOf(System.currentTimeMillis());
-        mPayConnect.pay(mActivity, orderId, userId, PRICE_EXAM,
-                GOODS_NAME_EXAM, GOODS_DESCR_EXAM, "",new MyPayResultListener());
+        mPayConnect.pay(mActivity, orderId, userId, PRICE_VIP,
+                GOODS_NAME_VIP, GOODS_DESCR_VIP, "",new MyPayResultListener());
     }
 
     private class MyPayResultListener implements PayResultListener {
@@ -41,6 +42,7 @@ public class ExamPayAction extends PayBaseAction{
 
                 // 未指定notifyUrl的情况下，交易成功后，必须发送回执
                 PayConnect.getInstance(mActivity).confirm(orderId,payType);
+                SharedPreferenceUtil.savePayedVIPStatus(true);
             } else {
                 ToastManager.showShortMsg("购买失败");
             }

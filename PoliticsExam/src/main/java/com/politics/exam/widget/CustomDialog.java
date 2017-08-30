@@ -16,7 +16,7 @@ public class CustomDialog {
 	private DialogButtonListener mListener;
 	private View v = null;
 
-	public CustomDialog(Context context, String title){
+	public CustomDialog(Context context, String title,String content){
 		v = Utils.getView(R.layout.dialog_layout);
 
 		mDialog = new AlertDialog.Builder(context, R.style.dialog)
@@ -24,7 +24,9 @@ public class CustomDialog {
 				.setCancelable(false)
 				.create();
 		TextView textTitle = (TextView) v.findViewById(R.id.id_dialog_text_title);
+		TextView textContent = (TextView) v.findViewById(R.id.id_dialog_text_content);
 		textTitle.setText(title);
+		textContent.setText(content);
 
 	}
 

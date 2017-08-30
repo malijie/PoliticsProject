@@ -12,12 +12,9 @@ import com.wanpu.pay.PayConnect;
 
 public class PayBaseAction {
     protected PayConnect mPayConnect = null;
-    public static final String GOODS_NAME_EXAM = "驾照一点通VIP会员";
-    public static final String GOODS_DESCR_EXAM = "购买VIP会员，享受真题模拟考试服务";
-    public static final float PRICE_EXAM = 4.99F;
 
-    public static final String GOODS_NAME_VIP = "驾照一点通VIP会员";
-    public static final String GOODS_DESCR_VIP = "购买VIP会员，享受查看真题解释服务";
+    public static final String GOODS_NAME_VIP = "考研政治VIP会员";
+    public static final String GOODS_DESCR_VIP = "只需4.99元，购买考研政治题库";
     public static final float PRICE_VIP = 4.99F;
 
     public PayBaseAction(Activity activity){

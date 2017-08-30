@@ -14,18 +14,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_size_20"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:gravity="left"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="确定要退出吗?"
-            android:textColor="@color/font_black"/>
+            android:textColor="@color/app_red"/>
+        <View
+            android:id="@+id/id_dialog_view_hint"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/app_red"
+            android:layout_below="@id/id_dialog_text_title"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/id_dialog_text_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_18"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="确定要退出吗?"
+            android:layout_below="@id/id_dialog_view_hint"
+            android:textColor="@color/app_red"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/id_dialog_text_title"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/id_dialog_text_content"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp">
             <Button
                 android:id="@+id/id_dialog_button_confirm"
