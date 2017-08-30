@@ -3,6 +3,10 @@ package com.politics.exam;
 import android.app.Application;
 import android.content.Context;
 
+import com.politics.exam.wap.WapManager;
+
+import cn.waps.AppConnect;
+
 /**
  * Created by malijie on 2017/5/25.
  */
@@ -14,5 +18,6 @@ public class PoliticsApplication extends Application{
     public void onCreate() {
         super.onCreate();
         sContext = getApplicationContext();
+        WapManager.getInstance(sContext);
     }
 }

@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 public class ExamFragment extends Fragment {
-    private static final int START_YEAR = 2010;
+    private static final int START_YEAR = 2012;
     private static final int END_YEAR = 2017;
     private ListView lv = null;
     private List<String> examList = new ArrayList<>();
