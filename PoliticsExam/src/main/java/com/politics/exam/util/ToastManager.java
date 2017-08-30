@@ -22,4 +22,8 @@ public class ToastManager {
         ToastUtil.showMsg(Utils.getString(R.string.answer_not_null), Toast.LENGTH_SHORT);
     }
 
+    public static void showExitTipMsg(){
+        ToastUtil.showMsg(Utils.getString(R.string.exit_tip), Toast.LENGTH_SHORT);
+    }
+
 }

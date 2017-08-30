@@ -46,4 +46,9 @@ public class WapManager {
         mAppConnect.checkUpdate(mContext);
     }
 
+    public void close(){
+        mAppConnect.close();
+    }
+
+
 }

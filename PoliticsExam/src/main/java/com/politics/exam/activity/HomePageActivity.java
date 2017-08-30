@@ -3,6 +3,7 @@ package com.politics.exam.activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
@@ -13,6 +14,8 @@ import com.politics.exam.R;
 import com.politics.exam.fragment.QuestionsFragment;
 import com.politics.exam.fragment.ExamFragment;
 import com.politics.exam.fragment.UserFragment;
+import com.politics.exam.util.ToastManager;
+import com.politics.exam.wap.WapManager;
 
 
 /**
@@ -199,5 +202,23 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         if (mUserFragment != null) {
             transaction.hide(mUserFragment);
         }
+    }
+
+    private long waitTime = 2000;
+    private long touchTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getAction() == KeyEvent.ACTION_DOWN && KeyEvent.KEYCODE_BACK == keyCode) {
+            long currentTime = System.currentTimeMillis();
+            if((currentTime-touchTime)>=waitTime) {
+                ToastManager.showExitTipMsg();
+                touchTime = currentTime;
+            }else {
+                WapManager.getInstance(this).close();
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
