@@ -2,6 +2,7 @@ package com.politics.exam.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -30,7 +31,7 @@ public class WelcomeActivity extends FragmentActivity {
 
     public void initViews(){
         mImageWelcome = (ImageView) findViewById(R.id.id_welcome_image);
-        AlphaAnimation alpha = new AlphaAnimation(0.1f, 1.0f);
+        AlphaAnimation alpha = new AlphaAnimation(1.1f, 0.1f);
         alpha.setDuration(3000);
         mImageWelcome.setAnimation(alpha);
 
@@ -48,6 +49,7 @@ public class WelcomeActivity extends FragmentActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 IntentManager.startActivity(HomePageActivity.class);
+                mImageWelcome.setVisibility(View.GONE);
                 WelcomeActivity.this.finish();
             }
         });

@@ -29,11 +29,11 @@
         android:visibility="gone"/>
     <ImageButton
         android:id="@+id/id_title_bar_button_revert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:layout_centerVertical="true"
         android:visibility="gone"
-        android:background="@mipmap/revert_normal"/>
+        android:layout_centerVertical="true"
+        android:background="@drawable/revert_button_selector"/>
 </RelativeLayout>
