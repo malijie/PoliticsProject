@@ -37,7 +37,7 @@ public class UserFragment extends Fragment {
         mButtonFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wapManager.feedback();
+                wapManager.feedback(getActivity());
             }
         });
 
@@ -51,7 +51,7 @@ public class UserFragment extends Fragment {
         mButtonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wapManager.update();
+                wapManager.update(getActivity());
             }
         });
 

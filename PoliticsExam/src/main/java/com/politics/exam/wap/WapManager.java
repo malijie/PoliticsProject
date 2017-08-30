@@ -32,8 +32,8 @@ public class WapManager {
         return sWapManager;
     }
 
-    public void feedback(){
-        mAppConnect.showFeedback(mContext);
+    public void feedback(Activity activity){
+        mAppConnect.showFeedback(activity);
     }
 
     public void about(Activity activity,Class clazz){
@@ -42,8 +42,8 @@ public class WapManager {
         mContext.startActivity(i);
     }
 
-    public void update(){
-        mAppConnect.checkUpdate(mContext);
+    public void update(Activity activity){
+        mAppConnect.checkUpdate(activity);
     }
 
     public void close(){

@@ -9,5 +9,6 @@
         android:layout_height="match_parent"
         android:divider="@color/app_grey"
         android:dividerHeight="1dp"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:scrollbars="none"/>
 </RelativeLayout>

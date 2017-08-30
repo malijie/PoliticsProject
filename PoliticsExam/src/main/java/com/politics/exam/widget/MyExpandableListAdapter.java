@@ -140,7 +140,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
         int questionCount = getQuestionTotalCount(groupPosition,childPosition);
         int process = SharedPreferenceUtil.loadProgress(groupPosition,childPosition);
-        mTextProcess.setText( process + "/"+ questionCount);
+        mTextProcess.setText( process + 1 + "/"+ questionCount);
         mTextCharacter.setText(mCharacter[groupPosition][childPosition]);
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
