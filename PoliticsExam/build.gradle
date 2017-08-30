@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
+
     defaultConfig {
         applicationId "com.politics.exam"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
         manifestPlaceholders = [APP_CHANNEL_VALUE: "app"]
     }
 
@@ -60,4 +60,16 @@ android {
         testCompile 'junit:junit:4.12'
         compile files('libs/AppOffer_3.0.2.jar')
     }
+}
+dependencies {
+    compile files('libs/alipaysdk.jar')
+    compile files('libs/alipaysecsdk.jar')
+    compile files('libs/alipayutdid.jar')
+    compile files('libs/AppOffer_3.0.2.jar')
+    compile files('libs/libammsdk.jar')
+    compile files('libs/payecopluginjar.jar')
+    compile files('libs/TenpayServiceSDK_V5.0.jar')
+    compile files('libs/UPPayAssistEx.jar')
+    compile files('libs/UPPayPluginExPro.jar')
+    compile files('libs/WanpuPay_4.2.2.jar')
 }

@@ -15,6 +15,7 @@ import com.politics.exam.fragment.QuestionsFragment;
 import com.politics.exam.fragment.ExamFragment;
 import com.politics.exam.fragment.UserFragment;
 import com.politics.exam.util.ToastManager;
+import com.politics.exam.wap.PermissionController;
 import com.politics.exam.wap.WapManager;
 
 
@@ -55,7 +56,10 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initData() {
-//        DBManager.copyDB2Phone();
+        if(PermissionController.checkPermission(this)){
+            WapManager.getInstance(this);
+//            PayConnect.getInstance(this);
+        }
     }
 
     @Override
