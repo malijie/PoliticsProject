@@ -13,7 +13,6 @@ import com.politics.exam.R;
 import com.politics.exam.activity.AboutActivity;
 import com.politics.exam.wap.WapManager;
 
-import cn.waps.AppConnect;
 
 
 /**

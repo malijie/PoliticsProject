@@ -78,6 +78,7 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
         if(selection.equals(mQuestionInfo.getAnswer())){
             showRightOption(selection);
         }else{
+
             updateWrongOptionUI(selection);
             showRightOption(mQuestionInfo.getAnswer());
         }

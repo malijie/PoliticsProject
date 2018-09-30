@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.politics.exam.wap.WapManager;
 
-import cn.waps.AppConnect;
 
 /**
  * Created by malijie on 2017/5/25.
