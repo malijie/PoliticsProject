@@ -77,12 +77,16 @@ public class SQLContainer {
     }
 
     public static String getWrongQuestionById(int id){
-        return "SELECT * FROM " + WRONG_QUESTIONS + " WHERE id=" + id;
+        return "SELECT * FROM " + WRONG_QUESTIONS + " WHERE id='" + id + "'";
 
     }
 
     public static String getAllWrongQuestions(){
         return  "SELECT * FROM " + WRONG_QUESTIONS;
+    }
+
+    public static String  deleteWrongQuestionById(int id){
+        return "DELETE FROM " + WRONG_QUESTIONS + " WHERE id='" + id + "'";
     }
 
 

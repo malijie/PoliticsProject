@@ -16,6 +16,7 @@ import com.politics.exam.entity.WrongQuestionInfo;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Utils;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -28,6 +29,7 @@ public class WrongQuestionListActivity extends BaseActivity{
     private WrongQuestionAdapter adapter = null;
     private TextView mTitleBar = null;
     private ImageButton mBtnBack = null;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,7 +103,8 @@ public class WrongQuestionListActivity extends BaseActivity{
                 @Override
                 public void onClick(View v) {
                     Intent i =  new Intent();
-                    i.putExtra("wrong_question",items.get(position));
+                    i.putExtra("position",position);
+                    i.putExtra("wrong_questions", (Serializable) wrongQuestionInfoList);
                     IntentManager.startActivity(i,WrongQuestionDetailActivity.class);
                 }
             });

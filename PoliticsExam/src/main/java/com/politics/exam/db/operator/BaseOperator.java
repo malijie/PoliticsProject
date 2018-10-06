@@ -198,4 +198,10 @@ public class BaseOperator{
         return wrongQuestionInfos;
     }
 
+    public void deleteWrongQuestionById(int id){
+        String sql = SQLContainer.deleteWrongQuestionById(id);
+Log.d("MLJ","sql=" + sql);
+        mDB.execSQL(sql);
+    }
+
 }

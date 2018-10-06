@@ -132,4 +132,23 @@ public class WrongQuestionInfo implements Serializable{
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "WrongQuestionInfo{" +
+                "questionId=" + questionId +
+                ", chapterParentId=" + chapterParentId +
+                ", chapter='" + chapter + '\'' +
+                ", title='" + title + '\'' +
+                ", optionA='" + optionA + '\'' +
+                ", optionB='" + optionB + '\'' +
+                ", optionC='" + optionC + '\'' +
+                ", optionD='" + optionD + '\'' +
+                ", restore='" + restore + '\'' +
+                ", explain='" + explain + '\'' +
+                ", subjectName='" + subjectName + '\'' +
+                ", answer='" + answer + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

@@ -7,6 +7,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,7 +19,9 @@ import com.politics.exam.R;
 import com.politics.exam.business.IAnswerMethod;
 import com.politics.exam.business.SelectionMethod;
 import com.politics.exam.entity.WrongQuestionInfo;
+import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
+import com.politics.exam.widget.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +46,8 @@ public class WrongQuestionDetailActivity extends BaseActivity implements IAnswer
     private ImageView mImageSelectionC;
     private ImageView mImageSelectionD;
     private ImageButton mBtnBack = null;
-    private Button mBtnCommit = null;
+    private Button mBtnNext = null;
+    private ImageButton mBtnDelete = null;
     private LinearLayout mLayoutAnswer = null;
     private TextView mTextAnswer = null;
     private TextView mTextExplain = null;
@@ -51,6 +55,8 @@ public class WrongQuestionDetailActivity extends BaseActivity implements IAnswer
 
     private SelectionMethod mSelectionMethod = null;
     private WrongQuestionInfo wrongQuestionInfo = null;
+    private List<WrongQuestionInfo> wrongQuestionInfos;
+    private int index = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,10 +66,19 @@ public class WrongQuestionDetailActivity extends BaseActivity implements IAnswer
         initData();
         initViews();
         updateContent();
-        showAnswerUI(true);
+
     }
 
     private void updateContent() {
+        mTextChapter.setText(wrongQuestionInfo.getChapter());
+        mTextTitle.setText(wrongQuestionInfo.getQuestionId() + ". " +wrongQuestionInfo.getTitle());
+        mTextOptionA.setText(wrongQuestionInfo.getOptionA());
+        mTextOptionB.setText(wrongQuestionInfo.getOptionB());
+        mTextOptionC.setText(wrongQuestionInfo.getOptionC());
+        mTextOptionD.setText(wrongQuestionInfo.getOptionD());
+
+        showAnswerUI(true);
+
         if (wrongQuestionInfo.getType().equals(SELECT_TYPE_SINGLE)) {
             String answer = wrongQuestionInfo.getAnswer();
             selectRightAnswer(answer);
@@ -134,7 +149,9 @@ public class WrongQuestionDetailActivity extends BaseActivity implements IAnswer
 
     @Override
     public void initData() {
-        wrongQuestionInfo = (WrongQuestionInfo) getIntent().getSerializableExtra("wrong_question");
+        wrongQuestionInfos = (List<WrongQuestionInfo>) getIntent().getSerializableExtra("wrong_questions");
+        index = getIntent().getIntExtra("position",0);
+        wrongQuestionInfo = wrongQuestionInfos.get(index);
     }
 
     @Override
@@ -147,6 +164,7 @@ public class WrongQuestionDetailActivity extends BaseActivity implements IAnswer
         mTextOptionD = (TextView) findViewById(R.id.id_question_detail_text_choiceD);
         mTextSubject = (TextView) findViewById(R.id.id_title_bar_text_title);
         mBtnBack = (ImageButton) findViewById(R.id.id_title_bar_button_back);
+        mBtnDelete = (ImageButton) findViewById(R.id.id_title_bar_button_delete);
         mLayoutAnswer = (LinearLayout) findViewById(R.id.id_explain_detail_layout);
 
         mImageSelectionA = (ImageView) findViewById(R.id.id_question_detail_image_A);
@@ -157,17 +175,18 @@ public class WrongQuestionDetailActivity extends BaseActivity implements IAnswer
         mTextExplain = (TextView) findViewById(R.id.id_explain_detail_text_detail);
         mTextOutline = (TextView) findViewById(R.id.id_explain_detail_text_outline);
 
-
-        mBtnCommit = (Button) findViewById(R.id.id_question_detail_button_commit);
-        mBtnCommit.setVisibility(View.INVISIBLE);
+        mBtnDelete.setVisibility(View.VISIBLE);
+        mBtnNext = (Button) findViewById(R.id.id_question_detail_button_next);
         mTextSubject.setText("我的错题");
 
-        mTextChapter.setText(wrongQuestionInfo.getChapter());
-        mTextTitle.setText(wrongQuestionInfo.getQuestionId() + ". " +wrongQuestionInfo.getTitle());
-        mTextOptionA.setText(wrongQuestionInfo.getOptionA());
-        mTextOptionB.setText(wrongQuestionInfo.getOptionB());
-        mTextOptionC.setText(wrongQuestionInfo.getOptionC());
-        mTextOptionD.setText(wrongQuestionInfo.getOptionD());
+
+
+        mBtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNext();
+            }
+        });
 
         mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,9 +195,44 @@ public class WrongQuestionDetailActivity extends BaseActivity implements IAnswer
             }
         });
 
+        mBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CustomDialog dialog = new CustomDialog(WrongQuestionDetailActivity.this,
+                        "删除？","骚年，确定要删除此错题吗？");
+                dialog.setButtonClickListener(new CustomDialog.DialogButtonListener() {
+                    @Override
+                    public void onConfirm() {
+                        dialog.dissmiss();
+                        deleteQuestion();
+                        showNext();
+                        ToastManager.showShortMsg("删除成功");
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        dialog.dissmiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
 
     }
 
+    private void deleteQuestion(){
+        mDB.deleteWrongQuestionById(wrongQuestionInfo.getQuestionId());
+    }
+
+    private void showNext(){
+        if(index == wrongQuestionInfos.size()-1){
+            ToastManager.showShortMsg("已是最后一题");
+            return;
+        }
+
+        wrongQuestionInfo = wrongQuestionInfos.get(++index);
+        updateContent();
+    }
 
     @Override
     public void showAnswer() {

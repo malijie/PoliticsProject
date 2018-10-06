@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <include layout="@layout/question_item_detail"/>
+    <include layout="@layout/wrong_question_item_detail"/>
     <include layout="@layout/explain_item_detail"/>
 </LinearLayout>
