@@ -3,12 +3,14 @@ package com.politics.exam.db.operator;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.politics.exam.db.DBHelper;
 import com.politics.exam.db.SQLContainer;
 import com.politics.exam.entity.ExamInfo;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.entity.WrongQuestionInfo;
 import com.politics.exam.util.Logger;
 
 import org.w3c.dom.Text;
@@ -144,7 +146,56 @@ public class BaseOperator{
         Cursor cursor = mDB.rawQuery(SQLContainer.getExamInfos(year), null);
         cursor.moveToNext();
         return cursor.getString(cursor.getColumnIndex("content"));
+    }
 
+    public void saveWrongQuestion(WrongQuestionInfo wrongQuestionInfo){
+        String sql = SQLContainer.addWrongQuestion(wrongQuestionInfo);
+        mDB.execSQL(sql);
+    }
+
+    public boolean checkIsWrongQuestionExistById(int id){
+        String sql = SQLContainer.getWrongQuestionById(id);
+        Cursor cursor = mDB.rawQuery(sql, null);
+        if (cursor.moveToNext()){
+            if(!TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex("title")))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Integer>  getAllWrongQuestionIds(){
+        String sql = SQLContainer.getWrongQuestionIds();
+        Cursor cursor = mDB.rawQuery(sql, null);
+        List<Integer> ids = new ArrayList<>();
+        while (cursor.moveToNext()){
+            ids.add(cursor.getInt(cursor.getColumnIndex("id")));
+        }
+        return ids;
+    }
+
+    private List<WrongQuestionInfo> wrongQuestionInfos;
+    public List<WrongQuestionInfo> getAllWrongQuestions(){
+        String sql = SQLContainer.getAllWrongQuestions();
+        wrongQuestionInfos = new ArrayList<>();
+        Cursor cursor = mDB.rawQuery(sql, null);
+        while (cursor.moveToNext()){
+            WrongQuestionInfo wrongQuestionInfo = new WrongQuestionInfo();
+            wrongQuestionInfo.setQuestionId(cursor.getInt(cursor.getColumnIndex("id")));
+            wrongQuestionInfo.setChapter(cursor.getString(cursor.getColumnIndex("chapter")));
+            wrongQuestionInfo.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+            wrongQuestionInfo.setOptionA(cursor.getString(cursor.getColumnIndex("optionA")));
+            wrongQuestionInfo.setOptionB(cursor.getString(cursor.getColumnIndex("optionB")));
+            wrongQuestionInfo.setOptionC(cursor.getString(cursor.getColumnIndex("optionC")));
+            wrongQuestionInfo.setOptionD(cursor.getString(cursor.getColumnIndex("optionD")));
+            wrongQuestionInfo.setExplain(cursor.getString(cursor.getColumnIndex("explant")));
+            wrongQuestionInfo.setAnswer(cursor.getString(cursor.getColumnIndex("answer")));
+            wrongQuestionInfo.setType(cursor.getString(cursor.getColumnIndex("type")));
+            wrongQuestionInfo.setRestore(cursor.getString(cursor.getColumnIndex("restore")));
+
+            wrongQuestionInfos.add(wrongQuestionInfo);
+        }
+        return wrongQuestionInfos;
     }
 
 }

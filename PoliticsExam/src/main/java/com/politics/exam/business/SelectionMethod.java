@@ -9,6 +9,7 @@ import com.politics.exam.R;
 import com.politics.exam.db.operator.BaseOperator;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.entity.WrongQuestionInfo;
 import com.politics.exam.util.Logger;
 
 import org.w3c.dom.Text;
@@ -40,7 +41,7 @@ public class SelectionMethod implements ISelectionMethod {
     protected TextView mTextChoiceD = null;
 
     private ISelectionMethod choiceMethod;
-    private List<OptionInfo> mOptions = new ArrayList<>();
+    public List<OptionInfo> mOptions = new ArrayList<>();
     private QuestionInfo mQuestionInfo = null;
     protected BaseOperator mOperator = new BaseOperator();
 
@@ -172,4 +173,32 @@ public class SelectionMethod implements ISelectionMethod {
         mImageSelectionC.setImageResource(R.mipmap.choice_c);
         mImageSelectionD.setImageResource(R.mipmap.choice_d);
     }
+
+    public void saveWrongQuestion(WrongQuestionInfo wrongQuestionInfo){
+        mOperator.saveWrongQuestion(wrongQuestionInfo);
+    }
+
+    /**
+     * 创建错题实例
+     * @param questionInfo
+     * @return
+     */
+    public WrongQuestionInfo createWrongQuestionInfo(QuestionInfo questionInfo){
+        WrongQuestionInfo wrongQuestionInfo = new WrongQuestionInfo();
+        wrongQuestionInfo.setQuestionId(questionInfo.getQuestionId());
+        wrongQuestionInfo.setChapter(mOperator.getChapterTitleById(questionInfo.getChapterId()));
+        wrongQuestionInfo.setTitle(questionInfo.getTitle());
+
+        wrongQuestionInfo.setOptionA(mOptions.get(0).getValue());
+        wrongQuestionInfo.setOptionB(mOptions.get(1).getValue());
+        wrongQuestionInfo.setOptionC(mOptions.get(2).getValue());
+        wrongQuestionInfo.setOptionD(mOptions.get(3).getValue());
+
+        wrongQuestionInfo.setAnswer(questionInfo.getAnswer());
+        wrongQuestionInfo.setExplain(questionInfo.getExplain());
+        wrongQuestionInfo.setType(questionInfo.getType());
+        wrongQuestionInfo.setRestore(questionInfo.getRestore());
+        return wrongQuestionInfo;
+    }
+
 }

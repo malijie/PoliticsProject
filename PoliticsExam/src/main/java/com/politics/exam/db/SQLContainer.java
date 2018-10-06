@@ -1,5 +1,6 @@
 package com.politics.exam.db;
 
+import com.politics.exam.entity.WrongQuestionInfo;
 import com.politics.exam.util.Logger;
 
 /**
@@ -55,8 +56,34 @@ public class SQLContainer {
         return "SELECT * FROM " + EXAM_QUESTIONS + " WHERE year=" + year;
     }
 
-    public static String getInsertWrongQuestionSQL(){
-        return "INSERT INTO " + WRONG_QUESTIONS + "(id,)";
+    public static String addWrongQuestion(WrongQuestionInfo question){
+        return "INSERT INTO " + WRONG_QUESTIONS + " VALUES('" + question.getQuestionId() + "','"
+                + question.getChapter() + "','"
+                + question.getTitle() + "','"
+                + question.getOptionA() + "','"
+                + question.getOptionB() + "','"
+                + question.getOptionC() + "','"
+                + question.getOptionD() + "','"
+                + question.getExplain() + "','"
+                + question.getAnswer() + "','"
+                + question.getType() +   "','"
+                + question.getRestore() +"')";
+
     }
+
+    public static String getWrongQuestionIds(){
+        return "SELECT * FROM " + WRONG_QUESTIONS;
+
+    }
+
+    public static String getWrongQuestionById(int id){
+        return "SELECT * FROM " + WRONG_QUESTIONS + " WHERE id=" + id;
+
+    }
+
+    public static String getAllWrongQuestions(){
+        return  "SELECT * FROM " + WRONG_QUESTIONS;
+    }
+
 
 }

@@ -56,7 +56,8 @@
         <activity android:name=".activity.SearchDetailActivity" />
         <activity android:name=".activity.ExamDetailActivity" />
         <activity android:name=".activity.AboutActivity" />
-
+        <activity android:name=".activity.WrongQuestionDetailActivity"/>
+        <activity android:name=".activity.WrongQuestionListActivity"/>
         <!--                     Wap Pay                        -->
         <activity
             android:name="com.wanpu.pay.PayView"

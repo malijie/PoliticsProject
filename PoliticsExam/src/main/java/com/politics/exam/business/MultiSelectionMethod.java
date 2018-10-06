@@ -112,6 +112,9 @@ public class MultiSelectionMethod extends SelectionMethod implements ISelectionM
         if(isSelectionsRight(mChoiceMultiAnswers)){
             showRightSelectionUI();
         }else{
+            if(!mOperator.checkIsWrongQuestionExistById(mQuestionInfo.getQuestionId())){
+                saveWrongQuestion(createWrongQuestionInfo(mQuestionInfo));
+            }
             showRightSelectionUI();
             showWrongSelectionUI(mChoiceMultiAnswers);
         }

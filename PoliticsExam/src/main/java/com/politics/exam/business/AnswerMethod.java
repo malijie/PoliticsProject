@@ -8,7 +8,6 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.politics.exam.R;
@@ -31,30 +30,18 @@ public class AnswerMethod implements IAnswerMethod{
     public AnswerMethod(View view, QuestionInfo questionInfo){
         mLayout = (LinearLayout) view.findViewById(R.id.id_explain_detail_layout);
         mTextAnswer = (TextView) view.findViewById(R.id.id_explain_detail_text_answer);
-        mTextOutline = (TextView) view.findViewById(R.id.id_explain_detail_text_outlie);
+        mTextOutline = (TextView) view.findViewById(R.id.id_explain_detail_text_outline);
         mTextDetail = (TextView) view.findViewById(R.id.id_explain_detail_text_detail);
 
-        mTextAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastManager.showShortMsg("click");
-            }
-        });
         mCurrentInfo = questionInfo;
     }
 
     public AnswerMethod(Activity activity, QuestionInfo questionInfo){
         mLayout = (LinearLayout) activity.findViewById(R.id.id_explain_detail_layout);
         mTextAnswer = (TextView) activity.findViewById(R.id.id_explain_detail_text_answer);
-        mTextOutline = (TextView) activity.findViewById(R.id.id_explain_detail_text_outlie);
+        mTextOutline = (TextView) activity.findViewById(R.id.id_explain_detail_text_outline);
         mTextDetail = (TextView) activity.findViewById(R.id.id_explain_detail_text_detail);
 
-        mTextAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastManager.showShortMsg("click");
-            }
-        });
         mCurrentInfo = questionInfo;
     }
 

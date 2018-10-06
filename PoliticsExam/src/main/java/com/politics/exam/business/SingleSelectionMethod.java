@@ -1,11 +1,13 @@
 package com.politics.exam.business;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.politics.exam.R;
 import com.politics.exam.entity.OptionInfo;
 import com.politics.exam.entity.QuestionInfo;
+import com.politics.exam.entity.WrongQuestionInfo;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
@@ -78,12 +80,17 @@ public class SingleSelectionMethod extends SelectionMethod implements ISelection
         if(selection.equals(mQuestionInfo.getAnswer())){
             showRightOption(selection);
         }else{
-
+            if(!mOperator.checkIsWrongQuestionExistById(mQuestionInfo.getQuestionId())){
+                saveWrongQuestion(createWrongQuestionInfo(mQuestionInfo));
+            }
             updateWrongOptionUI(selection);
             showRightOption(mQuestionInfo.getAnswer());
         }
 
     }
+
+
+
 
     @Override
     public String getSelection() {
