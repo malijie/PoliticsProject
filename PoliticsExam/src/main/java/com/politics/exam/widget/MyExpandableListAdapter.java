@@ -27,8 +27,10 @@ import com.politics.exam.fragment.QuestionsFragment;
 import com.politics.exam.util.IntentManager;
 import com.politics.exam.util.Logger;
 import com.politics.exam.util.SharedPreferenceUtil;
+import com.politics.exam.util.ToastManager;
 import com.politics.exam.util.Utils;
 import com.politics.exam.wap.PayBaseAction;
+import com.politics.exam.wap.PermissionController;
 import com.politics.exam.wap.VipPayAction;
 
 import java.util.List;
@@ -172,8 +174,14 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         dialog.setButtonClickListener(new CustomDialog.DialogButtonListener() {
             @Override
             public void onConfirm() {
-                new VipPayAction(getActivity()).pay();
-                dialog.dissmiss();
+                if(PermissionController.checkPermission(getActivity())){
+                    new VipPayAction(getActivity()).pay();
+                    dialog.dissmiss();
+                }else{
+                    ToastManager.showLongMsg("未打开权限，请到设置-应用中打开相关权限后完成支付");
+                    dialog.dissmiss();
+                }
+
             }
 
             @Override

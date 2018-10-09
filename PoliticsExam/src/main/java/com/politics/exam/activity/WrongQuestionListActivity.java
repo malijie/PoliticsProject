@@ -41,8 +41,7 @@ public class WrongQuestionListActivity extends BaseActivity{
 
     @Override
     public void initData() {
-        wrongQuestionInfoList = mDB.getAllWrongQuestions();
-        adapter = new WrongQuestionAdapter(wrongQuestionInfoList);
+
     }
 
     @Override
@@ -50,7 +49,7 @@ public class WrongQuestionListActivity extends BaseActivity{
         mLv = (ListView) findViewById(R.id.id_wrong_question_list);
         mBtnBack = (ImageButton) findViewById(R.id.id_title_bar_button_back);
         mTitleBar = (TextView) findViewById(R.id.id_title_bar_text_title);
-        mLv.setAdapter(adapter);
+
         mTitleBar.setText("我的错题");
         mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +57,16 @@ public class WrongQuestionListActivity extends BaseActivity{
                 IntentManager.finishActivity(WrongQuestionListActivity.this);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        wrongQuestionInfoList = mDB.getAllWrongQuestions();
+        adapter = new WrongQuestionAdapter(wrongQuestionInfoList);
+        adapter.notifyDataSetChanged();
+        mLv.setAdapter(adapter);
+
     }
 
     private class WrongQuestionAdapter extends BaseAdapter{
