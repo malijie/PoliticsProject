@@ -14,8 +14,8 @@ public class PayBaseAction {
     protected PayConnect mPayConnect = null;
 
     public static final String GOODS_NAME_VIP = "考研政治VIP会员";
-    public static final String GOODS_DESCR_VIP = "只需9.98元，购买考研政治题库";
-    public static final float PRICE_VIP = 9.98f;
+    public static final String GOODS_DESCR_VIP = "只需9.9元，购买考研政治题库";
+    public static final float PRICE_VIP = 9.9f;
 
     public PayBaseAction(Activity activity){
         mPayConnect = PayConnect.getInstance(activity);
